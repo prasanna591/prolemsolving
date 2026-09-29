@@ -4,27 +4,52 @@ import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { JsonLd } from "@/components/jsonld";
 import { founders } from "@/lib/founders";
+import { FounderPhoto } from "@/components/founder-photo";
 import { pageMetadata } from "@/lib/seo";
-import { breadcrumbSchema, websiteSchema } from "@/lib/structured";
+import { breadcrumbSchema, websiteSchema, webPageSchema, personSchema } from "@/lib/structured";
+import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Our People",
   description:
     "Meet the people behind PSM — founder Prasanna Venkatesan R. and co-founder Maniyarasan S., who built the company around product thinking and practical problem-solving.",
   path: "/about/founders",
-  keywords: [
-    "PSM people",
-    "Prasanna Venkatesan",
-    "Maniyarasan",
-    "PSM founders",
-    "team behind PSM",
-  ],
 });
 
 export default function FoundersPage() {
   return (
     <div className="page-shell">
-      <JsonLd data={{ "@context": "https://schema.org", "@graph": [websiteSchema()] }} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            websiteSchema(),
+            ...founders.map((f) => ({
+              ...personSchema({
+                name: f.name,
+                slug: f.slug,
+                role: f.role,
+                photo: f.photo,
+                sameAs: site.founderSameAs[f.slug as keyof typeof site.founderSameAs],
+              }),
+              description: f.summary,
+            })),
+          ],
+        }}
+      />
+      <JsonLd
+        data={webPageSchema({
+          path: "/about/founders",
+          name: "Our People — PSM",
+          description:
+            "Meet the people behind Problem Solving Mind — founder Prasanna Venkatesan R. and co-founder Maniyarasan S.",
+          breadcrumb: [
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+            { name: "Our People", path: "/about/founders" },
+          ],
+        })}
+      />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
@@ -54,14 +79,7 @@ export default function FoundersPage() {
                   className="card card--raised"
                   style={{ display: "flex", gap: "1.5rem", alignItems: "center", textDecoration: "none", flexWrap: "wrap" }}
                 >
-                  <div className={`person-photo ${f.photo ? "person-photo--img" : ""}`} style={{ margin: 0 }}>
-                    {f.photo ? (
-                      <img src={f.photo} alt={`${f.name}, ${f.role.toLowerCase()} of PSM`} width={812} height={904} />
-                    ) : (
-                      <span className="person-mono">{f.initials}</span>
-                    )}
-                    <span className="person-caption">{f.role}</span>
-                  </div>
+                  <FounderPhoto founder={f} />
                   <div style={{ flex: "1 1 260px" }}>
                     <span className="eyebrow eyebrow--ink">{f.role}</span>
                     <h2 className="h3 mt-3">{f.name}</h2>

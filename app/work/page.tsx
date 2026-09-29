@@ -5,24 +5,18 @@ import { CaseStudyEditorial } from "@/components/case-study";
 import { Reveal } from "@/components/reveal";
 import { CtaBand } from "@/components/cta-band";
 import { caseStudies, benchPatterns, resultsSummary } from "@/lib/caseStudies";
+import { faqs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import { workSchema, breadcrumbSchema } from "@/lib/structured";
+import { workSchema, breadcrumbSchema, faqSchema } from "@/lib/structured";
+import { FaqSection } from "@/components/faq";
 import { JsonLd } from "@/components/jsonld";
-import workHeroBg from "@/app/images/founders_about.png";
+import workHeroBg from "@/app/images/founders_about.webp";
 
 export const metadata = pageMetadata({
   title: "Work",
   description:
     "Selected work from PSM — case studies on the products we build and the business systems behind them: Relay, Clarion and Bridge.",
   path: "/work",
-  keywords: [
-    "PSM case studies",
-    "operations automation platform",
-    "AI document intelligence",
-    "ERP CRM integration",
-    "business automation India",
-    "product development work",
-  ],
 });
 
 const benchIcon = {
@@ -40,11 +34,12 @@ export default function WorkPage() {
   return (
     <div className="page-shell">
       <JsonLd data={workSchema(caseStudies)} />
+      <JsonLd data={faqSchema(faqs)} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }])} />
       <PageHeader
         eyebrow="Work"
         eyebrowTone="p"
-        image={workHeroBg.src}
+        image={workHeroBg}
         title={<>Real builds. <em className="grad-text">Honest outcomes.</em></>}
         lede="We show work the way it really happens: the problem, the thinking, the technology, and what changed. No inflated numbers — and no client names without their say-so."
       />
@@ -123,6 +118,8 @@ export default function WorkPage() {
           </Reveal>
         </div>
       </section>
+
+      <FaqSection />
 
       <CtaBand title="Want outcomes like these in your business?" lede="Bring us a problem. We'll show you the build — and keep it honest about what technology can't do." />
     </div>

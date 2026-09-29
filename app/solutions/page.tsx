@@ -5,38 +5,41 @@ import { Reveal } from "@/components/reveal";
 import { Magnetic } from "@/components/magnetic";
 import { Button } from "@/components/button";
 import { CtaBand } from "@/components/cta-band";
+import { FaqSection } from "@/components/faq";
 import { CapVisual } from "@/components/cap-visual";
-import { problems, capabilities } from "@/lib/content";
+import { problems, capabilities, faqs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import { servicesSchema, breadcrumbSchema } from "@/lib/structured";
+import { servicesSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
-import solutionHeroBg from "@/app/images/solution_hero.png";
+import solutionHeroBg from "@/app/images/solution_hero.webp";
 
 export const metadata = pageMetadata({
   title: "Solutions",
   description:
     "PSM solves real business problems with software, AI and automation — custom systems, AI-powered workflows and integrations framed around problems and outcomes.",
   path: "/solutions",
-  keywords: [
-    "custom business software",
-    "AI automation for business",
-    "ERP and CRM integration",
-    "web and mobile application development",
-    "digital transformation services",
-    "business software development Pune",
-  ],
 });
 
 export default function SolutionsPage() {
   return (
     <div className="page-shell">
       <JsonLd data={servicesSchema(capabilities)} />
+      <JsonLd data={faqSchema(faqs)} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Solutions", path: "/solutions" }])} />
+      <JsonLd
+        data={webPageSchema({
+          path: "/solutions",
+          name: "Business software, AI automation and integration — PSM",
+          description:
+            "PSM builds custom business software, AI and workflow automation, ERP/CRM integration, web and mobile applications, and digital transformation for companies with manual operations.",
+          breadcrumb: [{ name: "Home", path: "/" }, { name: "Solutions", path: "/solutions" }],
+        })}
+      />
 
       {/* ============ HERO — background visual right, text left ============ */}
       <HeroScene
         eyebrow="Solutions"
-        image={solutionHeroBg.src}
+        image={solutionHeroBg}
         title={
           <>
             We solve business problems with technology — <em className="hh-grad">not the other way around.</em>
@@ -136,6 +139,8 @@ export default function SolutionsPage() {
           </Reveal>
         </div>
       </section>
+
+      <FaqSection />
 
       <CtaBand
         title="Which problem is costing you the most?"

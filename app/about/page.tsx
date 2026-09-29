@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { Reveal } from "@/components/reveal";
@@ -6,11 +7,13 @@ import { Button } from "@/components/button";
 import { SectionHeading } from "@/components/section-heading";
 import { ProductArt } from "@/components/product-art";
 import { CtaBand } from "@/components/cta-band";
+import { site } from "@/lib/site";
 import { allProducts } from "@/lib/products";
 import { founders } from "@/lib/founders";
+import { FounderPhoto } from "@/components/founder-photo";
 import { pageMetadata } from "@/lib/seo";
-import workingPic from "@/app/images/working_pic.png";
-import { aboutSchema, breadcrumbSchema } from "@/lib/structured";
+import workingPic from "@/app/images/working_pic.webp";
+import { aboutSchema, breadcrumbSchema, webPageSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
 
 export const metadata = pageMetadata({
@@ -18,14 +21,6 @@ export const metadata = pageMetadata({
   description:
     "Problem Solving Mind (PSM) is a product-focused technology company built by Prasanna Venkatesan R. and Maniyarasan S. We start with the problem, not the technology.",
   path: "/about",
-  keywords: [
-    "about PSM",
-    "Problem Solving Mind company",
-    "Prasanna Venkatesan",
-    "Maniyarasan",
-    "product technology company Pune",
-    "PSM founders",
-  ],
 });
 
 /* ---------------- copy blocks ---------------- */
@@ -141,10 +136,15 @@ export default function AboutPage() {
   return (
     <div className="page-shell">
       <JsonLd
-        data={aboutSchema([
-          { name: "Prasanna Venkatesan R.", jobTitle: "Founder" },
-          { name: "Maniyarasan S.", jobTitle: "Co-founder" },
-        ])}
+        data={aboutSchema(
+          founders.map((f) => ({
+            name: f.name,
+            slug: f.slug,
+            role: f.role,
+            photo: f.photo,
+            sameAs: site.founderSameAs[f.slug as keyof typeof site.founderSameAs],
+          })),
+        )}
       />
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])} />
 
@@ -322,12 +322,10 @@ export default function AboutPage() {
             </div>
             <Reveal delay={120}>
               <div className="hww-photo">
-                <img
-                  src={workingPic.src}
+                <Image
+                  src={workingPic}
                   alt="The PSM team at work"
-                  loading="lazy"
-                  width={1536}
-                  height={1024}
+                  sizes="(max-width: 1024px) 100vw, 480px"
                 />
               </div>
             </Reveal>
@@ -364,10 +362,7 @@ export default function AboutPage() {
 
           <Reveal className="mt-12">
             <div className="person-feature">
-              <div className="person-photo person-photo--img">
-                <img src={founders[0].photo} alt={`${founders[0].name}, founder of PSM`} width={812} height={904} />
-                <span className="person-caption">Founder</span>
-              </div>
+              <FounderPhoto founder={founders[0]} />
               <div className="person-info">
                 <span className="eyebrow eyebrow--ink">Founder</span>
                 <h3 className="h3 mt-4" style={{ fontSize: "clamp(1.35rem, 2.4vw, 1.7rem)" }}>
@@ -387,10 +382,7 @@ export default function AboutPage() {
 
           <Reveal delay={120} className="mt-8">
             <div className="person-person">
-              <div className="person-photo person-photo--img">
-                <img src={founders[1].photo} alt={`${founders[1].name}, co-founder of PSM`} width={912} height={1073} />
-                <span className="person-caption">Co-founder</span>
-              </div>
+              <FounderPhoto founder={founders[1]} />
               <div className="person-info">
                 <span className="eyebrow eyebrow--g">Co-founder</span>
                 <h3 className="h3 mt-4" style={{ fontSize: "clamp(1.35rem, 2.4vw, 1.7rem)" }}>

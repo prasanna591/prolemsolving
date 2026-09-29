@@ -1,3 +1,5 @@
+import Image from "next/image";
+import type { StaticImageData } from "next/image";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/reveal";
 
@@ -7,18 +9,21 @@ interface PageHeaderProps {
   title: ReactNode;
   lede?: ReactNode;
   children?: ReactNode;
-  image?: string;
+  image?: StaticImageData;
 }
 
 export function PageHeader({ eyebrow, eyebrowTone = "default", title, lede, children, image }: PageHeaderProps) {
   const tone = { default: "", p: "eyebrow--p", g: "eyebrow--g", ink: "eyebrow--ink" }[eyebrowTone];
   const isHero = Boolean(image);
+  const heroImage = image ?? null;
   return (
     <header className={isHero ? "hero-scene" : "sec sec--warm"}>
       {isHero ? (
         <>
           <div className="hero-scene__bg" aria-hidden="true">
-            <img src={image} alt="" />
+            {heroImage ? (
+              <Image src={heroImage} alt="" fill sizes="100vw" priority quality={72} />
+            ) : null}
           </div>
           <div className="hero-scene__glow" aria-hidden="true" />
           <div className="hero-scene__scrim" aria-hidden="true" />

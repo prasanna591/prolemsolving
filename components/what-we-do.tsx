@@ -3,11 +3,12 @@ const V = "#5936E8";
 const NAVY = "#0B1635";
 const SOFTB = "#EAF3FF";
 const SOFTV = "#F0EDFF";
+import Image from "next/image";
 import type { ReactNode } from "react";
-import wdsBg from "@/app/images/bg_what we do.png";
-import buildProducts from "@/app/images/build_products.png";
-import solving from "@/app/images/Solving.png";
-import connect from "@/app/images/connect.png";
+import wdsBg from "@/app/images/bg_what we do.webp";
+import buildProducts from "@/app/images/build_products.webp";
+import solving from "@/app/images/Solving.webp";
+import connect from "@/app/images/connect.webp";
 
 const arrowIcon = (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -60,11 +61,12 @@ const FEATURES: Feature[] = [
     aria: "Explore products we build",
     icon: iconCube,
     scene: (
-      <img
-        src={buildProducts.src}
+      <Image
+        src={buildProducts}
         alt=""
         aria-hidden="true"
         className="wds-scene wds-scene--img"
+        sizes="(max-width: 1024px) 100vw, 50vw"
       />
     ),
   },
@@ -76,11 +78,12 @@ const FEATURES: Feature[] = [
     aria: "See how we solve problems",
     icon: iconBubble,
     scene: (
-      <img
-        src={solving.src}
+      <Image
+        src={solving}
         alt=""
         aria-hidden="true"
         className="wds-scene wds-scene--img"
+        sizes="(max-width: 1024px) 100vw, 50vw"
       />
     ),
     violet: true,
@@ -93,11 +96,12 @@ const FEATURES: Feature[] = [
     aria: "See how we connect systems",
     icon: iconNet,
     scene: (
-      <img
-        src={connect.src}
+      <Image
+        src={connect}
         alt=""
         aria-hidden="true"
         className="wds-scene wds-scene--img"
+        sizes="(max-width: 1024px) 100vw, 50vw"
       />
     ),
   },
@@ -107,7 +111,7 @@ export function WhatWeDo() {
   return (
     <section className="wds" aria-labelledby="wds-title">
       <div className="wds-bg" aria-hidden="true">
-        <img src={wdsBg.src} alt="" />
+        <Image src={wdsBg} alt="" fill sizes="100vw" />
       </div>
 
       <div className="wds-inner">

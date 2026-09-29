@@ -7,41 +7,44 @@ interface PageSeo {
   description: string;
   /** Route path, e.g. "/products". */
   path: string;
-  keywords?: string[];
   noindex?: boolean;
+  /** Open Graph type — "website" by default, "article"/"profile" where it fits. */
+  ogType?: "website" | "article" | "profile";
 }
 
 /**
- * Builds a complete, page-scoped Metadata block: canonical URL, Open Graph,
- * Twitter card and keywords — all rooted in the single source of truth in
- * lib/site.tsx. Titles still flow through the root layout's template
- * ("%s — PSM"), so only the human title goes here.
+ * Builds a complete, page-scoped Metadata block: canonical URL, Open Graph and
+ * Twitter card — all rooted in the single source of truth in lib/site.tsx.
+ * Titles still flow through the root layout's template ("%s — PSM"), so only
+ * the human title goes here.
+ *
+ * Images are intentionally omitted: every route ships its own `opengraph-image`
+ * file, and an explicit `openGraph.images` entry here would override them and
+ * flatten every share back to a single card.
+ *
+ * `keywords` is deliberately not emitted — Google has ignored the meta keywords
+ * tag since 2009, so the same terms belong in headings and body copy instead.
  */
-export function pageMetadata({ title, description, path, keywords, noindex }: PageSeo): Metadata {
+export function pageMetadata({ title, description, path, noindex, ogType = "website" }: PageSeo): Metadata {
   const url = `${site.url}${path === "/" ? "/" : path}`;
-  const ogTitle = title ? `${title} — ${site.name}` : `${site.tagline} | ${site.name}`;
+  const ogTitle = title ? `${title} — ${site.name}` : `${site.full} — ${site.tagline}`;
 
   return {
     ...(title ? { title } : {}),
     description,
-    ...(keywords?.length ? { keywords } : {}),
     alternates: { canonical: path },
     openGraph: {
       title: ogTitle,
       description,
       url,
-      siteName: site.name,
+      siteName: site.full,
       locale: "en_US",
-      type: "website",
-      images: [
-        { url: `${site.url}/opengraph-image`, width: 1200, height: 630, alt: site.tagline },
-      ],
+      type: ogType,
     },
     twitter: {
       card: "summary_large_image",
       title: ogTitle,
       description,
-      images: [`${site.url}/opengraph-image`],
     },
     ...(noindex ? { robots: { index: false, follow: true } } : {}),
   };

@@ -1,26 +1,25 @@
 "use client";
 
+import Image from "next/image";
+import type { StaticImageData } from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "framer-motion";
 import type { ReactNode } from "react";
-import bg from "@/app/images/home hero_background_image.png";
+import bg from "@/app/images/home hero_background_image.webp";
 
 interface HeroSceneProps {
   eyebrow?: string;
   title: ReactNode;
   lede?: ReactNode;
   children?: ReactNode;
-  image?: string;
+  image?: StaticImageData;
 }
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.11, delayChildren: 0.12 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE } },
-};
+/**
+ * Parallax is scroll-driven, so it carries no `initial` state and stays out
+ * of the SSR payload. The staggered entrance is pure CSS (`[data-in]`),
+ * which keeps the H1 readable in the server-rendered HTML.
+ */
+const STAGGER = [120, 230, 340];
 
 export function HeroScene({ eyebrow, title, lede, children, image }: HeroSceneProps) {
   const reduce = useReducedMotion();
@@ -34,30 +33,48 @@ export function HeroScene({ eyebrow, title, lede, children, image }: HeroScenePr
   return (
     <section className="hero-scene" aria-label="Introduction">
       <motion.div className="hero-scene__bg" aria-hidden="true" style={{ y: reduce ? undefined : parallax }}>
-        <img src={image ?? bg.src} alt="" width={1774} height={887} />
+        <Image src={image ?? bg} alt="" fill sizes="100vw" priority quality={72} />
       </motion.div>
       <div className="hero-scene__glow" aria-hidden="true" />
       <div className="hero-scene__scrim" aria-hidden="true" />
 
       <div className="container-x hero-scene__content">
-        <motion.div
-          className="hero-scene__inner"
-          variants={container}
-          initial={reduce ? false : "hidden"}
-          animate="show"
-        >
+        <div className="hero-scene__inner">
           {eyebrow && (
-            <motion.p variants={item} className="wds-eyebrow" style={{ marginBottom: "1.5rem" }}>
+            <p
+              data-in
+              style={{ "--in-delay": `${STAGGER[0]}ms`, marginBottom: "1.5rem" } as React.CSSProperties}
+              className="wds-eyebrow"
+            >
               <span className="wds-eyebrow-line" aria-hidden="true" />
               {eyebrow}
-            </motion.p>
+            </p>
           )}
-          <motion.h1 variants={item} className="hero-scene__h1">
+          <h1
+            data-in
+            style={{ "--in-delay": `${STAGGER[eyebrow ? 1 : 0]}ms` } as React.CSSProperties}
+            className="hero-scene__h1"
+          >
             {title}
-          </motion.h1>
-          {lede && <motion.p variants={item} className="hero-scene__lede">{lede}</motion.p>}
-          {children && <motion.div variants={item}>{children}</motion.div>}
-        </motion.div>
+          </h1>
+          {lede && (
+            <p
+              data-in
+              style={{ "--in-delay": `${STAGGER[eyebrow ? 2 : 1]}ms` } as React.CSSProperties}
+              className="hero-scene__lede"
+            >
+              {lede}
+            </p>
+          )}
+          {children && (
+            <div
+              data-in
+              style={{ "--in-delay": `${STAGGER[eyebrow ? 2 : 1]}ms` } as React.CSSProperties}
+            >
+              {children}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

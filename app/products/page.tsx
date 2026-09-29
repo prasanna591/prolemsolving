@@ -5,28 +5,21 @@ import { Magnetic } from "@/components/magnetic";
 import { Button } from "@/components/button";
 import { SectionHeading } from "@/components/section-heading";
 import { EydShowcase } from "@/components/eyd-showcase";
+import { FaqSection } from "@/components/faq";
 import { HeroScene } from "@/components/hero-scene";
 import { ProductArt } from "@/components/product-art";
 import { featured, inDevelopment, type Product } from "@/lib/products";
+import { faqs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import { productsSchema, breadcrumbSchema } from "@/lib/structured";
+import { productsSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
-import productHeroBg from "@/app/images/product_hero_bg.png";
+import productHeroBg from "@/app/images/product_hero_bg.webp";
 
 export const metadata = pageMetadata({
   title: "Products",
   description:
     "PSM is a product-first technology company. Explore the products we're building — EYD, LECOM, Boowa, Aura and Founder OS — each born from a real problem.",
   path: "/products",
-  keywords: [
-    "PSM products",
-    "EYD real estate platform",
-    "LECOM communication learning",
-    "Boowa hyperlocal delivery",
-    "Aura proactive healthcare",
-    "Founder OS for founders",
-    "product-first software company",
-  ],
 });
 
 const eyd = featured.find((p) => p.id === "eyd")!;
@@ -52,12 +45,22 @@ export default function ProductsPage() {
   return (
     <div className="page-shell">
       <JsonLd data={productsSchema([...featured, ...inDevelopment])} />
+      <JsonLd data={faqSchema(faqs)} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Products", path: "/products" }])} />
+      <JsonLd
+        data={webPageSchema({
+          path: "/products",
+          name: "Software products by PSM",
+          description:
+            "The PSM product portfolio — EYD, LECOM, BOOWA, Aura and Founder OS: software products built around real, observed problems.",
+          breadcrumb: [{ name: "Home", path: "/" }, { name: "Products", path: "/products" }],
+        })}
+      />
 
       {/* ============ HERO — background visual right, text left ============ */}
       <HeroScene
         eyebrow="PSM Product Portfolio"
-        image={productHeroBg.src}
+        image={productHeroBg}
         title={
           <>
             Products Built Around <em className="hh-grad">Real Problems.</em>
@@ -210,6 +213,12 @@ export default function ProductsPage() {
           </Reveal>
         </div>
       </section>
+
+      <FaqSection
+        eyebrow="Product questions"
+        title="Questions about the PSM product portfolio"
+        lede="What the products are, how they are built, and what stage each one is at."
+      />
 
       {/* ============ BUILDING FOR WHAT'S NEXT ============ */}
       <section className="sec sec--white">

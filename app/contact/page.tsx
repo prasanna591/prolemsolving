@@ -12,13 +12,6 @@ export const metadata = pageMetadata({
   description:
     "Tell PSM what you're trying to solve — we read every message and reply honestly within two working days, from Pune to the rest of the world.",
   path: "/contact",
-  keywords: [
-    "contact PSM",
-    "hello@psm.build",
-    "custom software enquiry",
-    "talk to a product studio",
-    "software development enquiry India",
-  ],
 });
 
 const channels = [

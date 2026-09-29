@@ -106,3 +106,57 @@ export const journey = [
   { n: "05", title: "Integrate", desc: "We connect the new system to the ones already standing, so nothing important lives isolated in a silo." },
   { n: "06", title: "Scale", desc: "We watch how it performs in real use, then make it repeatable — so the solution outlives the project." },
 ];
+export interface Faq {
+  q: string;
+  a: string;
+}
+
+/**
+ * Question-and-answer pairs. Generative engines preferentially quote
+ * self-contained Q→A passages, and FAQPage markup makes the answers
+ * machine-extractable for AI Overviews and assistants. Answers are drawn
+ * from the same claims made elsewhere on the site — nothing here should
+ * assert a fact the rest of the content does not support.
+ */
+export const faqs: Faq[] = [
+  {
+    q: "What is Problem Solving Mind (PSM)?",
+    a: "Problem Solving Mind, usually shortened to PSM, is a product-first technology company based in Pune, Maharashtra, India. It builds its own software products and also builds software systems for businesses with operational problems that off-the-shelf tools cannot solve. Its tagline is \"Building Products. Solving Problems.\"",
+  },
+  {
+    q: "Where is PSM based and does it work with clients outside India?",
+    a: `PSM is based in Pune, Maharashtra, India, and works with clients worldwide. Enquiries can reach the team at hello@psm.build or on +91 93005 38399, and messages are answered within two working days.`,
+  },
+  {
+    q: "Who founded PSM?",
+    a: "PSM was founded by Prasanna Venkatesan R., who leads product direction and long-term execution, together with co-founder Maniyarasan S., who focuses on product design, practical execution and engineering delivery.",
+  },
+  {
+    q: "What products is PSM building?",
+    a: "PSM has five products in development across different domains. EYD is a real estate ecosystem covering 3D property viewing, buying, selling and construction. LECOM is a communication and learning platform. BOOWA is a hyperlocal scheduled-delivery platform. Aura is a proactive health companion focused on awareness and preventive care. Founder OS is a productivity and organisation app for founders and entrepreneurs.",
+  },
+  {
+    q: "Is PSM a software product company or an agency?",
+    a: "PSM describes itself as a product company with a solutions practice. Products are its primary identity; client work exists to sharpen how it builds and to turn every engagement into reusable capability that becomes part of a shipped product.",
+  },
+  {
+    q: "What services does PSM offer to businesses?",
+    a: "PSM offers custom business software and internal tools, AI and workflow automation, ERP and CRM integration, web and mobile application development, and digital transformation. It also handles broader build categories including operations automation, AI document intelligence, decision and reporting layers, and system integration.",
+  },
+  {
+    q: "Which industries does PSM work in?",
+    a: "PSM's own products span real estate and construction, communication and personal development, hyperlocal commerce and delivery, healthcare, and entrepreneurship. Its client work is not restricted by industry — it starts from the operational problem rather than the sector.",
+  },
+  {
+    q: "How does PSM decide what to build?",
+    a: "PSM works problem-first. It looks for real problems observed in the world rather than for uses for a technology. The stated sequence is: understand the problem, design the smallest true solution, build it, integrate it with existing systems, and scale it once it performs in real use.",
+  },
+  {
+    q: "How do I contact PSM about a project?",
+    a: "Use the contact form at psm.build/contact, email hello@psm.build, or call +91 93005 38399. PSM asks clients to describe the problem, how urgently it needs solving, and what it is currently costing not to solve it, then responds honestly about whether technology can help.",
+  },
+  {
+    q: "Does PSM publish client names and performance metrics?",
+    a: "No. PSM states that it does not publish client names without permission and does not publish metrics a client has not approved. Case studies on its work page describe the problem, the approach, the technology and the outcome in general terms rather than attaching confidential figures.",
+  },
+];

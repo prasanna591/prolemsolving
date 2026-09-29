@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode, CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 type Variant = "rise" | "fade" | "mask" | "words";
 
@@ -28,8 +28,18 @@ const VIEWPORT = { once: true, margin: "0px 0px -70px 0px" } as const;
 const delayS = (d: number) => d / 1000;
 
 /**
- * Scroll-triggered reveal powered by Framer Motion (spring/inline styles).
- * Reduced-motion & failing-JS users get plain, always-visible markup.
+ * Scroll-triggered reveal.
+ *
+ * The hidden start state lives in CSS (`[data-reveal]` in globals.css,
+ * gated behind `@media (scripting: enabled)`) rather than in a Framer
+ * Motion `initial` prop. Framer serialises `initial` into the
+ * server-rendered HTML, which would ship every heading and paragraph as
+ * `opacity:0` — leaving crawlers, LLM retrievers and no-JS clients with a
+ * blank page. `initial={false}` keeps Framer out of the SSR payload; it
+ * writes the end state inline once the element scrolls into view, where
+ * the inline style overrides the CSS rule.
+ *
+ * Reduced-motion users get plain, always-visible markup.
  */
 export function Reveal({
   children,
@@ -44,55 +54,11 @@ export function Reveal({
   const Tag = as as any;
   const MotionTag = motion[as] as typeof motion.div;
 
-  const plain = (
-    <Tag className={className} style={style}>
-      {children}
-    </Tag>
-  );
-
-  if (variant === "words" && typeof children === "string") {
-    const words = children.trim().split(/\s+/);
+  if (reduce) {
     return (
-      <MotionTag
-        className={className}
-        style={style}
-        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.055, delayChildren: delayS(delay) } } }}
-        initial="hidden"
-        whileInView="show"
-        viewport={VIEWPORT}
-      >
-        {words.map((w, i) => (
-          <span key={`${w}-${i}`} className="w-mask">
-            <motion.span
-              className="w"
-              variants={{ hidden: { y: "115%" }, show: { y: "0%" } }}
-              transition={{ duration: 0.7, ease: EASE }}
-            >
-              {w}
-            </motion.span>
-          </span>
-        ))}
-      </MotionTag>
-    );
-  }
-
-  if (reduce) return plain;
-
-  if (variant === "mask") {
-    return (
-      <MotionTag
-        className={className}
-        style={{ ...style, overflow: "hidden" }}
-      >
-        <motion.div
-          initial={{ y: "112%" }}
-          whileInView={{ y: "0%" }}
-          viewport={VIEWPORT}
-          transition={{ duration: 0.9, ease: EASE, delay: delayS(delay) }}
-        >
-          {children}
-        </motion.div>
-      </MotionTag>
+      <Tag className={className} style={style}>
+        {children}
+      </Tag>
     );
   }
 
@@ -100,7 +66,8 @@ export function Reveal({
     <MotionTag
       className={className}
       style={style}
-      initial={{ opacity: 0, y: variant === "fade" ? 0 : 26 }}
+      data-reveal={variant}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={VIEWPORT}
       whileHover={hover ? { y: -5, transition: { type: "spring", stiffness: 320, damping: 22 } } : undefined}

@@ -1,12 +1,13 @@
-import founderImage from "@/app/images/founder.jpg";
-import cofounderImage from "@/app/images/Co-founder(Maniyarasan).jpeg";
+import type { StaticImageData } from "next/image";
+import founderImage from "@/app/images/founder.webp";
+import cofounderImage from "@/app/images/Co-founder(Maniyarasan).webp";
 
 export interface Founder {
   slug: string;
   name: string;
   role: "Founder" | "Co-founder";
   initials: string;
-  photo?: string;
+  photo?: StaticImageData;
   summary: string;
   intro: string[];
   focus: string[];
@@ -19,7 +20,7 @@ export const founders: Founder[] = [
     name: "Prasanna Venkatesan R.",
     role: "Founder",
     initials: "PVR",
-    photo: founderImage.src,
+    photo: founderImage,
     summary: "Product thinker and builder — the person behind PSM's product direction and long-term execution.",
     intro: [
       "Prasanna founded PSM on a simple conviction: technology is only worth building when it removes real pain. Watching businesses run on disconnected systems, manual re-entry and processes that only worked because someone remembered them, he kept coming back to the same question — why is this still being done by hand?",
@@ -34,7 +35,7 @@ export const founders: Founder[] = [
     name: "Maniyarasan S.",
     role: "Co-founder",
     initials: "MS",
-    photo: cofounderImage.src,
+    photo: cofounderImage,
     summary: "Co-founder focused on turning ideas into practical products and solutions people actually use.",
     intro: [
       "Maniyarasan co-founded PSM to help build products and solutions that hold up in real use. His focus is practical: taking an insight and driving it toward something that works — software that people genuinely want to use every day.",

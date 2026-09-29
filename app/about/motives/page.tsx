@@ -12,13 +12,6 @@ export const metadata = pageMetadata({
   description:
     "Why PSM exists — the motives behind the company: technology should solve problems, not create complexity. Our values, principles and what we build toward.",
   path: "/about/motives",
-  keywords: [
-    "why PSM exists",
-    "PSM company values",
-    "Problem Solving Mind mission",
-    "problems we solve",
-    "product company principles",
-  ],
 });
 
 const principles = [

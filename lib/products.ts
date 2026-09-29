@@ -1,7 +1,8 @@
 export type ProductStatus = "brand" | "accp" | "accg" | "neutral";
 
-import building from "@/app/images/building.png";
-import eydReferance from "@/app/images/EYD_referance.png";
+import type { StaticImageData } from "next/image";
+import building from "@/app/images/building.webp";
+import eydReferance from "@/app/images/EYD_referance.webp";
 
 export interface Product {
   id: string;
@@ -15,7 +16,7 @@ export interface Product {
   visual: "lecom" | "eyd" | "boowa" | "aura" | "founder";
   focus: string[];
   /** landscape photos shown in the feature strip on the product page */
-  media?: { src: string; alt: string }[];
+  media?: { src: StaticImageData; alt: string }[];
 }
 
 export const featured: Product[] = [
@@ -32,8 +33,8 @@ export const featured: Product[] = [
     visual: "eyd",
     focus: ["3D Property Viewing", "Buy & Sell", "Construction", "Materials", "Professionals"],
     media: [
-      { src: building.src, alt: "EYD — building the homes of tomorrow" },
-      { src: eydReferance.src, alt: "EYD — design reference" },
+      { src: building, alt: "EYD — building the homes of tomorrow" },
+      { src: eydReferance, alt: "EYD — design reference" },
     ],
   },
   {

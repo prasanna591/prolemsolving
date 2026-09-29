@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -15,6 +16,11 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+/** Only the slugs returned by generateStaticParams are built; unknown
+ *  slugs 404 instead of rendering on demand, which keeps the crawlable URL
+ *  surface finite. */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return allProducts.map((p) => ({ slug: p.id }));
 }
@@ -27,12 +33,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: product.name,
     description: product.description,
     path: `/products/${product.id}`,
-    keywords: [
-      product.name,
-      ...product.focus.map((f) => `${product.name} ${f}`),
-      "PSM product",
-      "problem-first software product",
-    ],
   });
 }
 
@@ -135,9 +135,9 @@ export default async function ProductPage({ params }: Props) {
             </Reveal>
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               {product.media.map((m, i) => (
-                <Reveal key={m.src} delay={i * 100} className={i === 0 ? "md:col-span-2" : ""}>
+                <Reveal key={`${m.alt}-${i}`} delay={i * 100} className={i === 0 ? "md:col-span-2" : ""}>
                   <div className="product-media">
-                    <img src={m.src} alt={m.alt} loading="lazy" width={1774} height={887} />
+                    <Image src={m.src} alt={m.alt} sizes="(max-width: 768px) 100vw, 720px" />
                   </div>
                 </Reveal>
               ))}

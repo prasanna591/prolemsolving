@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Quote } from "lucide-react";
 import { founders } from "@/lib/founders";
+import { site } from "@/lib/site";
+import { FounderPhoto } from "@/components/founder-photo";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/button";
 import { JsonLd } from "@/components/jsonld";
@@ -12,6 +14,11 @@ import { pageMetadata } from "@/lib/seo";
 interface Props {
   params: Promise<{ slug: string }>;
 }
+
+/** Only the slugs returned by generateStaticParams are built; unknown
+ *  slugs 404 instead of rendering on demand, which keeps the crawlable URL
+ *  surface finite. */
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return founders.map((f) => ({ slug: f.slug }));
@@ -25,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: founder.name,
     description: `${founder.name}, ${founder.role.toLowerCase()} of PSM — ${founder.summary}`,
     path: `/about/founders/${founder.slug}`,
-    keywords: [founder.name, "PSM founder", founder.role, "Problem Solving Mind", "product technology company"],
+    ogType: "profile",
   });
 }
 
@@ -38,7 +45,16 @@ export default async function FounderPage({ params }: Props) {
 
   return (
     <div className="page-shell">
-      <JsonLd data={founderSchema(founder.name, founder.role)} />
+      <JsonLd
+        data={founderSchema({
+          name: founder.name,
+          slug: founder.slug,
+          role: founder.role,
+          summary: founder.summary,
+          photo: founder.photo,
+          sameAs: site.founderSameAs[founder.slug as keyof typeof site.founderSameAs],
+        })}
+      />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
@@ -59,17 +75,7 @@ export default async function FounderPage({ params }: Props) {
 
           <div className="mt-10 grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <Reveal delay={80}>
-              <div
-                className={`person-photo ${founder.photo ? "person-photo--img" : ""}`}
-                style={{ width: "min(100%, 320px)" }}
-              >
-                {founder.photo ? (
-                  <img src={founder.photo} alt={`${founder.name}, ${founder.role.toLowerCase()} of PSM`} width={812} height={904} />
-                ) : (
-                  <span className="person-mono">{founder.initials}</span>
-                )}
-                <span className="person-caption">{founder.role}</span>
-              </div>
+              <FounderPhoto founder={founder} width="min(100%, 320px)" />
             </Reveal>
 
             <div>

@@ -1,19 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/button";
-import bg from "@/app/images/home hero_background_image.png";
+import bg from "@/app/images/home hero_background_image.webp";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE } },
-};
+/**
+ * Parallax is scroll-driven, so it carries no `initial` state and stays out
+ * of the SSR payload. The staggered entrance below is pure CSS (`[data-in]`),
+ * which keeps the H1 readable in the server-rendered HTML.
+ */
+const STAGGER = [150, 270, 390, 510];
 
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -29,7 +27,7 @@ export function HomeHero() {
   return (
     <section className="hero-scene" aria-label="Introduction">
       <motion.div className="hero-scene__bg" aria-hidden="true" style={{ y: reduce ? undefined : bgY }}>
-        <img src={bg.src} alt="" width={1774} height={887} />
+        <Image src={bg} alt="" fill sizes="100vw" priority quality={72} />
       </motion.div>
 
       <div className="hero-scene__glow" aria-hidden="true" />
@@ -67,7 +65,7 @@ export function HomeHero() {
           <ellipse cx="300" cy="330" rx="230" ry="96" stroke="#bcd4ff" strokeOpacity="0.16" transform="rotate(-12 300 330)" />
           <path d="M110 126 A 150 150 0 0 1 410 246" stroke="#94beff" strokeOpacity="0.3" strokeWidth="1" strokeDasharray="2 6" />
           <path d="M168 196 A 120 120 0 0 1 360 286" stroke="#ffffff" strokeOpacity="0.36" strokeWidth="1" />
-          <circle cx="500" cy="120" r="2.2" fill="#bcd4ff" fillOpacity="0.55" />
+          <circle cx="500" cy="120" r="2.2" fill="#bcd4ff" strokeOpacity="0.55" />
           <circle cx="560" cy="200" r="1.5" fill="#ffffff" fillOpacity="0.7" />
           <circle cx="430" cy="300" r="1.6" fill="#c9a7ff" fillOpacity="0.5" />
           <circle cx="520" cy="380" r="2" fill="#9ec7ff" fillOpacity="0.5" />
@@ -97,48 +95,45 @@ export function HomeHero() {
         <motion.div
           className="hero-scene__inner"
           style={reduce ? undefined : { opacity: contentOpacity, y: contentY }}
-          variants={container}
-          initial={reduce ? false : "hidden"}
-          animate="show"
         >
-          <motion.h1 variants={item} className="hero-scene__h1">
-            Technology
-            <span className="hero-scene__h1-line">
-              for a <em className="hh-blue">Better</em> <em className="hh-grad">Tomorrow.</em>
-            </span>
-          </motion.h1>
+          <h1 data-in style={{ "--in-delay": `${STAGGER[0]}ms` } as React.CSSProperties} className="hero-scene__h1">
+            We build software that solves{" "}
+            <em className="hh-grad">real problems.</em>
+          </h1>
 
-          <motion.p variants={item} className="hero-scene__lede">
-            We build practical software products, AI-powered solutions and intelligent business systems for real-world problems.
-          </motion.p>
+          <p data-in style={{ "--in-delay": `${STAGGER[1]}ms` } as React.CSSProperties} className="hero-scene__lede">
+            PSM is a product-first technology company in Pune, India. We design and build practical
+            software products, AI-powered systems and intelligent business platforms for
+            organisations that are done with manual, disconnected operations.
+          </p>
 
-          <motion.div variants={item} className="hero-scene__cta">
+          <div data-in style={{ "--in-delay": `${STAGGER[2]}ms` } as React.CSSProperties} className="hero-scene__cta">
             <Button href="/products" variant="primary" size="lg" arrow>
               Explore Our Products
             </Button>
             <Button href="/contact" variant="ghost" size="lg" arrow>
               Let&rsquo;s Talk
             </Button>
-          </motion.div>
+          </div>
 
-          <motion.ul variants={item} className="hero-scene__stats">
+          <ul data-in style={{ "--in-delay": `${STAGGER[3]}ms` } as React.CSSProperties} className="hero-scene__stats">
             <li>
-              <span className="hero-scene__stat-v">5+</span>
+              <span className="hero-scene__stat-v">5</span>
               <span className="hero-scene__stat-s">Products In Development</span>
             </li>
             <li>
-              <span className="hero-scene__stat-v">Businesses</span>
-              <span className="hero-scene__stat-s">Technology Solutions</span>
+              <span className="hero-scene__stat-v">5</span>
+              <span className="hero-scene__stat-s">Business Solutions Offered</span>
             </li>
             <li>
-              <span className="hero-scene__stat-v">Real Problems</span>
-              <span className="hero-scene__stat-s">Across Industries</span>
+              <span className="hero-scene__stat-v">5</span>
+              <span className="hero-scene__stat-s">Industries Addressed</span>
             </li>
             <li>
-              <span className="hero-scene__stat-v">One Mission</span>
-              <span className="hero-scene__stat-s">Build What Matters</span>
+              <span className="hero-scene__stat-v">Pune</span>
+              <span className="hero-scene__stat-s">India — Working Worldwide</span>
             </li>
-          </motion.ul>
+          </ul>
         </motion.div>
       </div>
 
