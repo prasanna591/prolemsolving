@@ -1,5 +1,7 @@
 import { renderOg, ogSize, ogContentType, ogAlt } from "@/lib/og";
 
+export const dynamic = "force-static";
+
 export const alt = "Case studies in operations automation, AI and integration — PSM";
 export const size = ogSize;
 export const contentType = ogContentType;

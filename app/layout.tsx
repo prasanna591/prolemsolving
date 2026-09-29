@@ -32,16 +32,16 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "PSM — Building Products. Solving Problems.",
+    default: "PSM — Software Development Company in Pondicherry",
     template: "%s — PSM",
   },
-  description: site.supportLine,
+  description: site.positioning,
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "PSM — Building Products. Solving Problems.",
-    description: site.supportLine,
+    title: "PSM — Software Development Company in Pondicherry",
+    description: site.positioning,
     url: site.url,
     siteName: "PSM",
     locale: "en_US",
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PSM — Building Products. Solving Problems.",
-    description: site.supportLine,
+    title: "PSM — Software Development Company in Pondicherry",
+    description: site.positioning,
   },
 };
 

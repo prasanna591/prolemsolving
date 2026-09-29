@@ -1,6 +1,8 @@
 import { renderOg, ogSize, ogContentType, ogAlt } from "@/lib/og";
 
-export const alt = "Contact PSM — hello@psm.build";
+export const dynamic = "force-static";
+
+export const alt = "Contact PSM — hello@problemsolvingmind.com";
 export const size = ogSize;
 export const contentType = ogContentType;
 

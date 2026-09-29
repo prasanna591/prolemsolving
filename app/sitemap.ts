@@ -48,7 +48,7 @@ const founderRoutes: Route[] = founders.map((f) => ({
   lastModified: EDITED,
 }));
 
-const url = (path: string) => `${site.url}${path === "/" ? "/" : path}`;
+const url = (path: string) => site.routeUrl(path === "" ? "/" : path);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [...routes, ...productRoutes, ...founderRoutes].map((r) => ({

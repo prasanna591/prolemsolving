@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!product) return {};
   return pageMetadata({
     title: product.name,
-    description: product.description,
+    description: product.seoDescription,
     path: `/products/${product.id}`,
   });
 }

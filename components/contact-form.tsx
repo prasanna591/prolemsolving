@@ -2,8 +2,27 @@
 
 import { useRef, useState, type FormEvent } from "react";
 import { AlertCircle, ArrowRight, Check } from "lucide-react";
+import { site } from "@/lib/site";
 
 type Status = "idle" | "sending" | "success" | "error";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/**
+ * Web3Forms is a hosted form relay, so submissions POST straight from the
+ * browser.
+ *
+ * The access key is a public identifier, NOT a secret — Web3Forms expects it in
+ * client JS, and it can only be used to send mail *as this site*, which is the
+ * same exposure every hosted contact form has. It is therefore committed as a
+ * default rather than left to a build secret, so a deploy can never ship a
+ * broken form because someone forgot to add the variable.
+ *
+ * `NEXT_PUBLIC_WEB3FORMS_KEY` overrides it, which is how you rotate the key
+ * without touching code.
+ */
+const WEB3FORMS_KEY = "70718227-c3fe-4a64-bdb2-dc9c06215480";
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || WEB3FORMS_KEY;
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -17,18 +36,48 @@ export function ContactForm() {
     const data = Object.fromEntries(new FormData(form).entries());
     setStatus("sending");
     setError("");
+
+    const name = String(data.name ?? "").trim();
+    const email = String(data.email ?? "").trim();
+    const message = String(data.message ?? "").trim();
+    const service = String(data.service ?? "").trim();
+    const company = String(data.company ?? "").trim();
+
+    if (!name || !message || !EMAIL_RE.test(email)) {
+      setStatus("error");
+      setError("Please fill in every required field with a valid email address.");
+      return;
+    }
+
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          name,
+          email,
+          company,
+          service,
+          message,
+          replyto: email,
+          from_name: `${site.full} website`,
+          subject: `New website enquiry — ${service}`,
+          botcheck: "",
+        }),
       });
-      const json = (await res.json().catch(() => ({}))) as { error?: string };
-      if (!res.ok) throw new Error(json?.error || "Something went wrong.");
+      const json = (await res.json().catch(() => ({}))) as { success?: boolean; message?: string };
+      if (!res.ok || json?.success === false) {
+        throw new Error(json?.message || "Something went wrong.");
+      }
       setStatus("success");
     } catch (err) {
       setStatus("error");
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(
+        err instanceof Error
+          ? `${err.message} You can also email us directly at ${site.email}.`
+          : `Something went wrong. You can also email us at ${site.email}.`,
+      );
       formRef.current?.focus();
     }
   }

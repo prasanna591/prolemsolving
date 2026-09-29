@@ -8,16 +8,26 @@ import { contactSchema, breadcrumbSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
 
 export const metadata = pageMetadata({
-  title: "Contact",
+  title: "Contact & Get a Quote",
   description:
-    "Tell PSM what you're trying to solve — we read every message and reply honestly within two working days, from Pune to the rest of the world.",
+    "Talk to PSM about custom software, AI automation or ERP/CRM integration. Call +91 93602 07861 or email hello@problemsolvingmind.com — Pondicherry, Tamil Nadu.",
   path: "/contact",
 });
 
 const channels = [
-  { icon: Mail, t: "Email", d: site.email },
-  { icon: Phone, t: "Phone / WhatsApp", d: "+91 93005 38399" },
-  { icon: MapPin, t: "Based in", d: "Pune, Maharashtra — working worldwide" },
+  ...site.emails.map(({ label, address }) => ({
+    icon: Mail,
+    t: label === "General" ? "General enquiries" : `Email — ${label}`,
+    d: address,
+    href: `mailto:${address}`,
+  })),
+  {
+    icon: Phone,
+    t: "Phone / WhatsApp",
+    d: site.phoneDisplay,
+    href: `tel:${site.phone}`,
+  },
+  { icon: MapPin, t: "Based in", d: `${site.locality}, ${site.region} — working worldwide`, href: null },
 ];
 
 export default function ContactPage() {
@@ -37,14 +47,20 @@ export default function ContactPage() {
           {/* info column */}
           <Reveal>
             <div className="flex flex-col gap-6">
-              {channels.map(({ icon: Icon, t, d }) => (
+              {channels.map(({ icon: Icon, t, d, href }) => (
                 <div key={t} className="flex items-start gap-4">
                   <span className="card-icon card-icon--brand">
                     <Icon size={18} aria-hidden="true" />
                   </span>
                   <div>
                     <p className="h3" style={{ fontSize: "1.05rem" }}>{t}</p>
-                    <p className="dek" style={{ fontSize: "0.98rem" }}>{d}</p>
+                    {href ? (
+                      <a href={href} className="dek link-line" style={{ fontSize: "0.98rem", color: "var(--color-brand)" }}>
+                        {d}
+                      </a>
+                    ) : (
+                      <p className="dek" style={{ fontSize: "0.98rem" }}>{d}</p>
+                    )}
                   </div>
                 </div>
               ))}

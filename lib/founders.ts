@@ -5,7 +5,10 @@ import cofounderImage from "@/app/images/Co-founder(Maniyarasan).webp";
 export interface Founder {
   slug: string;
   name: string;
-  role: "Founder" | "Co-founder";
+  /** Single display label. Must stay consistent with `titles`. */
+  role: string;
+  /** Individual job titles, emitted as schema.org `hasOccupation`. */
+  titles: string[];
   initials: string;
   photo?: StaticImageData;
   summary: string;
@@ -18,7 +21,8 @@ export const founders: Founder[] = [
   {
     slug: "prasanna-venkatesan",
     name: "Prasanna Venkatesan R.",
-    role: "Founder",
+    role: "Founder & Managing Director",
+    titles: ["Founder", "Managing Director"],
     initials: "PVR",
     photo: founderImage,
     summary: "Product thinker and builder — the person behind PSM's product direction and long-term execution.",
@@ -34,6 +38,7 @@ export const founders: Founder[] = [
     slug: "maniyarasan",
     name: "Maniyarasan S.",
     role: "Co-founder",
+    titles: ["Co-founder"],
     initials: "MS",
     photo: cofounderImage,
     summary: "Co-founder focused on turning ideas into practical products and solutions people actually use.",

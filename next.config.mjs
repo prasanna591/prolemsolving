@@ -2,8 +2,22 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  /**
+   * GitHub Pages serves static files only, so the build must emit a fully
+   * prerendered `out/` directory. Three consequences:
+   *
+   *  - `trailingSlash` — Pages resolves `/about` to `about/index.html`, so
+   *    every route needs the trailing slash to match.
+   *  - `images.unoptimized` — the next/image optimizer is a server, and Pages
+   *    has none, so images ship as-is.
+   *  - `headers()` below is inert under `output: "export"`; the headers it
+   *    declares are no longer sent. They are kept so that moving back to a
+   *    server host restores them with no other change.
+   */
+  output: "export",
+  trailingSlash: true,
   images: {
-    unoptimized: false,
+    unoptimized: true,
     formats: ["image/webp"],
     deviceSizes: [400, 640, 828, 1080, 1280, 1774, 1920, 2560],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],

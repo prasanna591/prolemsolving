@@ -14,9 +14,9 @@ import { JsonLd } from "@/components/jsonld";
 import solutionHeroBg from "@/app/images/solution_hero.webp";
 
 export const metadata = pageMetadata({
-  title: "Solutions",
+  title: "AI Automation, Custom Software & ERP/CRM Integration",
   description:
-    "PSM solves real business problems with software, AI and automation — custom systems, AI-powered workflows and integrations framed around problems and outcomes.",
+    "PSM builds custom software, AI automation and workflow systems for businesses — ERP and CRM integration, web and mobile apps, dashboards. Pondicherry.",
   path: "/solutions",
 });
 

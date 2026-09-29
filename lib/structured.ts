@@ -66,16 +66,31 @@ export function organizationSchema() {
       },
     ],
     areaServed: site.areaServed,
+    /** Multi-valued so local queries ("software company Pondicherry") can match. */
+    serviceArea: site.serviceAreas.map((name) => ({ "@type": "Place", name })),
     numberOfEmployees: { "@type": "QuantitativeValue", value: 2 },
+    keywords: [...site.serviceKeywords, "software development company", "AI automation company"],
+    /** Machine-readable service menu — the schema.org equivalent of /solutions. */
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      "@id": `${site.url}/#services`,
+      name: `${site.full} services`,
+      itemListElement: site.serviceKeywords.map((name, i) => ({
+        "@type": "Offer",
+        position: i + 1,
+        itemOffered: { "@type": "Service", name, provider: { "@id": ORG_ID } },
+      })),
+    },
     knowsAbout: [
-      "Custom business software",
-      "Artificial intelligence",
-      "Workflow automation",
-      "ERP and CRM integration",
-      "Web and mobile application development",
-      "Digital transformation",
-      "Document intelligence",
-      "Product management",
+      ...site.serviceKeywords,
+      "AI agents for business",
+      "Business process automation",
+      "Digital process improvement",
+      "Inventory management software",
+      "Business dashboards and reporting",
+      "Document automation",
+      "Startups and MVP development",
+      "Small and medium business software",
     ],
     ...(site.sameAs.length ? { sameAs: site.sameAs } : {}),
   };
@@ -98,6 +113,7 @@ export function personSchema(p: {
   name: string;
   slug: string;
   role: string;
+  titles?: string[];
   photo?: { src: string };
   sameAs?: string[];
 }) {
@@ -106,6 +122,16 @@ export function personSchema(p: {
     "@id": `${site.url}/about/founders/${p.slug}#person`,
     name: p.name,
     jobTitle: p.role,
+    /** One `jobTitle` string can't express a dual role to the Knowledge Graph. */
+    ...(p.titles?.length
+      ? {
+          hasOccupation: p.titles.map((jobTitle) => ({
+            "@type": "Occupation",
+            jobTitle,
+            worksFor: { "@id": ORG_ID },
+          })),
+        }
+      : {}),
     url: `${site.url}/about/founders/${p.slug}`,
     ...(p.photo ? { image: p.photo.src } : {}),
     worksFor: { "@id": ORG_ID },
@@ -277,7 +303,7 @@ export function workSchema(caseStudies: CaseStudy[], updated?: string) {
   };
 }
 
-export function aboutSchema(founders: { name: string; slug: string; role: string; photo?: { src: string }; sameAs?: string[] }[]) {
+export function aboutSchema(founders: { name: string; slug: string; role: string; titles?: string[]; photo?: { src: string }; sameAs?: string[] }[]) {
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -326,6 +352,7 @@ export function founderSchema(p: {
   name: string;
   slug: string;
   role: string;
+  titles?: string[];
   summary: string;
   photo?: { src: string };
   sameAs?: string[];

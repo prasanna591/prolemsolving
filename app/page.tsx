@@ -8,7 +8,7 @@ import { faqs } from "@/lib/content";
 import { JsonLd } from "@/components/jsonld";
 
 export const metadata = pageMetadata({
-  description: site.supportLine,
+  description: site.positioning,
   path: "/",
 });
 
@@ -20,9 +20,9 @@ export default function HomePage() {
       <JsonLd
         data={webPageSchema({
           path: "/",
-          name: "PSM — Building Products. Solving Problems.",
-          description: site.supportLine,
-          mainEntity: { "@id": "https://psm.build/#organization" },
+          name: "PSM — Software Development Company in Pondicherry",
+          description: site.positioning,
+          mainEntity: { "@id": "https://www.problemsolvingmind.com/#organization" },
         })}
       />
       <HomeHero />

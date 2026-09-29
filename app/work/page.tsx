@@ -13,9 +13,9 @@ import { JsonLd } from "@/components/jsonld";
 import workHeroBg from "@/app/images/founders_about.webp";
 
 export const metadata = pageMetadata({
-  title: "Work",
+  title: "Our Work & Case Studies",
   description:
-    "Selected work from PSM — case studies on the products we build and the business systems behind them: Relay, Clarion and Bridge.",
+    "Selected work from PSM: case studies in business automation, AI document intelligence and ERP/CRM integration — the systems behind EYD, LECOM, Boowa and Aura.",
   path: "/work",
 });
 

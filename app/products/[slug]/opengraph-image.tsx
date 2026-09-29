@@ -1,31 +1,26 @@
-import { renderOg, ogSize, ogContentType, ogAlt } from "@/lib/og";
-import { allProducts } from "@/lib/products";
+import { renderOg, ogSize, ogContentType } from "@/lib/og";
 
-export const alt = ogAlt("PSM product", "Software products built around real problems");
+export const alt = "PSM software product — built around a real problem";
 export const size = ogSize;
 export const contentType = ogContentType;
+export const dynamic = "force-static";
 
-export async function generateImageMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const product = allProducts.find((p) => p.id === slug);
-  if (!product) return [];
-
-  return [product].map((p) => ({
-    id: p.id,
-    alt: ogAlt(`${p.name} — ${p.tagline}`, p.description),
-    size,
-    contentType,
-    filename: `${p.id}.png`,
-  }));
+/**
+ * This card is shared by every product page. A per-product card needs
+ * `generateImageMetadata`, which Next cannot prerender under
+ * `output: "export"` (the metadata route gains an internal
+ * `[__metadata_id__]` segment that stays empty). The product name and
+ * tagline are already in each page's own `og:title`/`og:description`, so the
+ * link preview still identifies the product.
+ */
+export function generateStaticParams() {
+  return ["eyd", "lecom", "boowa", "aura", "founder-os"].map((slug) => ({ slug }));
 }
 
-export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const product = allProducts.find((p) => p.id === slug) ?? allProducts[0];
-
+export default function Image() {
   return renderOg({
-    eyebrow: product.category.split("·")[0]?.trim(),
-    title: `${product.name} — ${product.tagline}`,
-    subtitle: product.description,
+    eyebrow: "PSM products",
+    title: "Software Built Around a Real Problem",
+    subtitle: "EYD, LECOM, Boowa, Aura and Founder OS — five products in development.",
   });
 }

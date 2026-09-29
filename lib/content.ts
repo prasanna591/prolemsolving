@@ -121,11 +121,11 @@ export interface Faq {
 export const faqs: Faq[] = [
   {
     q: "What is Problem Solving Mind (PSM)?",
-    a: "Problem Solving Mind, usually shortened to PSM, is a product-first technology company based in Pune, Maharashtra, India. It builds its own software products and also builds software systems for businesses with operational problems that off-the-shelf tools cannot solve. Its tagline is \"Building Products. Solving Problems.\"",
+    a: "Problem Solving Mind, usually shortened to PSM, is a product-first technology company based in Pondicherry, Tamil Nadu, India. It builds its own software products and also builds software systems for businesses with operational problems that off-the-shelf tools cannot solve. Its tagline is \"Building Products. Solving Problems.\"",
   },
   {
     q: "Where is PSM based and does it work with clients outside India?",
-    a: `PSM is based in Pune, Maharashtra, India, and works with clients worldwide. Enquiries can reach the team at hello@psm.build or on +91 93005 38399, and messages are answered within two working days.`,
+    a: `PSM is based in Pondicherry, Tamil Nadu, India, and works with clients worldwide. Enquiries can reach the team at hello@problemsolvingmind.com or on +91 93602 07861, and messages are answered within two working days.`,
   },
   {
     q: "Who founded PSM?",
@@ -153,7 +153,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "How do I contact PSM about a project?",
-    a: "Use the contact form at psm.build/contact, email hello@psm.build, or call +91 93005 38399. PSM asks clients to describe the problem, how urgently it needs solving, and what it is currently costing not to solve it, then responds honestly about whether technology can help.",
+    a: "Use the contact form at problemsolvingmind.com/contact, email hello@problemsolvingmind.com, or call +91 93602 07861. PSM asks clients to describe the problem, how urgently it needs solving, and what it is currently costing not to solve it, then responds honestly about whether technology can help.",
   },
   {
     q: "Does PSM publish client names and performance metrics?",

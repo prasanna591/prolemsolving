@@ -102,7 +102,7 @@ export function HomeHero() {
           </h1>
 
           <p data-in style={{ "--in-delay": `${STAGGER[1]}ms` } as React.CSSProperties} className="hero-scene__lede">
-            PSM is a product-first technology company in Pune, India. We design and build practical
+            PSM is a product-first technology company in Pondicherry, India. We design and build practical
             software products, AI-powered systems and intelligent business platforms for
             organisations that are done with manual, disconnected operations.
           </p>
@@ -130,8 +130,8 @@ export function HomeHero() {
               <span className="hero-scene__stat-s">Industries Addressed</span>
             </li>
             <li>
-              <span className="hero-scene__stat-v">Pune</span>
-              <span className="hero-scene__stat-s">India — Working Worldwide</span>
+              <span className="hero-scene__stat-v">Pondicherry</span>
+              <span className="hero-scene__stat-s">Tamil Nadu — Working Worldwide</span>
             </li>
           </ul>
         </motion.div>

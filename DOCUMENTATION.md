@@ -209,8 +209,8 @@ About is **intentionally Three.js-free**; it reuses the single `PsmSystem` objec
 ### `/contact` Contact (`app/contact/page.tsx`)
 
 - Client component form (name/email/phone/message), native validation, on submit shows "Thanks — we got it." success state (no backend wiring yet).
-- Contact details: **Email hello@psm.com · Phone/WhatsApp +91 93005 38399 · Based in Pune, Maharashtra**.
-- ⚠ Inconsistency: `lib/site.tsx` sets `site.email = "hello@psm.build"` while the contact page shows `hello@psm.com`. Unresolved.
+- Contact details: **Emails hello@problemsolvingmind.com · founder@problemsolving.com · ceo@problemsolving.com · contact@problemsolvingmind.com · Phone/WhatsApp +91 93602 07861 · Based in Pondicherry, Tamil Nadu**.
+- All of the above are driven by `lib/site.tsx` (`site.email`, `site.emails`, `site.phone`, `site.phoneDisplay`) — edit there, not in pages.
 
 ---
 

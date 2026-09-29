@@ -10,7 +10,7 @@ import { problems, values } from "@/lib/content";
 export const metadata = pageMetadata({
   title: "Why PSM Exists",
   description:
-    "Why PSM exists — the motives behind the company: technology should solve problems, not create complexity. Our values, principles and what we build toward.",
+    "Why PSM exists: technology should solve problems, not create complexity. The values behind our custom software and AI work in Pondicherry.",
   path: "/about/motives",
 });
 

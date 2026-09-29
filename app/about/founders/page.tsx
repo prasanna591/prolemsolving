@@ -12,7 +12,7 @@ import { site } from "@/lib/site";
 export const metadata = pageMetadata({
   title: "Our People",
   description:
-    "Meet the people behind PSM — founder Prasanna Venkatesan R. and co-founder Maniyarasan S., who built the company around product thinking and practical problem-solving.",
+    "Meet the founder and co-founder of PSM — Prasanna Venkatesan R. and Maniyarasan S., who built a Pondicherry software company around product thinking.",
   path: "/about/founders",
 });
 
@@ -29,6 +29,7 @@ export default function FoundersPage() {
                 name: f.name,
                 slug: f.slug,
                 role: f.role,
+                titles: f.titles,
                 photo: f.photo,
                 sameAs: site.founderSameAs[f.slug as keyof typeof site.founderSameAs],
               }),

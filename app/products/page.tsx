@@ -16,9 +16,9 @@ import { JsonLd } from "@/components/jsonld";
 import productHeroBg from "@/app/images/product_hero_bg.webp";
 
 export const metadata = pageMetadata({
-  title: "Products",
+  title: "Software Products & Product Development",
   description:
-    "PSM is a product-first technology company. Explore the products we're building — EYD, LECOM, Boowa, Aura and Founder OS — each born from a real problem.",
+    "The software products PSM is building in Pondicherry — EYD, LECOM, Boowa, Aura and Founder OS. SaaS product development in real estate, health and learning.",
   path: "/products",
 });
 

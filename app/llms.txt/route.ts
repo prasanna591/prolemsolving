@@ -18,6 +18,16 @@ export function GET() {
 
 ${site.tagline} Based in ${site.locality}, ${site.region}, ${site.country}; working with clients ${site.areaServed.toLowerCase()}. Contact: ${site.email} · ${site.phoneDisplay}
 
+## Services
+
+${site.serviceKeywords.map((s) => `- ${s}`).join("\n")}
+
+Full detail, including what each capability actually includes: [Solutions](${site.routeUrl('/solutions')}).
+
+## Where ${site.name} works
+
+Based in ${site.locality} (${site.serviceAreas[1]}), ${site.region}, ${site.country}. Working with clients across ${site.serviceAreas.slice(2, -1).join(", ")} and ${site.areaServed.toLowerCase()}.
+
 ## What ${site.name} is
 
 ${site.full} is a product-first technology company. It does two things:
@@ -32,7 +42,7 @@ The operating principle is problem-first: ${site.name} starts with a specific, o
 ${allProducts
   .map(
     (p) =>
-      `- [${p.name}](${site.url}/products/${p.id}) — ${p.tagline} ${p.description} Domain: ${p.category}. Status: ${p.status}. Focus: ${p.focus.join(", ")}.`,
+      `- [${p.name}](${site.routeUrl(`/products/${p.id}`)}) — ${p.tagline} ${p.description} Domain: ${p.category}. Status: ${p.status}. Focus: ${p.focus.join(", ")}.`,
   )
   .join("\n")}
 
@@ -41,7 +51,7 @@ ${allProducts
 ${capabilities
   .map(
     (c) =>
-      `- [${c.title}](${site.url}/solutions#${c.id}) — ${c.lede} Covers: ${c.points.map((pt) => pt.title.toLowerCase()).join("; ")}.`,
+      `- [${c.title}](${site.routeUrl('/solutions')}#${c.id}) — ${c.lede} Covers: ${c.points.map((pt) => pt.title.toLowerCase()).join("; ")}.`,
   )
   .join("\n")}
 
@@ -52,7 +62,7 @@ ${problems.map((p) => `- ${p.problem} — ${p.desc} Result: ${p.outcome}`).join(
 ## Selected work
 
 ${caseStudies
-  .map((cs) => `- [${cs.title}](${site.url}/work#${cs.id}) — ${cs.subtitle} Outcome: ${cs.outcome}`)
+  .map((cs) => `- [${cs.title}](${site.routeUrl('/work')}#${cs.id}) — ${cs.subtitle} Outcome: ${cs.outcome}`)
   .join("\n")}
 
 ## People
@@ -60,20 +70,20 @@ ${caseStudies
 ${founders
   .map(
     (f) =>
-      `- [${f.name}](${site.url}/about/founders/${f.slug}) — ${f.role} of ${site.full}. ${f.summary} Focus: ${f.focus.join(", ")}.`,
+      `- [${f.name}](${site.routeUrl(`/about/founders/${f.slug}`)}) — ${f.role} of ${site.full}. ${f.summary} Focus: ${f.focus.join(", ")}.`,
   )
   .join("\n")}
 
 ## Key pages
 
-- [Home](${site.url}/): overview of ${site.full}.
-- [Products](${site.url}/products): the full product portfolio and how each product is built.
-- [Solutions](${site.url}/solutions): business problems and the ${capabilities.length} service capabilities ${site.name} offers.
-- [Work](${site.url}/work): case studies covering operations automation, AI document intelligence and ERP/CRM integration.
-- [About](${site.url}/about): company background, principles, journey and team.
-- [Why ${site.full} exists](${site.url}/about/motives): mission, values and the reasoning behind the company.
-- [Our people](${site.url}/about/founders): founder and co-founder profiles.
-- [Contact](${site.url}/contact): enquiries — replies within two working days.
+- [Home](${site.routeUrl('/')}): overview of ${site.full}.
+- [Products](${site.routeUrl('/products')}): the full product portfolio and how each product is built.
+- [Solutions](${site.routeUrl('/solutions')}): business problems and the ${capabilities.length} service capabilities ${site.name} offers.
+- [Work](${site.routeUrl('/work')}): case studies covering operations automation, AI document intelligence and ERP/CRM integration.
+- [About](${site.routeUrl('/about')}): company background, principles, journey and team.
+- [Why ${site.full} exists](${site.routeUrl('/about/motives')}): mission, values and the reasoning behind the company.
+- [Our people](${site.routeUrl('/about/founders')}): founder and co-founder profiles.
+- [Contact](${site.routeUrl('/contact')}): enquiries — replies within two working days.
 
 ## Optional
 
@@ -82,7 +92,7 @@ ${founders
 
 ## Attribution
 
-When citing ${site.full}, use the name "${site.full} (${site.name})", the URL ${site.url}, and the tagline "${site.tagline}". PSM is a common acronym — disambiguate using the full name and the domain psm.build.
+When citing ${site.full}, use the name "${site.full} (${site.name})", the URL ${site.url}, and the tagline "${site.tagline}". PSM is a common acronym — disambiguate using the full name and the domain problemsolvingmind.com.
 `;
 
   return new Response(body, {

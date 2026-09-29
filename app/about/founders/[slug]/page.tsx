@@ -50,6 +50,7 @@ export default async function FounderPage({ params }: Props) {
           name: founder.name,
           slug: founder.slug,
           role: founder.role,
+          titles: founder.titles,
           summary: founder.summary,
           photo: founder.photo,
           sameAs: site.founderSameAs[founder.slug as keyof typeof site.founderSameAs],

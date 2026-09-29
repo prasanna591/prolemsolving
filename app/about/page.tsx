@@ -19,7 +19,7 @@ import { JsonLd } from "@/components/jsonld";
 export const metadata = pageMetadata({
   title: "About",
   description:
-    "Problem Solving Mind (PSM) is a product-focused technology company built by Prasanna Venkatesan R. and Maniyarasan S. We start with the problem, not the technology.",
+    "Problem Solving Mind (PSM) is a product-first software company in Pondicherry, Tamil Nadu, founded by Prasanna Venkatesan R. and Maniyarasan S.",
   path: "/about",
 });
 
@@ -141,6 +141,7 @@ export default function AboutPage() {
             name: f.name,
             slug: f.slug,
             role: f.role,
+            titles: f.titles,
             photo: f.photo,
             sameAs: site.founderSameAs[f.slug as keyof typeof site.founderSameAs],
           })),

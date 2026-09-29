@@ -31,6 +31,15 @@ export function buildLlmsFull(): string {
     `${site.full} operates as a product company with a services arm. The services work feeds the products: every engagement with a business is expected to produce reusable capability that becomes part of a shipped product. The company describes its method as a loop — problems, insights, products, solutions, experience, new insights.`,
   );
   L.push("");
+  L.push(`Positioning: ${site.positioning}`);
+  L.push("");
+
+  L.push("## Services offered");
+  L.push("");
+  for (const s of site.serviceKeywords) L.push(`- **${s}**`);
+  L.push("");
+  L.push(`Service areas: ${site.serviceAreas.join(", ")}.`);
+  L.push("");
 
   L.push("## Values");
   L.push("");
@@ -47,7 +56,7 @@ export function buildLlmsFull(): string {
   for (const p of allProducts) {
     L.push(`### ${p.name} — ${p.tagline}`);
     L.push("");
-    L.push(`URL: ${site.url}/products/${p.id}`);
+    L.push(`URL: ${site.routeUrl(`/products/${p.id}`)}`);
     L.push("");
     L.push(p.description);
     L.push("");
@@ -62,7 +71,7 @@ export function buildLlmsFull(): string {
   for (const c of capabilities) {
     L.push(`### ${c.title}`);
     L.push("");
-    L.push(`URL: ${site.url}/solutions#${c.id} · Service type: ${c.eyebrow}`);
+    L.push(`URL: ${site.routeUrl('/solutions')}#${c.id} · Service type: ${c.eyebrow}`);
     L.push("");
     L.push(c.lede);
     L.push("");
@@ -87,7 +96,7 @@ export function buildLlmsFull(): string {
   for (const cs of caseStudies) {
     L.push(`### ${cs.title}`);
     L.push("");
-    L.push(`URL: ${site.url}/work#${cs.id} · Tags: ${cs.tags.join(", ")}`);
+    L.push(`URL: ${site.routeUrl('/work')}#${cs.id} · Tags: ${cs.tags.join(", ")}`);
     L.push("");
     for (const b of cs.blocks) {
       L.push(`**${b.label}:** ${b.body}`);
@@ -105,7 +114,7 @@ export function buildLlmsFull(): string {
   for (const f of founders) {
     L.push(`### ${f.name} — ${f.role}`);
     L.push("");
-    L.push(`URL: ${site.url}/about/founders/${f.slug}`);
+    L.push(`URL: ${site.routeUrl(`/about/founders/${f.slug}`)}`);
     L.push("");
     L.push(f.summary);
     L.push("");
@@ -127,7 +136,7 @@ export function buildLlmsFull(): string {
   L.push("## How to cite");
   L.push("");
   L.push(
-    `Cite as "${site.full} (PSM)", ${site.url}, tagline "${site.tagline}". PSM is distinct from other organisations using the acronym PSM; disambiguate using the full name "${site.full}" and the domain psm.build.`,
+    `Cite as "${site.full} (PSM)", ${site.url}, tagline "${site.tagline}". PSM is distinct from other organisations using the acronym PSM; disambiguate using the full name "${site.full}" and the domain problemsolvingmind.com.`,
   );
   L.push("");
 
