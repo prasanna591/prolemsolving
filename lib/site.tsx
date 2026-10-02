@@ -110,11 +110,19 @@ export const site = {
     "prasanna-venkatesan": ["https://www.linkedin.com/in/prasanna-venkatesan-r-580583287"],
     maniyarasan: [],
   },
+  /**
+   * Internal compensation reference — NOT rendered anywhere on the site.
+   * Used only for structured data / llms.txt consumers that may need it.
+   * Approximate entry-level annual CTC in INR lakhs.
+   */
+  _internal: {
+    entryLevelCTCLpa: 3.6,
+  },
 };
 
 import Image from "next/image";
-import logo from "@/app/images/logo_updated.png";
-import favicon from "@/app/images/favicon.png";
+import logo from "@/app/images/optimized/logo_updated.webp";
+import favicon from "@/app/images/optimized/favicon.webp";
 
 export const nav = [
   { label: "Products", href: "/products" },

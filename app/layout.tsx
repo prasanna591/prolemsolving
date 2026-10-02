@@ -5,6 +5,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { site } from "@/lib/site";
+import homeHeroBg from "@/app/images/optimized/home-hero-background.webp";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -63,6 +64,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${manrope.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        <link rel="preload" as="image" href={homeHeroBg.src} />
+        <link rel="preload" as="image" href="/_next/static/media/favicon.1lna_cgbt81b-.webp" />
+        <link rel="manifest" href="/manifest.webmanifest" />
+      </head>
       <body>
         <script
           dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js');" }}
@@ -88,6 +94,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           */}
           <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js').catch(() => {});
+                });
+              }
+            `,
+          }}
+        />
         <MotionConfig reducedMotion="user">
           <Navbar />
           <main id="main">{children}</main>

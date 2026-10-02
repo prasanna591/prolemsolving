@@ -4,7 +4,7 @@ import Image from "next/image";
 import type { StaticImageData } from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "framer-motion";
 import type { ReactNode } from "react";
-import bg from "@/app/images/home-hero-background.webp";
+import bg from "@/app/images/optimized/home-hero-background.webp";
 
 interface HeroSceneProps {
   eyebrow?: string;

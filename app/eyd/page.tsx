@@ -12,8 +12,8 @@ import { CtaBand } from "@/components/cta-band";
 import { featured } from "@/lib/products";
 import { eydPageSchema } from "@/lib/structured";
 import { pageMetadata } from "@/lib/seo";
-import heroBg from "@/app/images/building.webp";
-import reference from "@/app/images/EYD_referance.webp";
+import heroBg from "@/app/images/optimized/building.webp";
+import reference from "@/app/images/optimized/EYD_referance.webp";
 
 export const metadata = pageMetadata({
   title: "EYD — Explore Your Dreams",

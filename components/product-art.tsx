@@ -1,11 +1,11 @@
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
 import type { Product } from "@/lib/products";
-import eydShot from "@/app/images/eyd.webp";
-import lecomShot from "@/app/images/lecom.webp";
-import boowaShot from "@/app/images/boowa.webp";
-import auraShot from "@/app/images/aura.webp";
-import founderShot from "@/app/images/founder_OS.webp";
+import eydShot from "@/app/images/optimized/eyd.webp";
+import lecomShot from "@/app/images/optimized/lecom.webp";
+import boowaShot from "@/app/images/optimized/boowa.webp";
+import auraShot from "@/app/images/optimized/aura.webp";
+import founderShot from "@/app/images/optimized/founder_OS.webp";
 
 const shots: Record<Product["visual"], { src: StaticImageData; alt: string }> = {
   eyd: { src: eydShot, alt: "EYD — 3D property and home-building platform" },

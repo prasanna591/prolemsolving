@@ -13,7 +13,7 @@ import { faqs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { productsSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
-import productHeroBg from "@/app/images/product_hero_bg.webp";
+import productHeroBg from "@/app/images/optimized/product_hero_bg.webp";
 
 export const metadata = pageMetadata({
   title: "Software Products & Product Development",

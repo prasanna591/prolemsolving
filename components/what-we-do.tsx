@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import wdsBg from "@/app/images/bg-what-we-do.webp";
-import buildProducts from "@/app/images/build_products.webp";
-import solving from "@/app/images/Solving.webp";
-import connect from "@/app/images/connect.webp";
+import wdsBg from "@/app/images/optimized/bg-what-we-do.webp";
+import buildProducts from "@/app/images/optimized/build_products.webp";
+import solving from "@/app/images/optimized/Solving.webp";
+import connect from "@/app/images/optimized/connect.webp";
 
 const arrowIcon = (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">

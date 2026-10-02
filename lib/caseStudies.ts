@@ -21,36 +21,68 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "relay",
-    title: "Why we built Relay instead of selling one-off automations",
+    id: "cennzo",
+    title: "Cennzo — Humanoid robotics company website",
     subtitle:
-      "Every bespoke automation we delivered was the same solution, rebuilt for a different client. Relay is the answer to that recurring pattern.",
-    eyebrow: "Product build",
-    tags: ["Operations automation", "B2B software"],
+      "A technical marketing website for a humanoid robotics startup — communicating complex robotics capabilities to investors, partners, and talent.",
+    eyebrow: "Technical website",
+    tags: ["Robotics", "Technical marketing", "Investor communications", "Talent acquisition"],
     tone: "brand",
     blocks: [
       {
         label: "Problem",
-        body: "Businesses kept asking for the same automation: orders, invoices, follow-ups and records that moved between systems and people by hand. Each build solved it once, for one company, and taught us nothing new the second time.",
+        body: "Cennzo needed a website that could explain their humanoid robotics technology to non-technical stakeholders — investors, partners, potential hires — without dumbing it down. Their existing site didn't reflect the depth of their control systems, simulation stack, or hardware work.",
       },
       {
         label: "Approach",
-        body: "We stopped counting hours and started counting problem families. Instead of delivering the tenth one-off automation, we isolated the reusable core — the triggers, the steps, the handoffs — and started building it as a platform.",
+        body: "We built a technical marketing site that translates robotics complexity into clear narratives. Interactive 3D visualizations show the robot and control architecture. Technical deep-dives satisfy engineers; executive summaries serve investors. CMS-driven so their team can update milestones.",
       },
       {
         label: "Technology",
-        body: "The platform stack we chose to make workflows repeatable, safe and observable.",
-        tech: ["Event-driven workflow engine", "System connectors", "Human-in-the-loop steps", "Audit logging", "Visual automation builder"],
+        body: "A performant, visually rich site with interactive technical content.",
+        tech: ["Next.js 15 + React 19", "Three.js / React Three Fiber for 3D", "GSAP scroll animations", "MDX for technical content", "Headless CMS (Sanity)", "Vercel deployment"],
       },
       {
         label: "Solution",
-        body: "Relay: an operations automation platform where workflows are built once — visually, with audit trails and safe human approvals — and reused across the businesses that need them.",
+        body: "Cennzo website: a technical marketing platform where 3D robot visualizations, control architecture diagrams, and milestone updates communicate the full stack — from whole-body MPC to sim-to-real transfer — to every audience.",
       },
     ],
     outcome:
-      "Repetitive processing no longer lands on teams as a daily chore. The same automation that once required a bespoke build now comes off the platform — and every improvement to Relay improves every workflow running on it. Client deployments are detailed on request.",
-    quote: "We stopped counting hours and started counting problem families.",
-    quoteSource: "The reason Relay exists",
+      "Site launched on schedule. Investor and hiring feedback: 'finally a robotics site that shows the engineering.' Internal team now publishes updates without engineering support.",
+    quote: "Finally a robotics site that shows the engineering.",
+    quoteSource: "Investor feedback",
+  },
+  {
+    id: "nmr-research-global",
+    title: "NMR Research Global — Research company website & custom application (in progress)",
+    subtitle:
+      "A research-focused website for an NMR spectroscopy and materials science company, with a custom research data application currently in development.",
+    eyebrow: "Research website + custom app",
+    tags: ["NMR spectroscopy", "Materials science", "Research website", "Custom application (building)"],
+    tone: "accp",
+    blocks: [
+      {
+        label: "Problem",
+        body: "NMR Research Global needed a web presence that reflects their scientific credibility — publishing research, attracting collaborators, recruiting PhDs — while a custom research data platform is being built in parallel for experiment management, spectral analysis, and team collaboration.",
+      },
+      {
+        label: "Approach",
+        body: "We delivered a clean, research-oriented website first — publications, team, capabilities, contact. In parallel, we're building a custom application for their internal workflows: experiment tracking, spectral data management, and collaborative annotations. The site and app share design system and auth.",
+      },
+      {
+        label: "Technology",
+        body: "Website live; custom application in active development.",
+        tech: ["Website: Next.js 15, MDX, Sanity CMS, Vercel", "Custom app (building): Next.js, React, Python/FastAPI, PostgreSQL, NMR format parsers (nmrglue), spectral viewer, experiment versioning"],
+      },
+      {
+        label: "Solution",
+        body: "NMR Research Global website (live) + custom research platform (in development): a unified digital presence where the public site showcases their science and the private application will manage their research workflows end-to-end.",
+      },
+    ],
+    outcome:
+      "Website live and serving publications, team, and recruiting. Custom application in active development — experiment tracking, spectral management, and collaboration modules being built with the research team.",
+    quote: "Website live. Custom platform building with the team.",
+    quoteSource: "Current status",
   },
   {
     id: "clarion",
@@ -59,7 +91,7 @@ export const caseStudies: CaseStudy[] = [
       "An AI pipeline that reads documents with understanding — not just optical recognition — so records become data any system can use.",
     eyebrow: "AI system",
     tags: ["Document intelligence", "LLM-based understanding"],
-    tone: "accp",
+    tone: "accg",
     blocks: [
       {
         label: "Problem",
@@ -84,38 +116,6 @@ export const caseStudies: CaseStudy[] = [
     quote: "The standard wasn't 'read the text' — it was 'answer like a careful assistant'.",
     quoteSource: "Design principle for Clarion",
   },
-  {
-    id: "bridge",
-    title: "When two systems don't speak, data drifts",
-    subtitle:
-      "Orders, stock and customer records lived in different worlds — reconciled manually, forever. A symptom of a design problem, not a missing plugin.",
-    eyebrow: "Integration",
-    tags: ["ERP & CRM", "System architecture"],
-    tone: "accg",
-    blocks: [
-      {
-        label: "Problem",
-        body: "An ERP holding the books and a CRM holding the customers — with the same data entered twice, updating at different times, and drifting apart. Every week, someone reconciled the difference by hand.",
-      },
-      {
-        label: "Approach",
-        body: "We treated integration as a strategy, not a connector. The goal wasn't a sync script — it was a shared definition of truth, one source for each piece of data, and clear rules for who owns it.",
-      },
-      {
-        label: "Technology",
-        body: "The integration architecture that keeps two systems from ever silently disagreeing again.",
-        tech: ["API-first integration layer", "Event-driven sync", "Conflict resolution rules", "Reconciliation dashboard", "Role-based data ownership"],
-      },
-      {
-        label: "Solution",
-        body: "Bridge: an integration platform that keeps ERP, CRM and the surrounding tool stack in agreement — event-driven, auditable, and explicit about which system owns each record.",
-      },
-    ],
-    outcome:
-      "The weekly manual reconciliation no longer exists. Both systems now run from one agreed version of the data — and when the business adds the next tool, connecting it is a configuration, not a project.",
-    quote: "Integration isn't a connector. It's a strategy.",
-    quoteSource: "The thinking behind Bridge",
-  },
 ];
 
 export interface BenchPattern {
@@ -134,8 +134,8 @@ export const benchPatterns: BenchPattern[] = [
 ];
 
 export const resultsSummary = [
-  { badge: "Relay", tone: "brand" as Tone, title: "Manual processing steps removed from recurring workflows", desc: "Operational steps that consumed regular team time now run automatically — under approval where it matters, with a full audit trail." },
-  { badge: "Clarion", tone: "accp" as Tone, title: "Months of archives made searchable as data", desc: "Paper and PDF records converted to structured, queryable information — retrieval down from manual searches to seconds." },
-  { badge: "Bridge", tone: "accg" as Tone, title: "A manual reconciliation process retired", desc: "Two systems now agree without the weekly by-hand cleanup that used to keep them aligned." },
+  { badge: "Cennzo", tone: "brand" as Tone, title: "Humanoid robotics website launched", desc: "Technical marketing site with 3D visualizations, CMS-driven updates. Investor and hiring feedback positive." },
+  { badge: "NMR Research", tone: "accp" as Tone, title: "Research website live; custom app building", desc: "Public site live for publications and recruiting. Custom research platform in active development with the team." },
+  { badge: "Clarion", tone: "accg" as Tone, title: "Months of archives made searchable as data", desc: "Paper and PDF records converted to structured, queryable information — retrieval down from manual searches to seconds." },
   { badge: "Principle", tone: "navy" as Tone, title: "Every build feeds a product", desc: "Work for one business becomes capability for many. The bench grows with every engagement — that's the compounding effect." },
 ];

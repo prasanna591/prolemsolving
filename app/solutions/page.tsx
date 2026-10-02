@@ -11,7 +11,7 @@ import { problems, capabilities, faqs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { servicesSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
-import solutionHeroBg from "@/app/images/solution_hero.webp";
+import solutionHeroBg from "@/app/images/optimized/solution_hero.webp";
 
 export const metadata = pageMetadata({
   title: "AI Automation, Custom Software & ERP/CRM Integration",

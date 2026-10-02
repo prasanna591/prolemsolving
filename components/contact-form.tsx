@@ -157,18 +157,19 @@ export function ContactForm() {
         </label>
         <input id="company" name="company" type="text" autoComplete="organization" placeholder={'Company or "just me"'} />
       </div>
-      <div className="field mt-5">
+<div className="field mt-5">
         <label htmlFor="service">What do you need?</label>
         <select id="service" name="service" defaultValue="" required>
           <option value="" disabled>
             Select a reason
           </option>
           <option>Product development</option>
-          <option>Business Automation &amp; AI</option>
+          <option>Business Automation & AI</option>
           <option>Software Development</option>
           <option>System Modernization</option>
           <option>Mobile Apps</option>
-          <option>Data &amp; Reporting</option>
+          <option>Data & Reporting</option>
+          <option>Career / Join the team</option>
           <option>Something else</option>
         </select>
       </div>

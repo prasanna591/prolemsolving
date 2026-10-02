@@ -13,7 +13,9 @@ import { capabilities } from "@/lib/content";
 import { founders } from "@/lib/founders";
 import { FounderPhoto } from "@/components/founder-photo";
 import { pageMetadata } from "@/lib/seo";
-import workingPic from "@/app/images/working_pic.webp";
+import workingPic from "@/app/images/optimized/working_pic.webp";
+import teamImg from "@/app/images/optimized/team.webp";
+import aboutHeroBg from "@/app/images/optimized/about_hero.webp";
 import { aboutSchema, breadcrumbSchema, webPageSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
 
@@ -25,8 +27,6 @@ export const metadata = pageMetadata({
 });
 
 /* ---------------- copy blocks ---------------- */
-
-const productionSteps = ["Problem", "Understanding", "Ideas", "Technology", "Product", "Impact"];
 
 const transforms = [
   { from: "Complex", to: "Connected" },
@@ -152,38 +152,26 @@ export default function AboutPage() {
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])} />
 
       {/* 01 — HERO */}
-      <header className="sec sec--white about-hero">
-        <div className="container-x grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
-          <div>
-            <Reveal>
-              <span className="eyebrow">About &mdash; Problem Solving Mind</span>
-            </Reveal>
-            <Reveal delay={90}>
-              <h1 className="display mt-6">
-                We believe every problem is an{" "}
-                <em className="grad-text">opportunity to build something better.</em>
-              </h1>
-            </Reveal>
-            <Reveal delay={180}>
-              <p className="lede mt-7 max-w-[560px]">
-                Problem Solving Mind is a product-focused technology company building practical software, AI-powered
-                solutions, and intelligent platforms for real-world problems.
-              </p>
-            </Reveal>
-          </div>
-
-          <Reveal delay={220} className="mx-auto w-full max-w-[320px]">
-            <div className="psm-flow">
-              {productionSteps.map((label, i) => (
-                <div key={label} className="pf-wrap">
-                  <Reveal className="pf-item" delay={i * 110}>
-                    <span className="pf-dot" style={{ background: i === 2 ? "var(--color-brand-light)" : i === 4 ? "var(--color-navy)" : "var(--color-brand)" }} />
-                    <span className="pf-label">{label}</span>
-                  </Reveal>
-                  {i < productionSteps.length - 1 && <span className="pf-line" />}
-                </div>
-              ))}
-            </div>
+      <header className="sec sec--white about-hero relative overflow-hidden">
+        <div className="about-hero__bg" aria-hidden="true">
+          <Image src={aboutHeroBg} alt="" fill sizes="100vw" priority quality={72} />
+        </div>
+        <div className="about-hero__scrim" aria-hidden="true" />
+        <div className="container-x relative z-[1]">
+          <Reveal>
+            <span className="eyebrow">About &mdash; Problem Solving Mind</span>
+          </Reveal>
+          <Reveal delay={90}>
+            <h1 className="display mt-6 max-w-[560px]">
+              We believe every problem is an{" "}
+              <em className="grad-text">opportunity to build something better.</em>
+            </h1>
+          </Reveal>
+          <Reveal delay={180}>
+            <p className="lede mt-7 max-w-[560px]">
+              Problem Solving Mind is a product-focused technology company building practical software, AI-powered
+              solutions, and intelligent platforms for real-world problems.
+            </p>
           </Reveal>
         </div>
       </header>
@@ -373,7 +361,7 @@ export default function AboutPage() {
             <Reveal delay={120}>
               <div className="hww-photo">
                 <Image
-                  src={workingPic}
+                  src={teamImg}
                   alt="The PSM team at work"
                   sizes="(max-width: 1024px) 100vw, 480px"
                 />
@@ -507,7 +495,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 10 — VISION */}
+      {/* 10 — VISION & MISSION */}
       <section className="sec relative overflow-hidden bg-navy text-white noise" style={{ minHeight: "100vh" }}>
         <div className="vg-stage" aria-hidden="true">
           <span className="vg-ring" style={{ animationDelay: "-3.2s" }} />
@@ -517,7 +505,7 @@ export default function AboutPage() {
         </div>
         <div className="container-x relative z-[2] flex min-h-[calc(100vh-2rem)] flex-col items-center justify-center py-24 text-center">
           <Reveal>
-            <span className="eyebrow eyebrow--light">The long-term vision</span>
+            <span className="eyebrow eyebrow--light">Our Vision & Mission</span>
           </Reveal>
           <Reveal delay={100}>
             <h2 className="stmnt stmnt--xl mt-8">
@@ -532,9 +520,21 @@ export default function AboutPage() {
               and eventually reach people and businesses at scale.
             </p>
           </Reveal>
+          <div className="mt-16 max-w-[800px]">
+            <div className="grid gap-8 md:grid-cols-2 text-left">
+              <Reveal delay={300} className="vm-card">
+                <span className="eyebrow eyebrow--light" style={{ marginBottom: "0.5rem", display: "inline-block" }}>Our Vision</span>
+                <h3 className="stmnt stmnt--md mt-3">A global company that solves problems and creates livelihoods through innovation.</h3>
+              </Reveal>
+              <Reveal delay={400} className="vm-card">
+                <span className="eyebrow eyebrow--light" style={{ marginBottom: "0.5rem", display: "inline-block" }}>Our Mission</span>
+                <h3 className="stmnt stmnt--md mt-3">Turn real-world problems into technology that creates opportunity.</h3>
+              </Reveal>
+            </div>
+          </div>
           <div className="mt-12 flex items-center justify-center gap-6 md:gap-12">
             {["Build.", "Learn.", "Scale."].map((w, i) => (
-              <Reveal key={w} delay={i * 140}>
+              <Reveal key={w} delay={i * 140 + 500}>
                 <span className="vis-word">{w}</span>
               </Reveal>
             ))}

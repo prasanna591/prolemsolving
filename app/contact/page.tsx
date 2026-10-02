@@ -1,4 +1,5 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, User } from "lucide-react";
+import Image from "next/image";
 import { PageHeader } from "@/components/page-header";
 import { Reveal } from "@/components/reveal";
 import { ContactForm } from "@/components/contact-form";
@@ -6,6 +7,7 @@ import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 import { contactSchema, breadcrumbSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
+import contactImg from "@/app/images/optimized/contact.webp";
 
 export const metadata = pageMetadata({
   title: "Contact & Get a Quote",
@@ -15,6 +17,12 @@ export const metadata = pageMetadata({
 });
 
 const channels = [
+  {
+    icon: User,
+    t: "Primary contact",
+    d: "Maniyarasan S. — Co-founder",
+    href: null,
+  },
   ...site.emails.map(({ label, address }) => ({
     icon: Mail,
     t: label === "General" ? "General enquiries" : `Email — ${label}`,
@@ -24,8 +32,8 @@ const channels = [
   {
     icon: Phone,
     t: "Phone / WhatsApp",
-    d: site.phoneDisplay,
-    href: `tel:${site.phoneHref}`,
+    d: "+91 93602 07861",
+    href: "tel:+919360207861",
   },
   { icon: MapPin, t: "Based in", d: `${site.locality}, ${site.region} — working worldwide`, href: null },
 ];
@@ -35,13 +43,41 @@ export default function ContactPage() {
     <div className="page-shell">
       <JsonLd data={contactSchema()} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }])} />
-      <PageHeader
-        eyebrow="Contact"
-        eyebrowTone="g"
-        title={<>Let&rsquo;s talk about <em className="grad-text">your problem.</em></>}
-        lede="Send us a note about what you're trying to solve. We'll read it properly, reply honestly, and tell you whether we can actually help."
-      />
 
+      {/* Hero: text left, image right */}
+      <section className="sec sec--white relative overflow-hidden" aria-labelledby="contact-hero-title">
+        <div className="container-x grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div>
+            <Reveal>
+              <span className="eyebrow" style={{ color: "var(--color-brand)" }}>Contact</span>
+              <h1 id="contact-hero-title" className="display mt-6 max-w-[560px]">
+                Let&rsquo;s talk about <em className="grad-text">your problem.</em>
+              </h1>
+            </Reveal>
+            <Reveal delay={90}>
+              <p className="lede mt-7 max-w-[560px]">
+                Send us a note about what you&rsquo;re trying to solve. We&rsquo;ll read it properly, reply honestly,
+                and tell you whether we can actually help.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal delay={120}>
+            <div className="contact-hero__img mx-auto max-w-[580px]">
+              <Image
+                src={contactImg}
+                alt="PSM team collaboration"
+                width={580}
+                height={420}
+                priority
+                quality={80}
+                sizes="(max-width: 1024px) 100vw, 580px"
+              />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Contact info + form */}
       <section className="sec sec--white" style={{ paddingTop: "1.5rem" }}>
         <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
           {/* info column */}

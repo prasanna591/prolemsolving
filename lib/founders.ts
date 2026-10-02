@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
-import founderImage from "@/app/images/founder.webp";
-import cofounderImage from "@/app/images/Co-founder(Maniyarasan).webp";
+import founderImage from "@/app/images/optimized/founder.webp";
+import cofounderImage from "@/app/images/optimized/cofounder-maniyarasan.webp";
 
 export interface Founder {
   slug: string;

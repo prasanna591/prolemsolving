@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Button } from "@/components/button";
-import bg from "@/app/images/home-hero-background.webp";
+import bg from "@/app/images/optimized/home-hero-background.webp";
 
 /**
  * Parallax is scroll-driven, so it carries no `initial` state and stays out

@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 import { workSchema, breadcrumbSchema, faqSchema } from "@/lib/structured";
 import { FaqSection } from "@/components/faq";
 import { JsonLd } from "@/components/jsonld";
-import workHeroBg from "@/app/images/founders_about.webp";
+import workHeroBg from "@/app/images/optimized/founders_about.webp";
 
 export const metadata = pageMetadata({
   title: "Our Work & Case Studies",

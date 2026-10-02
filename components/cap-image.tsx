@@ -16,12 +16,12 @@ import type { Capability } from "@/lib/content";
  * type error; it should render a placeholder. Making the key optional is what
  * lets rows be added one at a time.
  */
-import one_solution from "@/app/images/1_solution.png";
-import two_solution from "@/app/images/2_solution.png";
-import three_solution from "@/app/images/3_solution.png";
-import four_solution from "@/app/images/4_solution.png";
-import five_solution from "@/app/images/5_solution.png";
-import six_solution from "@/app/images/6_solution.png";
+import one_solution from "@/app/images/optimized/1_solution.webp";
+import two_solution from "@/app/images/optimized/2_solution.webp";
+import three_solution from "@/app/images/optimized/3_solution.webp";
+import four_solution from "@/app/images/optimized/4_solution.webp";
+import five_solution from "@/app/images/optimized/5_solution.webp";
+import six_solution from "@/app/images/optimized/6_solution.webp";
 
 const shots: Partial<Record<Capability["visual"], { src: StaticImageData; alt: string }>> = {
   dashboard: { src: one_solution, alt: "Custom software development solution" },

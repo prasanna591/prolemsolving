@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { careersSchema } from "@/lib/structured";
 import { openRoles, hasOpenRoles, applyHref, careersEmail, disciplines, traits, benefits, process } from "@/lib/careers";
-import heroImg from "@/app/images/employee_working.webp";
+import heroImg from "@/app/images/optimized/employee_working.webp";
 
 export const metadata = pageMetadata({
   title: "Careers",
