@@ -20,31 +20,35 @@ export function StickyStatement() {
     const sec = secRef.current;
     if (!sec) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!window.matchMedia("(min-width: 768px)").matches) return;
 
-    const lines = sec.querySelectorAll<HTMLElement>(".sticky-st__line");
-    if (!lines.length) return;
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+      const lines = sec.querySelectorAll<HTMLElement>(".sticky-st__line");
+      if (!lines.length) return;
 
-    const ctx = gsap.context(() => {
-      gsap.set(lines, { opacity: 0, y: 40 });
+      const ctx = gsap.context(() => {
+        gsap.set(lines, { opacity: 0, y: 40 });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sec,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sec,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        });
 
-      tl.fromTo(lines[0], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 })
-        .to(lines[0], { opacity: 0, y: -40, duration: 1 }, 1)
-        .fromTo(lines[1], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, 1)
-        .to(lines[1], { opacity: 0, y: -40, duration: 1 }, 2)
-        .fromTo(lines[2], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, 2);
-    }, sec);
+        tl.fromTo(lines[0], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 })
+          .to(lines[0], { opacity: 0, y: -40, duration: 1 }, 1)
+          .fromTo(lines[1], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, 1)
+          .to(lines[1], { opacity: 0, y: -40, duration: 1 }, 2)
+          .fromTo(lines[2], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, 2);
+      }, sec);
 
-    return () => ctx.revert();
+      return () => ctx.revert();
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -57,7 +61,7 @@ export function StickyStatement() {
             <span className="eyebrow eyebrow--light">What we are</span>
             <h2 className="sticky-st__title">
               We turn real-world problems into{" "}
-              <em className="stmnt-em" style={{ color: "#9cc0ff" }}>
+              <em className="stmnt-em">
                 practical technology
               </em>
               .

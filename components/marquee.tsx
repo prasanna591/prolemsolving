@@ -17,9 +17,7 @@ export function Marquee({ items }: MarqueeProps) {
   return (
     <div className="marquee">
       <p className="sr-only">{items.join(" · ")}</p>
-      <div className="marquee__clip" aria-hidden="true">
-        <div className="marquee__track">{group("a")}{group("b")}</div>
-      </div>
+      <div className="marquee__track" aria-hidden="true">{group("a")}{group("b")}</div>
     </div>
   );
 }

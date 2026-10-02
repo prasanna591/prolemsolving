@@ -17,7 +17,7 @@ export function PageHeader({ eyebrow, eyebrowTone = "default", title, lede, chil
   const isHero = Boolean(image);
   const heroImage = image ?? null;
   return (
-    <header className={isHero ? "hero-scene" : "sec sec--warm"}>
+    <header className={isHero ? "hero-scene" : "sec sec--plum"}>
       {isHero ? (
         <>
           <div className="hero-scene__bg" aria-hidden="true">

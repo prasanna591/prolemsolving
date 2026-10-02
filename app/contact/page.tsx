@@ -25,7 +25,7 @@ const channels = [
     icon: Phone,
     t: "Phone / WhatsApp",
     d: site.phoneDisplay,
-    href: `tel:${site.phone}`,
+    href: `tel:${site.phoneHref}`,
   },
   { icon: MapPin, t: "Based in", d: `${site.locality}, ${site.region} — working worldwide`, href: null },
 ];

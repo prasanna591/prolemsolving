@@ -8,7 +8,7 @@ import { EydShowcase } from "@/components/eyd-showcase";
 import { FaqSection } from "@/components/faq";
 import { HeroScene } from "@/components/hero-scene";
 import { ProductArt } from "@/components/product-art";
-import { featured, inDevelopment, type Product } from "@/lib/products";
+import { featured, inDevelopment, productPath, type Product } from "@/lib/products";
 import { faqs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { productsSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/structured";
@@ -69,7 +69,7 @@ export default function ProductsPage() {
         lede="We build practical technology products that simplify complex experiences, connect people and businesses, and create better ways to solve everyday problems."
       >
         <div className="hero-scene__cta">
-          <Button href="/products/eyd" variant="primary" size="lg" arrow>
+          <Button href="/eyd" variant="primary" size="lg" arrow>
             Discover EYD
           </Button>
           <Button href="/products#portfolio" variant="ghost" size="lg" arrow>
@@ -91,7 +91,7 @@ export default function ProductsPage() {
                 EYD &mdash; <em className="grad-text">Explore Your Dreams.</em>
               </h2>
               <p className="mt-5 dek" style={{ fontSize: "1.05rem" }}>{eyd.description}</p>
-              <p className="mt-4 text" style={{ fontSize: "0.98rem", color: "var(--color-sub)" }}>
+              <p className="mt-4" style={{ fontSize: "0.98rem", color: "var(--color-sub)" }}>
                 Everything from discovering a property to handing over the keys &mdash; in one connected ecosystem.
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
@@ -142,7 +142,7 @@ export default function ProductsPage() {
                     </div>
                     <div className="pcard-foot">
                       <span className="pfolio-meta">{p.category}</span>
-                      <Link href={`/products/${p.id}`} className="pfolio-cta">
+                      <Link href={productPath(p)} className="pfolio-cta">
                         Explore {p.name} <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
                       </Link>
                     </div>
@@ -155,7 +155,7 @@ export default function ProductsPage() {
       </section>
 
       {/* ============ ONE COMPANY. MANY PROBLEMS. ============ */}
-      <section className="sec sec--warm">
+      <section className="sec sec--plum">
         <div className="container-x">
           <Reveal className="text-center">
             <span className="eyebrow eyebrow--g" style={{ marginBottom: "1.1rem" }}>One company. Many problems.</span>
@@ -202,7 +202,7 @@ export default function ProductsPage() {
           <Reveal>
             <span className="eyebrow eyebrow--light">Our Product Philosophy</span>
             <p className="stmnt mt-6">
-              Technology should disappear <span className="text-[#9cc0ff]">into the experience.</span>
+              Technology should disappear <span className="text-brand-pale">into the experience.</span>
             </p>
             <div className="mt-8 max-w-[560px]">
               <p className="text-white/65" style={{ fontSize: "1.08rem" }}>

@@ -1,5 +1,7 @@
 import { site } from "./site";
+import { openRoles } from "./careers";
 import type { Product } from "./products";
+import { featured, productPath } from "./products";
 import type { CaseStudy } from "./caseStudies";
 import type { Capability, Faq } from "./content";
 import productEyd from "@/app/images/eyd.webp";
@@ -23,11 +25,11 @@ const ORG_ID = `${site.url}/#organization`;
 const SITE_ID = `${site.url}/#website`;
 
 const productImage: Record<Product["visual"], string> = {
-  eyd: productEyd.src,
-  lecom: productLecom.src,
-  boowa: productBoowa.src,
-  aura: productAura.src,
-  founder: productFounder.src,
+  eyd: `${site.url}${productEyd.src}`,
+  lecom: `${site.url}${productLecom.src}`,
+  boowa: `${site.url}${productBoowa.src}`,
+  aura: `${site.url}${productAura.src}`,
+  founder: `${site.url}${productFounder.src}`,
 };
 
 export function organizationSchema() {
@@ -41,11 +43,11 @@ export function organizationSchema() {
     telephone: site.phone,
     logo: {
       "@type": "ImageObject",
-      url: `${site.url}/icon.png`,
+      url: `${site.url}/favicon.png`,
       width: 512,
       height: 512,
     },
-    image: `${site.url}/icon.png`,
+    image: `${site.url}/favicon.png`,
     slogan: site.tagline,
     description: site.supportLine,
     foundingLocation: { "@type": "Place", name: `${site.locality}, ${site.region}, ${site.country}` },
@@ -68,7 +70,8 @@ export function organizationSchema() {
     areaServed: site.areaServed,
     /** Multi-valued so local queries ("software company Pondicherry") can match. */
     serviceArea: site.serviceAreas.map((name) => ({ "@type": "Place", name })),
-    numberOfEmployees: { "@type": "QuantitativeValue", value: 2 },
+    /** A floor, not an exact count — `minValue` is how schema.org says "20+". */
+    numberOfEmployees: { "@type": "QuantitativeValue", minValue: site.teamSize },
     keywords: [...site.serviceKeywords, "software development company", "AI automation company"],
     /** Machine-readable service menu — the schema.org equivalent of /solutions. */
     hasOfferCatalog: {
@@ -226,14 +229,14 @@ export function productsSchema(products: Product[]) {
       itemListElement: products.map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        item: { "@id": `${site.url}/products/${p.id}#product` },
+        item: { "@id": `${site.url}${productPath(p)}#product` },
       })),
     },
   };
 }
 
 export function productSchema(p: Product) {
-  const url = `${site.url}/products/${p.id}`;
+  const url = `${site.url}${productPath(p)}`;
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -250,6 +253,59 @@ export function productSchema(p: Product) {
       { "@type": "PropertyValue", name: "Focus areas", value: p.focus.join(", ") },
     ],
     isRelatedTo: { "@id": ORG_ID },
+  };
+}
+
+/** A nested `@context` inside an `@graph` is redundant — the root one applies. */
+function stripContext(node: Record<string, unknown>) {
+  const { "@context": _drop, ...rest } = node;
+  return rest;
+}
+
+/**
+ * The dedicated /eyd page. Same Product entity as /products/eyd, re-anchored to
+ * /eyd so the two URLs describe one product rather than competing ones. Emitted
+ * as a single `@graph` so the WebPage -> breadcrumb -> Product edges resolve
+ * inside one document.
+ */
+export function eydPageSchema() {
+  const p = featured.find((x) => x.id === "eyd")!;
+  const path = "/eyd";
+  const crumbs = [{ name: "Home", path: "/" }, { name: "EYD", path }];
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      stripContext(
+        webPageSchema({
+          path,
+          name: "EYD — Explore Your Dreams",
+          description: p.seoDescription,
+          type: "WebPage",
+          dateModified: "2026-09-30",
+          breadcrumb: crumbs,
+          mainEntity: { "@id": `${site.url}${path}#product` },
+        }),
+      ),
+      { ...stripContext(breadcrumbSchema(crumbs)), "@id": `${site.url}${path}#breadcrumb` },
+      {
+        "@type": "Product",
+        "@id": `${site.url}${path}#product`,
+        name: "EYD — Explore Your Dreams",
+        alternateName: "Explore Your Dreams",
+        description: p.description,
+        category: p.category,
+        url: `${site.url}${path}`,
+        image: [productImage[p.visual]],
+        brand: { "@type": "Brand", name: site.full },
+        manufacturer: { "@id": ORG_ID },
+        additionalProperty: [
+          { "@type": "PropertyValue", name: "Status", value: p.status },
+          { "@type": "PropertyValue", name: "Focus areas", value: p.focus.join(", ") },
+        ],
+        areaServed: { "@type": "State", name: "Tamil Nadu" },
+        isRelatedTo: { "@id": ORG_ID },
+      },
+    ],
   };
 }
 
@@ -369,6 +425,59 @@ export function founderSchema(p: {
       ...personSchema(p),
       description: p.summary,
     },
+  };
+}
+
+/**
+ * Careers page.
+ *
+ * The `ItemList` of `JobPosting` nodes is derived from `openRoles`, so it is
+ * absent while there are no vacancies — deliberately. `JobPosting` on a role
+ * that does not exist is a manual action against the site, so the empty case
+ * emits nothing rather than an empty `ItemList` of zero items.
+ */
+export function careersSchema() {
+  const url = `${site.url}/careers`;
+  const roles = openRoles.map((r) => ({
+    "@type": "JobPosting",
+    "@id": `${url}#${r.slug}`,
+    title: r.title,
+    description: r.summary,
+    employmentType: r.type,
+    hiringOrganization: { "@id": ORG_ID },
+    jobLocationType: r.location.toLowerCase().includes("remote") ? "TELECOMMUTE" : undefined,
+    jobLocation: {
+      "@type": "Place",
+      address: { "@type": "PostalAddress", addressLocality: r.location, addressCountry: "IN" },
+    },
+    directApply: true,
+    url,
+    datePosted: r.datePosted,
+    validThrough: r.validThrough,
+    responsibilities: r.responsibilities,
+    qualifications: r.requirements,
+  }));
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${url}#webpage`,
+        name: `Careers at ${site.full}`,
+        url,
+        isPartOf: { "@id": SITE_ID },
+        about: { "@id": ORG_ID },
+        description:
+          openRoles.length > 0
+            ? `${openRoles.length} open role${openRoles.length > 1 ? "s" : ""} at ${site.full}, plus open applications.`
+            : `No current openings at ${site.full}. Open applications are always accepted for engineering, AI, design and client-facing work.`,
+        mainEntity:
+          roles.length > 0
+            ? { "@type": "ItemList", numberOfItems: roles.length, itemListElement: roles }
+            : undefined,
+      },
+    ],
   };
 }
 

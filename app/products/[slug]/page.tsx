@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { allProducts, type Product } from "@/lib/products";
+import { allProducts, DEDICATED, type Product } from "@/lib/products";
 import { ProductArt } from "@/components/product-art";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata({
     title: product.name,
     description: product.seoDescription,
-    path: `/products/${product.id}`,
+    path: DEDICATED[product.id] ?? `/products/${product.id}`,
   });
 }
 
@@ -40,6 +40,9 @@ export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const product = allProducts.find((p) => p.id === slug);
   if (!product) notFound();
+
+  const dedicated = DEDICATED[product.id];
+  if (dedicated) return <DedicatedNotice product={product} href={dedicated} />;
 
   const others = allProducts.filter((p) => p.id !== product.id);
 
@@ -102,7 +105,7 @@ export default async function ProductPage({ params }: Props) {
       </header>
 
       {/* ---- why it exists ---- */}
-      <section className="sec sec--warm">
+      <section className="sec sec--plum">
         <div className="container-x grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
           <Reveal>
             <span className="eyebrow eyebrow--g">The problem behind it</span>
@@ -171,4 +174,31 @@ export default async function ProductPage({ params }: Props) {
 
 function toneClass(t: Product["statusTone"]): string {
   return { brand: "badge--brand", accp: "badge--accp", accg: "badge--accg", neutral: "badge--neutral" }[t];
+}
+
+/** Thin pointer page — the real content lives on the dedicated product URL. */
+function DedicatedNotice({ product, href }: { product: Product; href: string }) {
+  return (
+    <div className="page-shell">
+      <section className="sec sec--plum">
+        <div className="container-x max-w-[820px]">
+          <Reveal>
+            <span className="eyebrow eyebrow--p">{product.category}</span>
+            <h1 className="h-hero mt-6 mb-5">
+              {product.name} <em className="grad-text">&mdash; {product.tagline}</em>
+            </h1>
+            <p className="dek lead">{product.description}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href={href} variant="primary" size="lg" arrow>
+                Explore {product.name}
+              </Button>
+              <Button href="/products" variant="ghost" size="lg" arrow>
+                All products
+              </Button>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </div>
+  );
 }

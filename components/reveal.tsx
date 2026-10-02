@@ -3,7 +3,15 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { CSSProperties, ReactNode } from "react";
 
-type Variant = "rise" | "fade" | "mask" | "words";
+/**
+ * Only two variants, because only two are implemented.
+ *
+ * CSS owns the start state (`[data-reveal]` in globals.css, gated behind
+ * `@media (scripting: enabled)`), so a variant without a matching CSS rule
+ * would render as `opacity: 0` with no transform — a silent no-op. Adding a
+ * third variant therefore means adding its rule to the motion gate first.
+ */
+type Variant = "rise" | "fade";
 
 interface RevealProps {
   children: ReactNode;
@@ -13,10 +21,8 @@ interface RevealProps {
   as?: keyof HTMLElementTagNameMap;
   style?: CSSProperties;
   /**
-   * rise  — translate up + fade (default, lists/cards)
-   * fade  — opacity only (dense text, already-positioned blocks)
-   * mask  — line masked slide-up (section headings)
-   * words — per-word cascade; children should be a plain string
+   * rise — translate up + fade (default, lists/cards)
+   * fade — opacity only (dense text, already-positioned blocks)
    */
   variant?: Variant;
   /** lift the element up on hover (cards, tiles) */

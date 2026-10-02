@@ -22,11 +22,15 @@ export function Magnetic({ children, className = "", strength = 6 }: MagneticPro
   const current = useRef({ x: 0, y: 0 });
   const active = useRef(false);
 
+  const enabledRef = useRef(false);
+
   useEffect(() => {
     const coarse = window.matchMedia("(pointer: coarse)").matches;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (coarse || reduce) return;
-    return () => cancelAnimationFrame(raf.current);
+    enabledRef.current = !(coarse || reduce);
+    return () => {
+      cancelAnimationFrame(raf.current);
+    };
   }, []);
 
   const loop = () => {
@@ -51,11 +55,12 @@ export function Magnetic({ children, className = "", strength = 6 }: MagneticPro
   };
 
   const start = () => {
-    if (raf.current) return;
+    if (!enabledRef.current || raf.current) return;
     raf.current = requestAnimationFrame(loop);
   };
 
   const move = (e: MouseEvent) => {
+    if (!enabledRef.current) return;
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -67,15 +72,16 @@ export function Magnetic({ children, className = "", strength = 6 }: MagneticPro
   };
 
   const leave = () => {
+    if (!enabledRef.current) return;
     active.current = false;
     target.current = { x: 0, y: 0 };
+    start();
   };
 
   return (
     <div
       ref={ref}
       className={`magnetic ${className}`}
-      style={{ willChange: "transform" }}
       onMouseMove={move}
       onMouseLeave={leave}
     >

@@ -112,3 +112,10 @@ export const inDevelopment: Product[] = [
 ];
 
 export const allProducts = [...featured, ...inDevelopment];
+
+/** Products with a dedicated page of their own. Links should resolve here, not
+ *  to `/products/<id>` — the product route still builds for old inbound links,
+ *  but it canonicalises to these URLs. */
+export const DEDICATED: Record<string, string> = { eyd: "/eyd" };
+
+export const productPath = (p: Product) => DEDICATED[p.id] ?? `/products/${p.id}`;

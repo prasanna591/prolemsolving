@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
-import { allProducts } from "@/lib/products";
+import { allProducts, DEDICATED } from "@/lib/products";
 import { founders } from "@/lib/founders";
 
 export const dynamic = "force-static";
@@ -26,20 +26,24 @@ const EDITED = "2026-09-29";
 const routes: Route[] = [
   { path: "", changeFrequency: "weekly", priority: 1, lastModified: EDITED },
   { path: "/products", changeFrequency: "weekly", priority: 0.9, lastModified: EDITED },
+  { path: "/eyd", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-09-30" },
   { path: "/solutions", changeFrequency: "monthly", priority: 0.9, lastModified: EDITED },
   { path: "/work", changeFrequency: "monthly", priority: 0.8, lastModified: EDITED },
   { path: "/about", changeFrequency: "monthly", priority: 0.8, lastModified: EDITED },
   { path: "/about/motives", changeFrequency: "monthly", priority: 0.7, lastModified: EDITED },
   { path: "/about/founders", changeFrequency: "monthly", priority: 0.7, lastModified: EDITED },
+  { path: "/careers", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-09-30" },
   { path: "/contact", changeFrequency: "yearly", priority: 0.6, lastModified: EDITED },
 ];
 
-const productRoutes: Route[] = allProducts.map((p) => ({
-  path: `/products/${p.id}`,
-  changeFrequency: "monthly",
-  priority: 0.7,
-  lastModified: EDITED,
-}));
+const productRoutes: Route[] = allProducts
+  .filter((p) => !DEDICATED[p.id])
+  .map((p) => ({
+    path: `/products/${p.id}`,
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: EDITED,
+  }));
 
 const founderRoutes: Route[] = founders.map((f) => ({
   path: `/about/founders/${f.slug}`,

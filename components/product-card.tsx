@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type { Product } from "@/lib/products";
+import { productPath, type Product } from "@/lib/products";
 import { Reveal } from "@/components/reveal";
 import { ProductArt } from "@/components/product-art";
 
@@ -25,7 +25,7 @@ export function ProductCard({ product, delay = 0, anchor = true }: { product: Pr
           <div className="product-meta">
             <span>{product.category}</span>
             {anchor ? (
-              <Link href={`/products/${product.id}`}>
+              <Link href={productPath(product)}>
                 View product <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
               </Link>
             ) : (

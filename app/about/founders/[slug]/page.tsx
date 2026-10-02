@@ -119,7 +119,7 @@ export default async function FounderPage({ params }: Props) {
       </section>
 
       {others.length > 0 && (
-        <section className="sec sec--warm">
+        <section className="sec sec--plum">
           <div className="container-x">
             <Reveal>
               <span className="eyebrow eyebrow--g">Work alongside</span>

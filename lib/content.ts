@@ -19,6 +19,12 @@ export interface Capability {
   eyebrowTone: "p" | "g" | "default";
   title: string;
   lede: string;
+  /**
+   * One-line summary for the homepage capability grid, where the full `title`
+   * and `lede` above are far too long to sit on a card. Optional so adding a
+   * capability doesn't break the homepage — but every entry has one.
+   */
+  short?: string;
   points: { title: string; desc: string }[];
   visual: "dashboard" | "automation" | "integrate" | "mobile" | "transform";
 }
@@ -30,6 +36,7 @@ export const capabilities: Capability[] = [
     eyebrowTone: "p",
     title: "Custom software, built around how your business actually works",
     lede: "Off-the-shelf tools weren't built for your workflow — so they fight it. We build software that fits the way your operation really runs.",
+    short: "Platforms, internal tools and enterprise systems.",
     points: [
       { title: "Internal tools and dashboards", desc: "Replacing spreadsheets and guesswork." },
       { title: "Backoffice systems that scale", desc: "Sales, operations, inventory, finance." },
@@ -43,6 +50,7 @@ export const capabilities: Capability[] = [
     eyebrowTone: "g",
     title: "Put the repetitive parts on autopilot",
     lede: "AI is only useful when it removes real work. We apply it to documents, data entry, classification and decision support — where it saves hours every day.",
+    short: "Automate workflows, data and decisions.",
     points: [
       { title: "Document and data extraction", desc: "From piles of paper to clean records." },
       { title: "Workflow automation", desc: "Orchestrating the steps nobody enjoys." },
@@ -56,6 +64,7 @@ export const capabilities: Capability[] = [
     eyebrowTone: "p",
     title: "Make the systems you already own work together",
     lede: "Most businesses don't need a new system — they need the systems they have to stop fighting each other. We wire them up properly.",
+    short: "Connect your existing tools into one ecosystem.",
     points: [
       { title: "ERP ↔ CRM sync", desc: "One record of truth, everywhere it's needed." },
       { title: "Connecting your tool stack", desc: "Email, spreadsheets, platforms, databases." },
@@ -69,6 +78,7 @@ export const capabilities: Capability[] = [
     eyebrowTone: "g",
     title: "Products your customers actually use",
     lede: "Web and mobile apps that put your business in front of the people who buy from it — built like products, polished like software should be.",
+    short: "Web and mobile apps for teams and customers.",
     points: [
       { title: "Customer-facing web apps", desc: "Portals, storefronts, booking, self-service." },
       { title: "Mobile applications", desc: "Native-feeling experiences on every screen." },
@@ -82,6 +92,7 @@ export const capabilities: Capability[] = [
     eyebrowTone: "p",
     title: "From paper-based to platform-driven",
     lede: "Stepping into digital operation isn't about buying software — it's about reworking how the business runs, step by step, with the people doing the work.",
+    short: "From manual processes to structured digital workflows.",
     points: [
       { title: "Digitise what runs on paper", desc: "Forms, approvals, records, coordination." },
       { title: "Change that lands", desc: "Adoption handled, not just systems delivered." },
@@ -97,6 +108,40 @@ export const values = [
   { title: "Built around outcomes", desc: "We measure success by whether a real problem got solved — for our products, and for the businesses we work with." },
   { title: "Thinking beyond projects", desc: "Every build feeds into reusable products and platforms. One day, products used around the world." },
 ];
+
+/**
+ * Homepage "why PSM" grid. Deliberately separate from `values` above: those are
+ * the company principles on /about, written for the team reading them. These
+ * four are the buyer's objections — why choose us over another vendor — so they
+ * share a structure but not a wording. Changing one must not silently rewrite
+ * the other.
+ */
+export const whyPsm = [
+  { title: "Problem-first", desc: "We find the real bottleneck before we build anything. The technology comes after." },
+  { title: "Practical technology", desc: "Chosen for what you actually need — not for what's trending this quarter." },
+  { title: "End-to-end", desc: "One team from the first idea through to a working system in daily use." },
+  { title: "Built to grow", desc: "Solutions that scale with your organisation, not solutions that cap out." },
+];
+
+/**
+ * Vision and mission, quoted from the company brief. Kept here rather than in
+ * a component so the same wording can feed structured data later.
+ */
+export const vision =
+  "A global company that solves problems and creates livelihoods through innovation.";
+
+export const mission =
+  "Turn real-world problems into technology that creates opportunity.";
+
+/**
+ * Forward-looking statement. Public-facing for now — the brief flags this as
+ * optional, so removing this export and its band is the only edit needed to
+ * take hardware off the site.
+ */
+export const lookingAhead = {
+  title: "Software today. More tomorrow.",
+  desc: "We start with software and AI, and we plan to grow into hardware products. The focus stays the same: solve real problems and create opportunity.",
+};
 
 export const journey = [
   { n: "01", title: "Problems", desc: "We begin with the pain — a process that breaks, a task nobody wants, an opportunity the business can't reach." },

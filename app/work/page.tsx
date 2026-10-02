@@ -91,7 +91,7 @@ export default function WorkPage() {
       </section>
 
       {/* results */}
-      <section className="sec sec--warm">
+      <section className="sec sec--plum">
         <div className="container-x">
           <SectionHeading
             eyebrow="Results"

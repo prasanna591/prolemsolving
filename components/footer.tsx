@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { site, brandLockup } from "@/lib/site";
+import { site, brandMark } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -8,15 +8,17 @@ export function Footer() {
       <div className="container-x">
         <div className="foot-grid">
           <div className="foot-brand">
-            {brandLockup}
+            {brandMark}
             <p>{site.full} — building products and turning real-world problems into practical technology.</p>
           </div>
           <div className="foot-col">
             <h2>Company</h2>
             <Link href="/products">Products</Link>
+            <Link href="/eyd">EYD — Explore Your Dreams</Link>
             <Link href="/about">About</Link>
             <Link href="/about/motives">Why PSM exists</Link>
             <Link href="/about/founders">Our people</Link>
+            <Link href="/careers">Careers</Link>
             <Link href="/work">Work</Link>
             <Link href="/contact">Let&rsquo;s Talk</Link>
             <Link href="/privacy">Privacy</Link>

@@ -6,7 +6,7 @@ import { Magnetic } from "@/components/magnetic";
 import { Button } from "@/components/button";
 import { CtaBand } from "@/components/cta-band";
 import { FaqSection } from "@/components/faq";
-import { CapVisual } from "@/components/cap-visual";
+import { CapImage } from "@/components/cap-image";
 import { problems, capabilities, faqs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { servicesSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/structured";
@@ -71,7 +71,7 @@ export default function SolutionsPage() {
                 <div className="card card--raised h-full flex flex-col">
                   <h3 className="h3 mb-2">{p.problem}</h3>
                   <p className="dek flex-1" style={{ fontSize: "0.96rem" }}>{p.desc}</p>
-                  <span className="badge badge--accg mt-5" style={{ alignSelf: "flex-start", whiteSpace: "normal", textAlign: "left" }}>
+                  <span className="badge badge--accg badge--wrap mt-5 self-start">
                     <ArrowUpRight size={14} aria-hidden="true" /> {p.outcome}
                   </span>
                 </div>
@@ -85,7 +85,16 @@ export default function SolutionsPage() {
       <section className="sec sec--white" id="capabilities" style={{ scrollMarginTop: "4rem" }}>
         <div className="container-x">
           {capabilities.map((cap, idx) => (
-            <div key={cap.id} className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${idx ? "mt-20 lg:mt-28" : ""}`}>
+            /* `id` + `scrollMarginTop` are load-bearing: the footer, /about and
+               llms.txt all deep-link to `#${cap.id}`, and without them every one
+               of those links landed at the top of the page with no indication
+               of failure. */
+            <div
+              key={cap.id}
+              id={cap.id}
+              style={{ scrollMarginTop: "var(--nav-h-scrolled)" }}
+              className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${idx ? "mt-20 lg:mt-28" : ""}`}
+            >
               <Reveal className={idx % 2 ? "lg:order-2" : ""}>
                 <SectionHeading
                   eyebrow={cap.eyebrow}
@@ -108,9 +117,7 @@ export default function SolutionsPage() {
                 </ul>
               </Reveal>
               <Reveal delay={100} className={idx % 2 ? "lg:order-1" : ""}>
-                <div className="wsd-media">
-                  <CapVisual visual={cap.visual} />
-                </div>
+                <CapImage visual={cap.visual} label={cap.eyebrow} />
               </Reveal>
             </div>
           ))}
@@ -123,7 +130,7 @@ export default function SolutionsPage() {
           <Reveal>
             <span className="eyebrow eyebrow--light">End-to-end integration</span>
             <p className="stmnt mt-6">
-              We don&rsquo;t hand over isolated pieces. <span className="text-[#9cc0ff]">We connect the whole system.</span>
+              We don&rsquo;t hand over isolated pieces. <span className="text-brand-pale">We connect the whole system.</span>
             </p>
           </Reveal>
           <Reveal delay={100}>

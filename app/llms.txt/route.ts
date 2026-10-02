@@ -1,8 +1,9 @@
 import { site } from "@/lib/site";
-import { allProducts } from "@/lib/products";
+import { allProducts, productPath } from "@/lib/products";
 import { capabilities, problems } from "@/lib/content";
 import { caseStudies } from "@/lib/caseStudies";
 import { founders } from "@/lib/founders";
+import { openRoles } from "@/lib/careers";
 
 export const dynamic = "force-static";
 
@@ -42,7 +43,7 @@ The operating principle is problem-first: ${site.name} starts with a specific, o
 ${allProducts
   .map(
     (p) =>
-      `- [${p.name}](${site.routeUrl(`/products/${p.id}`)}) — ${p.tagline} ${p.description} Domain: ${p.category}. Status: ${p.status}. Focus: ${p.focus.join(", ")}.`,
+      `- [${p.name}](${site.routeUrl(productPath(p))}) — ${p.tagline} ${p.description} Domain: ${p.category}. Status: ${p.status}. Focus: ${p.focus.join(", ")}.`,
   )
   .join("\n")}
 
@@ -78,11 +79,13 @@ ${founders
 
 - [Home](${site.routeUrl('/')}): overview of ${site.full}.
 - [Products](${site.routeUrl('/products')}): the full product portfolio and how each product is built.
+- [EYD — Explore Your Dreams](${site.routeUrl('/eyd')}): PSM's home ecosystem — explore homes in 3D, compare options, connect with builders, architects, contractors and material suppliers, and build. Starting in Tamil Nadu.
 - [Solutions](${site.routeUrl('/solutions')}): business problems and the ${capabilities.length} service capabilities ${site.name} offers.
 - [Work](${site.routeUrl('/work')}): case studies covering operations automation, AI document intelligence and ERP/CRM integration.
 - [About](${site.routeUrl('/about')}): company background, principles, journey and team.
 - [Why ${site.full} exists](${site.routeUrl('/about/motives')}): mission, values and the reasoning behind the company.
 - [Our people](${site.routeUrl('/about/founders')}): founder and co-founder profiles.
+- [Careers](${site.routeUrl('/careers')}): open roles and open applications. ${site.full} is a company of ${site.teamSize}+ people and is actively hiring for engineering, AI and automation, product design, and client-facing problem solving. Currently ${openRoles.length > 0 ? `${openRoles.length} open: ${openRoles.map((r) => r.title).join(', ')}. ` : 'no formal openings are posted — open applications are accepted and read continuously. '}PSM hires for how people think and reason about a problem, not for a list of technologies on a CV.
 - [Contact](${site.routeUrl('/contact')}): enquiries — replies within two working days.
 
 ## Optional

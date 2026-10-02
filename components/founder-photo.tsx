@@ -22,7 +22,7 @@ export function FounderPhoto({ founder, className = "", width }: FounderPhotoPro
       style={width ? { width } : undefined}
     >
       {founder.photo ? (
-        <Image src={founder.photo} alt={alt} sizes="(max-width: 640px) 100vw, 320px" />
+        <Image src={founder.photo} alt={alt} sizes="(max-width: 640px) 100vw, (max-width: 899px) 45vw, 260px" />
       ) : (
         <span className="person-mono">{founder.initials}</span>
       )}

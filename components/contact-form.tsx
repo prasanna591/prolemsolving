@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { AlertCircle, ArrowRight, Check } from "lucide-react";
 import { site } from "@/lib/site";
 
@@ -28,6 +29,37 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+  const successRef = useRef<HTMLDivElement>(null);
+  /** Set when the form remounts, so the effect below knows to move focus. */
+  const wantFocus = useRef(false);
+
+  /**
+   * Focus follows state, not the click.
+   *
+   * Two paths previously lost focus entirely: the success panel replaced the
+   * form in the DOM, so a handler reading `formRef.current` found `null` and
+   * the "Send another message" button was about to be unmounted anyway; and a
+   * failed send called `.focus()` on `<form>`, which is not focusable without
+   * `tabIndex`, so the call was a no-op. Both now land on a real target, and
+   * the form carries `tabIndex={-1}` so the error path has somewhere to send
+   * focus when there is nothing more specific.
+   */
+  useEffect(() => {
+    if (status === "success") {
+      successRef.current?.focus();
+      return;
+    }
+    if (status === "error" && wantFocus.current) {
+      formRef.current?.focus();
+      wantFocus.current = false;
+    }
+  }, [status]);
+
+  function resetToForm() {
+    wantFocus.current = true;
+    setError("");
+    setStatus("idle");
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -44,8 +76,9 @@ export function ContactForm() {
     const company = String(data.company ?? "").trim();
 
     if (!name || !message || !EMAIL_RE.test(email)) {
-      setStatus("error");
       setError("Please fill in every required field with a valid email address.");
+      wantFocus.current = true;
+      setStatus("error");
       return;
     }
 
@@ -72,19 +105,19 @@ export function ContactForm() {
       }
       setStatus("success");
     } catch (err) {
-      setStatus("error");
       setError(
         err instanceof Error
           ? `${err.message} You can also email us directly at ${site.email}.`
           : `Something went wrong. You can also email us at ${site.email}.`,
       );
-      formRef.current?.focus();
+      wantFocus.current = true;
+      setStatus("error");
     }
   }
 
   if (status === "success") {
     return (
-      <div className="card card--raised" role="status">
+      <div ref={successRef} tabIndex={-1} className="card card--raised" role="status">
         <span className="badge badge--accg">
           <Check size={15} aria-hidden="true" /> Message received
         </span>
@@ -93,14 +126,7 @@ export function ContactForm() {
           We read every message and reply within two working days. If your problem is urgent, leave a phone number and the
           reply stands by for it.
         </p>
-        <button
-          type="button"
-          className="btn btn--ghost mt-6"
-          onClick={() => {
-            setStatus("idle");
-            formRef.current?.querySelector<HTMLInputElement>('input[name="name"]')?.focus();
-          }}
-        >
+        <button type="button" className="btn btn--ghost mt-6" onClick={resetToForm}>
           Send another message
         </button>
       </div>
@@ -108,7 +134,13 @@ export function ContactForm() {
   }
 
   return (
-    <form ref={formRef} className="card card--raised" onSubmit={handleSubmit} aria-describedby="form-note">
+    <form
+      ref={formRef}
+      tabIndex={-1}
+      className="card card--raised"
+      onSubmit={handleSubmit}
+      aria-describedby="form-note"
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="field">
           <label htmlFor="name">Your name</label>
@@ -152,7 +184,10 @@ export function ContactForm() {
       </div>
 
       {status === "error" && (
-        <p className="mt-5 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm font-semibold text-red-700" role="alert">
+        <p
+          className="mt-5 flex items-start gap-2 rounded-xl border border-[color:rgb(var(--color-danger-rgb)/0.28)] bg-[color:var(--color-danger-soft)] p-3 text-sm font-semibold text-[color:var(--color-danger-deep)]"
+          role="alert"
+        >
           <AlertCircle size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
           {error}
         </p>
@@ -168,7 +203,11 @@ export function ContactForm() {
         <ArrowRight size={18} strokeWidth={2.5} aria-hidden="true" />
       </button>
       <p id="form-note" className="mt-4 text-center" style={{ fontSize: "0.85rem", color: "var(--color-faint)", fontWeight: 600 }}>
-        We reply within two working days — and we never share your details. See our privacy policy.
+        We reply within two working days — and we never share your details. See our{" "}
+        <Link href="/privacy" className="link-line font-bold" style={{ color: "var(--color-brand-deep)" }}>
+          privacy policy
+        </Link>
+        .
       </p>
     </form>
   );

@@ -8,7 +8,8 @@ import { SectionHeading } from "@/components/section-heading";
 import { ProductArt } from "@/components/product-art";
 import { CtaBand } from "@/components/cta-band";
 import { site } from "@/lib/site";
-import { allProducts } from "@/lib/products";
+import { allProducts, productPath } from "@/lib/products";
+import { capabilities } from "@/lib/content";
 import { founders } from "@/lib/founders";
 import { FounderPhoto } from "@/components/founder-photo";
 import { pageMetadata } from "@/lib/seo";
@@ -46,10 +47,10 @@ const stages = [
 const loopNodes = ["REAL-WORLD PROBLEMS", "INSIGHTS", "PRODUCTS", "SOLUTIONS", "EXPERIENCE", "NEW INSIGHTS"];
 
 const principles = [
-  { t: "Think Clearly", d: "Understand the real problem before rushing toward a solution.", pull: "", ac: "#0d6efd" },
-  { t: "Build Practically", d: "Choose technology based on what the product needs — not what's trending.", pull: "lg:mt-16", ac: "#4f9bff" },
-  { t: "Stay Close to Reality", d: "Real users, real businesses and real feedback matter more than assumptions.", pull: "lg:mt-28", ac: "#0d6efd" },
-  { t: "Take Ownership", d: "We care about the outcome, not just completing a task.", pull: "lg:mt-44", ac: "#0d6efd" },
+  { t: "Think Clearly", d: "Understand the real problem before rushing toward a solution.", pull: "", ac: "var(--color-brand)" },
+  { t: "Build Practically", d: "Choose technology based on what the product needs — not what's trending.", pull: "lg:mt-16", ac: "var(--color-brand-light)" },
+  { t: "Stay Close to Reality", d: "Real users, real businesses and real feedback matter more than assumptions.", pull: "lg:mt-28", ac: "var(--color-brand)" },
+  { t: "Take Ownership", d: "We care about the outcome, not just completing a task.", pull: "lg:mt-44", ac: "var(--color-brand)" },
 ];
 
 const PARTICLES = Array.from({ length: 20 }, (_, i) => ({
@@ -77,6 +78,7 @@ const domainLabels: Record<string, { domain: string }> = {
   aura: { domain: "Proactive Healthcare Assistance" },
   founder: { domain: "Founder Productivity" },
 };
+
 
 /* ---------------- product + service loop ring ---------------- */
 
@@ -187,7 +189,7 @@ export default function AboutPage() {
       </header>
 
       {/* 02 — WHY PSM EXISTS */}
-      <section className="sec sec--warm">
+      <section className="sec sec--plum">
         <div className="container-x grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             <Reveal>
@@ -239,7 +241,7 @@ export default function AboutPage() {
               We don&rsquo;t start with technology.
             </h2>
             <p className="stmnt mt-3">
-              We start <span className="text-[#9cc0ff]">with the problem.</span>
+              We start <span className="text-brand-pale">with the problem.</span>
             </p>
           </Reveal>
           <div className="mt-12 grid gap-x-8 gap-y-0 md:grid-cols-2">
@@ -265,16 +267,63 @@ export default function AboutPage() {
             title="We build technology across the real world."
             lede="Our products explore problems across different industries and experiences. Our engineering capabilities also allow us to build and integrate technology for organizations with complex requirements."
           />
-          <div className="mt-10 flex justify-center">
-            <Reveal delay={80}>
-              <Button href="/products" variant="dark" size="lg" arrow>Explore Our Products</Button>
+          <div className="mt-14 grid gap-x-20 gap-y-14 lg:grid-cols-2">
+            <Reveal>
+              <span className="eyebrow eyebrow--p">Track one</span>
+              <p className="strip-t">Our own products</p>
+              <p className="strip-d">Five problems we took on ourselves, in five different industries.</p>
+              <ul className="rule-list mt-7">
+                {allProducts.map((p, i) => (
+                  <Reveal as="li" key={p.id} delay={i * 50}>
+                    <span className="rl-ix" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                    <div>
+                      <Link
+                        href={productPath(p)}
+                        className="link-line"
+                        style={{ color: "var(--color-navy)", fontSize: "1.1rem", fontWeight: 800 }}
+                      >
+                        {p.name}
+                      </Link>
+                      <p className="dek mt-1">{domainLabels[p.visual]?.domain}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </ul>
+              <Link href="/products" className="link-line mt-7 inline-block font-bold" style={{ color: "var(--color-brand)" }}>
+                The full portfolio <ArrowRight size={14} aria-hidden="true" style={{ display: "inline", verticalAlign: "middle" }} />
+              </Link>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <span className="eyebrow eyebrow--g">Track two</span>
+              <p className="strip-t">Engineering for organizations</p>
+              <p className="strip-d">Operations too specific for off-the-shelf tools.</p>
+              <ul className="rule-list mt-7">
+                {capabilities.map((c, i) => (
+                  <Reveal as="li" key={c.id} delay={i * 50}>
+                    <span className="rl-ix" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                    <div>
+                      <Link
+                        href={`/solutions#${c.id}`}
+                        className="link-line"
+                        style={{ color: "var(--color-navy)", fontSize: "1.1rem", fontWeight: 800 }}
+                      >
+                        {c.eyebrow}
+                      </Link>
+                    </div>
+                  </Reveal>
+                ))}
+              </ul>
+              <Link href="/solutions" className="link-line mt-7 inline-block font-bold" style={{ color: "var(--color-brand)" }}>
+                How we solve them <ArrowRight size={14} aria-hidden="true" style={{ display: "inline", verticalAlign: "middle" }} />
+              </Link>
             </Reveal>
           </div>
         </div>
       </section>
 
       {/* 05 — PRODUCT + SERVICE MODEL */}
-      <section className="sec sec--warm overflow-hidden">
+      <section className="sec sec--plum overflow-hidden">
         <div className="container-x grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             <Reveal>
@@ -308,8 +357,8 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="How we work"
             eyebrowTone="g"
-            title="Small team. Serious problems."
-            lede="We prefer focused teams, direct communication, fast experimentation, and taking responsibility from idea to execution."
+            title="A real team. Serious problems."
+            lede={`${site.teamSize}+ people who prefer direct communication, fast experimentation, and taking responsibility from idea to execution. We hire for thinking.`}
           />
           <div className="mt-14 grid items-center gap-10 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
             <div className="grid gap-x-8 gap-y-10 md:grid-cols-2">
@@ -335,7 +384,7 @@ export default function AboutPage() {
       </section>
 
       {/* 07 — PEOPLE */}
-      <section className="sec sec--warm relative overflow-hidden">
+      <section className="sec sec--plum relative overflow-hidden">
         <div className="particles" aria-hidden="true">
           {PARTICLES.map((p, i) => (
             <span
@@ -361,45 +410,47 @@ export default function AboutPage() {
             lede="PSM is driven by a small, focused team with a shared interest in building useful technology and turning ideas into real products."
           />
 
-          <Reveal className="mt-12">
-            <div className="person-feature">
-              <FounderPhoto founder={founders[0]} />
-              <div className="person-info">
-                <span className="eyebrow eyebrow--ink">Founder</span>
-                <h3 className="h3 mt-4" style={{ fontSize: "clamp(1.35rem, 2.4vw, 1.7rem)" }}>
-                  <Link href="/about/founders/prasanna-venkatesan" className="link-line" style={{ color: "var(--color-navy)" }}>
-                    Prasanna Venkatesan R.
+          <div className="people-grid mt-12">
+            <Reveal>
+              <div className="person-feature">
+                <FounderPhoto founder={founders[0]} />
+                <div className="person-info">
+                  <span className="eyebrow eyebrow--ink">Founder</span>
+                  <h3 className="h3 mt-4" style={{ fontSize: "clamp(1.15rem, 1.5vw, 1.35rem)" }}>
+                    <Link href="/about/founders/prasanna-venkatesan" className="link-line" style={{ color: "var(--color-navy)" }}>
+                      Prasanna Venkatesan R.
+                    </Link>
+                  </h3>
+                  <p className="dek lead mt-3">
+                    Building PSM around product thinking, technology, problem-solving and long-term execution.
+                  </p>
+                  <Link href="/about/founders/prasanna-venkatesan" className="link-line font-bold mt-3" style={{ color: "var(--color-brand)", display: "inline-block" }}>
+                    Read more <ArrowRight size={14} aria-hidden="true" style={{ display: "inline", verticalAlign: "middle" }} />
                   </Link>
-                </h3>
-                <p className="dek lead mt-4">
-                  Building PSM around product thinking, technology, problem-solving and long-term execution.
-                </p>
-                <Link href="/about/founders/prasanna-venkatesan" className="link-line font-bold mt-4" style={{ color: "var(--color-brand)", display: "inline-block" }}>
-                  Read more <ArrowRight size={14} aria-hidden="true" style={{ display: "inline", verticalAlign: "middle" }} />
-                </Link>
+                </div>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
 
-          <Reveal delay={120} className="mt-8">
-            <div className="person-person">
-              <FounderPhoto founder={founders[1]} />
-              <div className="person-info">
-                <span className="eyebrow eyebrow--g">Co-founder</span>
-                <h3 className="h3 mt-4" style={{ fontSize: "clamp(1.35rem, 2.4vw, 1.7rem)" }}>
-                  <Link href="/about/founders/maniyarasan" className="link-line" style={{ color: "var(--color-navy)" }}>
-                    Maniyarasan S.
+            <Reveal delay={120}>
+              <div className="person-person">
+                <FounderPhoto founder={founders[1]} />
+                <div className="person-info">
+                  <span className="eyebrow eyebrow--g">Co-founder</span>
+                  <h3 className="h3 mt-4" style={{ fontSize: "clamp(1.15rem, 1.5vw, 1.35rem)" }}>
+                    <Link href="/about/founders/maniyarasan" className="link-line" style={{ color: "var(--color-navy)" }}>
+                      Maniyarasan S.
+                    </Link>
+                  </h3>
+                  <p className="dek lead mt-3">
+                    Helping build PSM and turn ideas into practical products and solutions.
+                  </p>
+                  <Link href="/about/founders/maniyarasan" className="link-line font-bold mt-3" style={{ color: "var(--color-brand)", display: "inline-block" }}>
+                    Read more <ArrowRight size={14} aria-hidden="true" style={{ display: "inline", verticalAlign: "middle" }} />
                   </Link>
-                </h3>
-                <p className="dek lead mt-4">
-                  Helping build PSM and turn ideas into practical products and solutions.
-                </p>
-                <Link href="/about/founders/maniyarasan" className="link-line font-bold mt-4" style={{ color: "var(--color-brand)", display: "inline-block" }}>
-                  Read more <ArrowRight size={14} aria-hidden="true" style={{ display: "inline", verticalAlign: "middle" }} />
-                </Link>
+                </div>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
         </div>
       </section>
 
@@ -439,7 +490,7 @@ export default function AboutPage() {
               const meta = domainLabels[p.visual];
               return (
                 <Reveal key={p.id} delay={i * 70} className="cur-card">
-                  <Link href={`/products/${p.id}`} style={{ textDecoration: "none", display: "contents" }}>
+                  <Link href={productPath(p)} style={{ textDecoration: "none", display: "contents" }}>
                     <ProductArt product={p} />
                     <span className="cur-name">{p.name}</span>
                     <span className="cur-domain">{meta?.domain}</span>

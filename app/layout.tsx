@@ -74,6 +74,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        {/* `output: "export"` cannot emit response headers, so the ones declared
+            in next.config.mjs are never sent on the deployed host. These two
+            cover the same ground at the document level. */}
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <noscript>
+          {/*
+            The scroll-reveal start state lives in CSS behind
+            `@media (scripting: enabled)`, which is true for any browser that
+            *has* JS — including one where a chunk 404s or hydration throws.
+            Nothing would then ever write the end state and every revealed
+            block would sit at `opacity: 0`. This restores them.
+          */}
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <MotionConfig reducedMotion="user">
           <Navbar />
           <main id="main">{children}</main>

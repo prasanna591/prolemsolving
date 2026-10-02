@@ -83,7 +83,7 @@ export default function MotivesPage() {
       </section>
 
       {/* 02 — the problems that motivate us */}
-      <section className="sec sec--warm">
+      <section className="sec sec--plum">
         <div className="container-x">
           <Reveal>
             <span className="eyebrow eyebrow--g">The problems that motivate us</span>

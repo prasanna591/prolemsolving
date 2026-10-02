@@ -33,6 +33,12 @@ export const site = {
   email: "hello@problemsolvingmind.com",
   phone: "+91-93602-07861",
   phoneDisplay: "+91 93602 07861",
+  /**
+   * E.164 form for `tel:` hrefs. RFC 3966 allows only a leading `+` followed
+   * by digits — no spaces or dashes — and some mobile clients silently fail to
+   * dial a malformed number, so this is derived rather than hand-written.
+   */
+  phoneHref: "+919360207861",
   /** All public inboxes, in the order they should be shown on the contact page. */
   emails: [
     { label: "General", address: "hello@problemsolvingmind.com" },
@@ -44,6 +50,14 @@ export const site = {
   region: "Tamil Nadu",
   country: "India",
   areaServed: "Worldwide",
+  /**
+   * Team size, as a floor rather than a point value. "20+" is the claim we can
+   * actually stand behind on any given day, and keeping it here stops the
+   * schema, the visible copy and the llms.txt files drifting into three
+   * different numbers. Schema.org has no "at least" scalar, so consumers emit
+   * this as a `minValue`.
+   */
+  teamSize: 20,
   /**
    * Places PSM actually serves, in schema.org and local-SEO copy. Kept separate
    * from `areaServed` because that one is read as prose in the llms.txt routes.
@@ -99,8 +113,8 @@ export const site = {
 };
 
 import Image from "next/image";
-import psmMark from "@/app/images/psm-mark.webp";
-import psmLockup from "@/app/images/psm-lockup.webp";
+import logo from "@/app/images/logo_updated.png";
+import favicon from "@/app/images/favicon.png";
 
 export const nav = [
   { label: "Products", href: "/products" },
@@ -111,22 +125,34 @@ export const nav = [
 
 export const brandMark = (
   <Image
-    src={psmMark}
+    src={logo}
     alt=""
     aria-hidden="true"
-    width={34}
-    height={34}
-    style={{ borderRadius: 9 }}
+    width={64}
+    height={64}
+    style={{ borderRadius: 12 }}
+    priority
+  />
+);
+
+export const brandFavicon = (
+  <Image
+    src={favicon}
+    alt=""
+    aria-hidden="true"
+    width={40}
+    height={40}
+    style={{ borderRadius: 8 }}
     priority
   />
 );
 
 export const brandLockup = (
   <Image
-    src={psmLockup}
+    src={logo}
     alt="PSM — Problem Solving Mind"
-    width={280}
-    height={93}
-    style={{ height: "auto", width: "min(280px, 100%)" }}
+    width={320}
+    height={107}
+    style={{ height: "auto", width: "min(320px, 100%)" }}
   />
 );

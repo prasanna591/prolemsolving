@@ -1,8 +1,9 @@
 import { site } from "@/lib/site";
-import { allProducts } from "@/lib/products";
+import { allProducts, productPath } from "@/lib/products";
 import { capabilities, problems, values, journey } from "@/lib/content";
 import { caseStudies, benchPatterns } from "@/lib/caseStudies";
 import { founders } from "@/lib/founders";
+import { openRoles, disciplines, process } from "@/lib/careers";
 
 export const dynamic = "force-static";
 
@@ -56,7 +57,7 @@ export function buildLlmsFull(): string {
   for (const p of allProducts) {
     L.push(`### ${p.name} — ${p.tagline}`);
     L.push("");
-    L.push(`URL: ${site.routeUrl(`/products/${p.id}`)}`);
+    L.push(`URL: ${site.routeUrl(productPath(p))}`);
     L.push("");
     L.push(p.description);
     L.push("");
@@ -65,6 +66,46 @@ export function buildLlmsFull(): string {
     L.push(`- Focus areas: ${p.focus.join(", ")}`);
     L.push("");
   }
+
+  L.push("## EYD — Explore Your Dreams");
+  L.push("");
+  L.push(`URL: ${site.routeUrl("/eyd")}`);
+  L.push("");
+  L.push("EYD — Explore Your Dreams. Tagline: Your Dream Home. One Connected Journey.");
+  L.push("");
+  L.push(
+    "EYD is a digital ecosystem that connects home seekers with the people, products and services behind building a home. " +
+      "A home involves builders, architects, engineers, contractors, materials and many other decisions — EYD brings these parts " +
+      "together in one connected experience, rather than leaving the journey as a property listing plus a directory of vendors.",
+  );
+  L.push("");
+  L.push("How EYD works, in five steps:");
+  L.push("");
+  for (const s of [
+    ["Explore", "Discover homes, designs, builders, professionals and projects."],
+    ["Experience", "Explore homes and designs through interactive and immersive experiences."],
+    ["Compare", "Understand your options before making decisions."],
+    ["Connect", "Find and connect with the right people and businesses."],
+    ["Build", "Move from planning toward building your home."],
+  ]) L.push(`- **${s[0]}** — ${s[1]}`);
+  L.push("");
+  L.push("One ecosystem, many audiences:");
+  L.push("");
+  for (const a of [
+    ["Home Seekers", "Discover and plan your home."],
+    ["Builders & Construction Companies", "Showcase projects and connect with potential customers."],
+    ["Architects & Engineers", "Make your expertise discoverable."],
+    ["Contractors & Professionals", "Connect your skills with real projects."],
+    ["Material Suppliers", "Showcase products and reach home-building customers."],
+  ]) L.push(`- **${a[0]}** — ${a[1]}`);
+  L.push("");
+  L.push(
+    "Scope: EYD is being built around the complete home-building journey, from the first idea to the people, products and " +
+      "services needed to turn it into reality. It is starting in Tamil Nadu — learning from real users and businesses and " +
+      "building the ecosystem step by step. EYD is a product initiative of " +
+      `${site.full}.`,
+  );
+  L.push("");
 
   L.push("## Solutions");
   L.push("");
@@ -125,6 +166,32 @@ export function buildLlmsFull(): string {
     L.push(`> "${f.quote}"`);
     L.push("");
   }
+
+  L.push("## Careers");
+  L.push("");
+  L.push(`URL: ${site.routeUrl("/careers")}`);
+  L.push("");
+  if (openRoles.length > 0) {
+    L.push(`${openRoles.length} open role${openRoles.length > 1 ? "s" : ""} at ${site.full}:`);
+    L.push("");
+    for (const r of openRoles) {
+      L.push(`- **${r.title}** (${r.type}, ${r.location}) — ${r.summary}`);
+    }
+    L.push("");
+  } else {
+    L.push(
+      `${site.full} is actively hiring and has no formal openings posted at present. Applications are always accepted and read continuously, by the people who would work with you.`
+    );
+    L.push("");
+  }
+  L.push(
+    `Hiring is for ${disciplines.map((d) => d.title.toLowerCase()).join(", ")}. PSM is a company of ${site.teamSize}+ people and hires primarily for thinking: how a candidate reasons about an unfamiliar problem, whether they reach for the right questions, and whether they would rather be useful than be correct. What working here asks of you: owning work through to shipped and used rather than handing it on half-done, reasoning out loud before building, a genuine share of discovery work with no pre-written specification, direct client contact, working without supervision, and some overlap with IST hours for distributed work. In exchange: work that ships to real users, a short line to the decision, and a direct say in scope.`
+  );
+  L.push("");
+  L.push(
+    `Hiring process: ${process.map((p) => `${p.n} ${p.title} (${p.detail})`).join("; ")}. Applications are read within two working days and every applicant gets an answer.`
+  );
+  L.push("");
 
   L.push("## Attributed claims");
   L.push("");

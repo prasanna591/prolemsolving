@@ -2,16 +2,15 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "framer-motion";
-import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/button";
-import bg from "@/app/images/home hero_background_image.webp";
+import bg from "@/app/images/home-hero-background.webp";
 
 /**
  * Parallax is scroll-driven, so it carries no `initial` state and stays out
  * of the SSR payload. The staggered entrance below is pure CSS (`[data-in]`),
  * which keeps the H1 readable in the server-rendered HTML.
  */
-const STAGGER = [150, 270, 390, 510];
+const STAGGER = [150, 270, 390, 510, 630];
 
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -21,8 +20,6 @@ export function HomeHero() {
     damping: 26,
     mass: 0.4,
   });
-  const contentOpacity = useTransform(scrollY, [0, 640], [1, 0.3]);
-  const contentY = useTransform(scrollY, [0, 640], [0, 26]);
 
   return (
     <section className="hero-scene" aria-label="Introduction">
@@ -92,54 +89,49 @@ export function HomeHero() {
 
       {/* Text / logo / CTA UI */}
       <div className="container-x hero-scene__content">
-        <motion.div
-          className="hero-scene__inner"
-          style={reduce ? undefined : { opacity: contentOpacity, y: contentY }}
-        >
-          <h1 data-in style={{ "--in-delay": `${STAGGER[0]}ms` } as React.CSSProperties} className="hero-scene__h1">
-            We build software that solves{" "}
+        <div className="hero-scene__inner">
+          <p data-in style={{ "--in-delay": `${STAGGER[0]}ms` } as React.CSSProperties} className="hero-scene__tag">
+            Building Products. Solving Problems.
+          </p>
+
+          <h1 data-in style={{ "--in-delay": `${STAGGER[1]}ms` } as React.CSSProperties} className="hero-scene__h1">
+            We build technology that solves{" "}
             <em className="hh-grad">real problems.</em>
           </h1>
 
-          <p data-in style={{ "--in-delay": `${STAGGER[1]}ms` } as React.CSSProperties} className="hero-scene__lede">
-            PSM is a product-first technology company in Pondicherry, India. We design and build practical
-            software products, AI-powered systems and intelligent business platforms for
-            organisations that are done with manual, disconnected operations.
+          <p data-in style={{ "--in-delay": `${STAGGER[2]}ms` } as React.CSSProperties} className="hero-scene__lede">
+            PSM builds custom software, AI automation and connected systems for industries — and simple
+            products for everyday people.
           </p>
 
-          <div data-in style={{ "--in-delay": `${STAGGER[2]}ms` } as React.CSSProperties} className="hero-scene__cta">
-            <Button href="/products" variant="primary" size="lg" arrow>
-              Explore Our Products
-            </Button>
-            <Button href="/contact" variant="ghost" size="lg" arrow>
+          <div data-in style={{ "--in-delay": `${STAGGER[3]}ms` } as React.CSSProperties} className="hero-scene__cta">
+            <Button href="/contact" variant="primary" size="lg" arrow>
               Let&rsquo;s Talk
+            </Button>
+            <Button href="/products" variant="ghost" size="lg" arrow>
+              Explore Our Products
             </Button>
           </div>
 
-          <ul data-in style={{ "--in-delay": `${STAGGER[3]}ms` } as React.CSSProperties} className="hero-scene__stats">
+          <ul data-in style={{ "--in-delay": `${STAGGER[4]}ms` } as React.CSSProperties} className="hero-scene__stats">
             <li>
               <span className="hero-scene__stat-v">5</span>
               <span className="hero-scene__stat-s">Products In Development</span>
             </li>
             <li>
               <span className="hero-scene__stat-v">5</span>
-              <span className="hero-scene__stat-s">Business Solutions Offered</span>
+              <span className="hero-scene__stat-s">Core Capabilities</span>
             </li>
             <li>
-              <span className="hero-scene__stat-v">5</span>
-              <span className="hero-scene__stat-s">Industries Addressed</span>
+              <span className="hero-scene__stat-v">6-step</span>
+              <span className="hero-scene__stat-s">Problem-First Process</span>
             </li>
             <li>
               <span className="hero-scene__stat-v">Pondicherry</span>
               <span className="hero-scene__stat-s">Tamil Nadu — Working Worldwide</span>
             </li>
           </ul>
-        </motion.div>
-      </div>
-
-      <div className="hero-scene__scroll" aria-hidden="true">
-        Scroll to explore
-        <ArrowDown size={15} strokeWidth={2.25} />
+        </div>
       </div>
     </section>
   );
