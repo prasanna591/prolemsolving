@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { nav, site, brandMark, brandFavicon } from "@/lib/site";
+import { nav, site, brandNav } from "@/lib/site";
 import { Magnetic } from "@/components/magnetic";
 
 /** Pointer Y at or above this hides the bar; below it, the bar is revealed. */
@@ -140,10 +140,9 @@ export function Navbar() {
     >
       <div className="container-x nav-inner">
         <Link href="/" className="nav-logo" aria-label={`${site.full} — home`}>
-          {brandFavicon}
+          {brandNav}
           <span className="nav-logo__lock">
             <span className="nav-logo__name">{site.full}</span>
-            <span className="nav-logo__tag">{site.tagline}</span>
           </span>
         </Link>
 
@@ -184,10 +183,9 @@ export function Navbar() {
             <ArrowRight size={22} strokeWidth={2} aria-hidden="true" />
           </Link>
         ))}
-        <Link href="/contact" className="btn btn--primary mm-link mm-cta" onClick={() => setOpen(false)}>
+<Link href="/contact" className="btn btn--primary mm-link mm-cta" onClick={() => setOpen(false)}>
           Let&rsquo;s Talk <ArrowRight size={18} strokeWidth={2.5} aria-hidden="true" />
         </Link>
-        <div className="mm-foot">Building Products. Solving Problems.</div>
       </div>
     </header>
   );

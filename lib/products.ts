@@ -31,7 +31,7 @@ export const featured: Product[] = [
     id: "eyd",
     name: "EYD",
     category: "Real estate · 3D · Construction",
-    status: "In Development",
+    status: "In Production",
     statusTone: "brand",
     tagline: "Explore Your Dreams.",
     description:
@@ -65,7 +65,7 @@ export const featured: Product[] = [
     id: "boowa",
     name: "BOOWA",
     category: "Hyperlocal commerce · Scheduled delivery · Local businesses",
-    status: "In Development",
+    status: "In Testing",
     statusTone: "accg",
     tagline: "Local Delivery, On Your Schedule.",
     description:
@@ -119,3 +119,22 @@ export const allProducts = [...featured, ...inDevelopment];
 export const DEDICATED: Record<string, string> = { eyd: "/eyd" };
 
 export const productPath = (p: Product) => DEDICATED[p.id] ?? `/products/${p.id}`;
+
+/**
+ * The prose that explains *where* a product is.
+ *
+ * `status` already drives the badge, the schema and llms.txt, but a few places
+ * also narrate the stage in a full sentence — and those sentences are not
+ * generated from anything, so they quietly go stale the moment a status moves.
+ * Deriving the sentence from `status` keeps a status change a one-word edit.
+ */
+export function stageNote(p: Product): string {
+  switch (p.status) {
+    case "In Production":
+      return `${p.name} is in production and in real use. We build deliberately, validate with real use, and only put a product in front of real users once it genuinely solves the problem it was started for.`;
+    case "In Testing":
+      return `${p.name} is in testing — in front of real users before it is out for everyone. We build deliberately, validate with real use, and only put a product in front of real users once it genuinely solves the problem it was started for.`;
+    default:
+      return `${p.name} is currently in development. We build deliberately, validate with real use, and only put the product in front of real users when it genuinely solves the problem it was started for.`;
+  }
+}

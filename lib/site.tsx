@@ -10,6 +10,7 @@
 const SOCIALS: { label: string; href: string }[] = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/problem-solving-minds/" },
   { label: "Instagram", href: "https://www.instagram.com/problemsolvingmind" },
+  { label: "WhatsApp", href: "https://wa.me/919360207861" },
 ];
 
 export const site = {
@@ -39,11 +40,16 @@ export const site = {
    * dial a malformed number, so this is derived rather than hand-written.
    */
   phoneHref: "+919360207861",
+  /**
+   * WhatsApp deep link with a warm pre-filled message.
+   * Uses wa.me format for universal compatibility.
+   */
+  whatsappHref: "https://wa.me/919360207861?text=Hi%20PSM%2C%20I%27d%20like%20to%20discuss%20a%20problem%20we%27re%20trying%20to%20solve.%20Could%20we%20chat%3F",
   /** All public inboxes, in the order they should be shown on the contact page. */
   emails: [
     { label: "General", address: "hello@problemsolvingmind.com" },
-    { label: "Founder", address: "founder@problemsolving.com" },
-    { label: "CEO", address: "ceo@problemsolving.com" },
+    { label: "Founder", address: "founder@problemsolvingmind.com" },
+    { label: "CEO", address: "ceo@problemsolvingmind.com" },
     { label: "Contact desk", address: "contact@problemsolvingmind.com" },
   ] as { label: string; address: string }[],
   locality: "Pondicherry",
@@ -136,10 +142,9 @@ export const brandMark = (
     src={logo}
     alt=""
     aria-hidden="true"
-    width={64}
-    height={64}
-    style={{ borderRadius: 12 }}
-    priority
+    width={96}
+    height={96}
+    style={{ borderRadius: 16 }}
   />
 );
 
@@ -150,6 +155,18 @@ export const brandFavicon = (
     aria-hidden="true"
     width={40}
     height={40}
+    style={{ borderRadius: 8 }}
+    priority
+  />
+);
+
+export const brandNav = (
+  <Image
+    src={favicon}
+    alt=""
+    aria-hidden="true"
+    width={36}
+    height={36}
     style={{ borderRadius: 8 }}
     priority
   />

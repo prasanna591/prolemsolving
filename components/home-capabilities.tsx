@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowUpRight, Blocks, BrainCircuit, Network, RefreshCw, Smartphone } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
-import { Button } from "@/components/button";
 import { capabilities } from "@/lib/content";
 
 /**
@@ -33,7 +32,6 @@ export function HomeCapabilities() {
         <SectionHeading
           eyebrow="Solutions for industries"
           title="Technology built around how your business runs"
-          lede="Five core capabilities, each scoped from the process first and the technology second."
         />
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -46,7 +44,6 @@ export function HomeCapabilities() {
                     <Icon size={20} aria-hidden="true" />
                   </span>
                   <h3 className="h3 mb-2">{cap.title}</h3>
-                  <p className="dek flex-1" style={{ fontSize: "0.96rem" }}>{cap.short}</p>
                   <Link
                     href={`/solutions#${cap.id}`}
                     className="link-line mt-5 inline-flex items-center gap-1.5 self-start font-bold"
@@ -60,14 +57,6 @@ export function HomeCapabilities() {
             );
           })}
         </ul>
-
-        <Reveal delay={120}>
-          <div className="mt-12 flex justify-center">
-            <Button href="/solutions" variant="ghost" size="lg" arrow>
-              View all solutions
-            </Button>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

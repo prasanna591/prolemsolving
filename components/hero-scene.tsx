@@ -12,6 +12,14 @@ interface HeroSceneProps {
   lede?: ReactNode;
   children?: ReactNode;
   image?: StaticImageData;
+  /**
+   * Describes the hero visual for crawlers, screen readers and vision models.
+   * Omit it only for genuinely decorative art. The wrapper is `aria-hidden`
+   * whenever this is absent, because a background that carries no information
+   * should be announced by nobody; supplying it makes the image a described
+   * node instead.
+   */
+  imageAlt?: string;
 }
 
 /**
@@ -21,7 +29,7 @@ interface HeroSceneProps {
  */
 const STAGGER = [120, 230, 340];
 
-export function HeroScene({ eyebrow, title, lede, children, image }: HeroSceneProps) {
+export function HeroScene({ eyebrow, title, lede, children, image, imageAlt }: HeroSceneProps) {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
   const parallax = useSpring(useTransform(scrollY, [0, 1100], [0, 90]), {
@@ -32,8 +40,19 @@ export function HeroScene({ eyebrow, title, lede, children, image }: HeroScenePr
 
   return (
     <section className="hero-scene" aria-label="Introduction">
-      <motion.div className="hero-scene__bg" aria-hidden="true" style={{ y: reduce ? undefined : parallax }}>
-        <Image src={image ?? bg} alt="" fill sizes="100vw" priority quality={72} />
+      <motion.div
+        className="hero-scene__bg"
+        aria-hidden={imageAlt ? undefined : true}
+        style={reduce ? undefined : { y: parallax }}
+      >
+        <Image
+          src={image ?? bg}
+          alt={imageAlt ?? ""}
+          fill
+          sizes="100vw"
+          priority
+          quality={72}
+        />
       </motion.div>
       <div className="hero-scene__glow" aria-hidden="true" />
       <div className="hero-scene__scrim" aria-hidden="true" />

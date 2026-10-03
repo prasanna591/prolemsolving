@@ -34,7 +34,7 @@ const sizeClass: Record<Size, string> = {
 };
 
 const spring = { type: "spring" as const, stiffness: 440, damping: 26 };
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 export function Button({
   href,

@@ -41,8 +41,6 @@ interface Feature {
   num: string;
   title: string;
   desc: string;
-  /** one line that states the actual work, so the pinned panel is not a card with air in it */
-  point: string;
   href: string;
   linkLabel: string;
   aria: string;
@@ -55,10 +53,9 @@ const FEATURES: Feature[] = [
   {
     num: "01",
     title: "Build Products",
-    desc: "We create our own technology products designed to solve meaningful problems at scale.",
-    point: "Five products in development, each one started from a failure we watched happen in a real process.",
+    desc: "We create our own technology products to solve meaningful problems at scale.",
     href: "/products",
-    linkLabel: "Explore our products",
+    linkLabel: "Explore products",
     aria: "Explore products we build",
     icon: iconCube,
     scene: (
@@ -74,10 +71,9 @@ const FEATURES: Feature[] = [
   {
     num: "02",
     title: "Solve Problems",
-    desc: "We work with businesses to understand complex challenges and build practical solutions.",
-    point: "Five business solutions, scoped from the process first — then the stack that fits it.",
+    desc: "We work with businesses to understand challenges and build practical solutions.",
     href: "/solutions",
-    linkLabel: "See how we solve problems",
+    linkLabel: "See solutions",
     aria: "See how we solve problems",
     icon: iconBubble,
     scene: (
@@ -94,10 +90,9 @@ const FEATURES: Feature[] = [
   {
     num: "03",
     title: "Connect Systems",
-    desc: "We bring software, data, people and processes together into connected digital ecosystems.",
-    point: "ERP, CRM and data connected into one flow, so the handoff between teams stops being the bottleneck.",
+    desc: "We bring software, data, people and processes into connected digital ecosystems.",
     href: "/work",
-    linkLabel: "See how we connect systems",
+    linkLabel: "See work",
     aria: "See how we connect systems",
     icon: iconNet,
     scene: (
@@ -134,9 +129,6 @@ export function WhatWeDo() {
             <h2 id="wds-title" className="wds-title">
               We Turn Problems <span className="wds-title-acc">Into Products.</span>
             </h2>
-            <p className="wds-lede">
-              From software products to intelligent business systems, PSM builds technology around real-world needs.
-            </p>
           </header>
 
           <div className="wds-grid">
@@ -153,43 +145,18 @@ export function WhatWeDo() {
                     </Link>
                   </div>
                   <p className="wds-desc">{f.desc}</p>
-                  <p className="wds-point">{f.point}</p>
                   <Link href={f.href} className="wds-link">
                     {f.linkLabel}
-                    <ArrowRightInline />
+                    {arrowIcon}
                   </Link>
                 </div>
               </article>
             ))}
           </div>
-
-          <div className="wds-progress">
-            <div className="wds-dotbar" aria-hidden="true">
-              {FEATURES.map((f) => (
-                <i key={f.num} />
-              ))}
-            </div>
-            <span className="wds-progress-label" aria-hidden="true">
-              Three things. That is the whole model.
-            </span>
-          </div>
         </div>
       </div>
-
-      <span className="wds-chip wds-chip--a" aria-hidden="true">AI</span>
-      <span className="wds-chip wds-chip--b" aria-hidden="true">SYSTEM</span>
-      <span className="wds-chip wds-chip--c" aria-hidden="true">API</span>
-      <span className="wds-chip wds-chip--d" aria-hidden="true">DATA</span>
-      <span className="wds-dot wds-dot--a" aria-hidden="true" />
-      <span className="wds-dot wds-dot--b" aria-hidden="true" />
     </section>
   );
 }
 
-function ArrowRightInline() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="wds-link-arrow">
-      <path d="M3.5 9h11M10.5 4.5 15 9l-4.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
+

@@ -37,11 +37,11 @@ export const founders: Founder[] = [
   {
     slug: "maniyarasan",
     name: "Maniyarasan S.",
-    role: "Co-founder",
-    titles: ["Co-founder"],
+    role: "Co-founder & CEO",
+    titles: ["Co-founder", "Chief Executive Officer"],
     initials: "MS",
     photo: cofounderImage,
-    summary: "Co-founder focused on turning ideas into practical products and solutions people actually use.",
+    summary: "Co-founder and CEO focused on turning ideas into practical products and solutions people actually use.",
     intro: [
       "Maniyarasan co-founded PSM to help build products and solutions that hold up in real use. His focus is practical: taking an insight and driving it toward something that works — software that people genuinely want to use every day.",
       "Working alongside the rest of the team, he bridges product and engineering, making sure ideas become systems that are simple, dependable and properly delivered.",

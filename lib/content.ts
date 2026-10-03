@@ -126,12 +126,24 @@ export const whyPsm = [
 /**
  * Vision and mission, quoted from the company brief. Kept here rather than in
  * a component so the same wording can feed structured data later.
+ *
+ * `visionMission` pairs each statement with its card label so the About page
+ * can render both cards from one list. The About page used to retype the two
+ * statements inline, which meant editing the strings below silently left that
+ * card saying something different from the homepage band. Read them from here
+ * instead — but keep this to the statement only; the cards are deliberately
+ * short, and padding them out with extra paragraphs was not wanted.
  */
 export const vision =
   "A global company that solves problems and creates livelihoods through innovation.";
 
 export const mission =
   "Turn real-world problems into technology that creates opportunity.";
+
+export const visionMission = [
+  { key: "vision" as const, label: "Our Vision", statement: vision },
+  { key: "mission" as const, label: "Our Mission", statement: mission },
+];
 
 /**
  * Forward-looking statement. Public-facing for now — the brief flags this as
@@ -156,52 +168,149 @@ export interface Faq {
   a: string;
 }
 
+export interface PageFaqs {
+  home: Faq[];
+  solutions: Faq[];
+  work: Faq[];
+  products: Faq[];
+  contact: Faq[];
+  about: Faq[];
+}
+
 /**
- * Question-and-answer pairs. Generative engines preferentially quote
- * self-contained Q→A passages, and FAQPage markup makes the answers
- * machine-extractable for AI Overviews and assistants. Answers are drawn
- * from the same claims made elsewhere on the site — nothing here should
- * assert a fact the rest of the content does not support.
+ * Page-specific FAQs. Each page gets 4-6 questions tailored to what
+ * that page's visitors actually ask. Answers are 30-50 words, start
+ * with the direct answer, and use "we" or "PSM" consistently.
+ * FAQPage schema is rendered from the same data so text and markup
+ * never drift apart.
  */
-export const faqs: Faq[] = [
-  {
-    q: "What is Problem Solving Mind (PSM)?",
-    a: "Problem Solving Mind, usually shortened to PSM, is a product-first technology company based in Pondicherry, Tamil Nadu, India. It builds its own software products and also builds software systems for businesses with operational problems that off-the-shelf tools cannot solve. Its tagline is \"Building Products. Solving Problems.\"",
-  },
-  {
-    q: "Where is PSM based and does it work with clients outside India?",
-    a: `PSM is based in Pondicherry, Tamil Nadu, India, and works with clients worldwide. Enquiries can reach the team at hello@problemsolvingmind.com or on +91 93602 07861, and messages are answered within two working days.`,
-  },
-  {
-    q: "Who founded PSM?",
-    a: "PSM was founded by Prasanna Venkatesan R., who leads product direction and long-term execution, together with co-founder Maniyarasan S., who focuses on product design, practical execution and engineering delivery.",
-  },
-  {
-    q: "What products is PSM building?",
-    a: "PSM has five products in development across different domains. EYD is a real estate ecosystem covering 3D property viewing, buying, selling and construction. LECOM is a communication and learning platform. BOOWA is a hyperlocal scheduled-delivery platform. Aura is a proactive health companion focused on awareness and preventive care. Founder OS is a productivity and organisation app for founders and entrepreneurs.",
-  },
-  {
-    q: "Is PSM a software product company or an agency?",
-    a: "PSM describes itself as a product company with a solutions practice. Products are its primary identity; client work exists to sharpen how it builds and to turn every engagement into reusable capability that becomes part of a shipped product.",
-  },
-  {
-    q: "What services does PSM offer to businesses?",
-    a: "PSM offers custom business software and internal tools, AI and workflow automation, ERP and CRM integration, web and mobile application development, and digital transformation. It also handles broader build categories including operations automation, AI document intelligence, decision and reporting layers, and system integration.",
-  },
-  {
-    q: "Which industries does PSM work in?",
-    a: "PSM's own products span real estate and construction, communication and personal development, hyperlocal commerce and delivery, healthcare, and entrepreneurship. Its client work is not restricted by industry — it starts from the operational problem rather than the sector.",
-  },
-  {
-    q: "How does PSM decide what to build?",
-    a: "PSM works problem-first. It looks for real problems observed in the world rather than for uses for a technology. The stated sequence is: understand the problem, design the smallest true solution, build it, integrate it with existing systems, and scale it once it performs in real use.",
-  },
-  {
-    q: "How do I contact PSM about a project?",
-    a: "Use the contact form at problemsolvingmind.com/contact, email hello@problemsolvingmind.com, or call +91 93602 07861. PSM asks clients to describe the problem, how urgently it needs solving, and what it is currently costing not to solve it, then responds honestly about whether technology can help.",
-  },
-  {
-    q: "Does PSM publish client names and performance metrics?",
-    a: "No. PSM states that it does not publish client names without permission and does not publish metrics a client has not approved. Case studies on its work page describe the problem, the approach, the technology and the outcome in general terms rather than attaching confidential figures.",
-  },
-];
+export const pageFaqs: PageFaqs = {
+  home: [
+    {
+      q: "What does Problem Solving Mind do?",
+      a: "PSM builds custom software, AI automation and connected systems for industries, and develops simple products for everyday people. We start with the business problem first and choose the technology after.",
+    },
+    {
+      q: "Who does PSM work with?",
+      a: "We serve larger-scale industries, including manufacturing and operations-heavy businesses, through our services. Everyday customers use our products. If you have a complex process or disconnected systems, we can help.",
+    },
+    {
+      q: "What products is PSM building?",
+      a: "We build five products. EYD (home construction and real estate) is in production, BOOWA (scheduled local delivery) is in testing, and LECOM (communication and learning), Aura (proactive health companion) and Founder OS (founder productivity) are in development.",
+    },
+    {
+      q: "Where is PSM based, and do you work outside India?",
+      a: "We are based in Pondicherry, Tamil Nadu, and work with clients worldwide. Most collaboration happens remotely, with visits arranged when a project needs them.",
+    },
+    {
+      q: "How do I get started?",
+      a: "Send us a short description of the problem through the contact form or email hello@problemsolvingmind.com. We reply within two working days and tell you honestly whether technology can solve it.",
+    },
+  ],
+  solutions: [
+    {
+      q: "What business problems can PSM solve?",
+      a: "We solve manual, repetitive and disconnected processes: data entry, systems that don't talk to each other, scattered reporting and tools that no longer fit the business. We scope the process first and the technology second.",
+    },
+    {
+      q: "Can you connect our existing ERP, CRM and other tools?",
+      a: "Yes. We integrate your current systems so data stays consistent and no one re-enters it. Most businesses don't need a new platform, just their existing tools working together.",
+    },
+    {
+      q: "How does AI automation work in a real business?",
+      a: "We apply AI to tasks like document reading, data extraction, classification and decision support, with human review where accuracy matters. We start with one workflow that costs you time and expand from there.",
+    },
+    {
+      q: "How does a project run from start to finish?",
+      a: "Six steps: problem, understand, design, build, integrate and scale. You get a clear scope after the first discovery conversation, and we keep you involved throughout.",
+    },
+    {
+      q: "How much does a project cost, and how long does it take?",
+      a: "It depends on scope, systems involved and complexity, so we don't quote blindly. After a discovery call we share an estimate and timeline in writing before any build starts.",
+    },
+    {
+      q: "Do we own the software you build?",
+      a: "Ownership terms are agreed in the project contract before work begins, including source code, documentation and handover, so you know what you receive.",
+    },
+  ],
+  work: [
+    {
+      q: "Are Relay, Clarion and Bridge available to businesses?",
+      a: "They are platforms born from client work. Relay automates operations, Clarion reads documents with AI and Bridge keeps ERP and CRM data in agreement. Deployments and demos are available on request.",
+    },
+    {
+      q: "Why don't you publish client names or numbers?",
+      a: "We publish only what clients approve. Where figures are confidential, we describe the problem, approach and outcome plainly rather than inflate results. We can share verifiable details during a discussion.",
+    },
+    {
+      q: "Can I see a demo or speak to a past client?",
+      a: "Share your problem and we'll show the closest relevant build. References are available once we've understood your needs and the client agrees.",
+    },
+    {
+      q: "Do your projects become products?",
+      a: "Often yes. Reusable parts of client work feed our own platforms, so every improvement benefits future solutions, while client data and confidential logic stay separate.",
+    },
+  ],
+  products: [
+    {
+      q: "What is the status of your products?",
+      a: "EYD is in production, BOOWA is in testing, and LECOM, Aura and Founder OS are in development. We share updates as each one moves forward.",
+    },
+    {
+      q: "Can I get early access or join a waitlist?",
+      a: "Yes. Contact us with the product name and we'll add you to the early-access list for updates.",
+    },
+    {
+      q: "Can a business partner with PSM on a product?",
+      a: "We welcome partnerships and pilots for products that fit your sector. Contact us with a short note on your goal.",
+    },
+    {
+      q: "Will PSM build hardware products too?",
+      a: "Our focus today is software and AI. We plan to grow into hardware over time and will announce anything concrete when it's ready.",
+    },
+  ],
+  contact: [
+    {
+      q: "How quickly will I get a reply?",
+      a: "We reply within two working days. Mention how urgent the problem is, and we'll prioritise accordingly.",
+    },
+    {
+      q: "What should I include in my message?",
+      a: "Describe the problem, how urgently you need it solved and what it costs you now. Add your company, tools in use and any budget range if you have one.",
+    },
+    {
+      q: "Is my information kept private?",
+      a: "Yes. We never share your details, and we can sign an NDA before you share sensitive information. See our privacy policy.",
+    },
+    {
+      q: "Can I call or WhatsApp?",
+      a: "Yes. Call or WhatsApp +91 93602 07861, or email hello@problemsolvingmind.com.",
+    },
+  ],
+  about: [
+    {
+      q: "Who founded Problem Solving Mind?",
+      a: "PSM was founded by Prasanna Venkatesan R. (Founder & Managing Director) and Maniyarasan S. (Co-founder & CEO). Prasanna leads product strategy and long-term execution; Maniyarasan leads the company as CEO and focuses on product design, practical execution and engineering delivery.",
+    },
+    {
+      q: "What is PSM's goal as a company?",
+      a: "To build technology products that begin with real problems, prove their value in the real world, and eventually reach people and businesses at scale. We measure success by whether problems stop being problems.",
+    },
+    {
+      q: "How does PSM differ from a typical agency?",
+      a: "PSM is a product company with a solutions practice. Products are the primary identity; client work feeds reusable capability that becomes part of shipped products. We don't bill hours — we build outcomes.",
+    },
+    {
+      q: "Where is the team based?",
+      a: "The team is based in Pondicherry, Tamil Nadu, India. We work with clients worldwide and collaborate remotely, with visits arranged when a project needs them.",
+    },
+    {
+      q: "What industries does PSM work in?",
+      a: "Our products span real estate, communication, local commerce, healthcare and founder productivity. Client work starts from operational problems, not sectors — we work wherever manual, disconnected processes exist.",
+    },
+    {
+      q: "How can I join the team?",
+      a: "We read every application sent through the careers page. We hire for how people think and reason about problems, not for a list of technologies. Open applications are always welcome.",
+    },
+  ],
+};

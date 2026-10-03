@@ -1,38 +1,92 @@
-import { faqs, type Faq } from "@/lib/content";
+import { pageFaqs, type PageFaqs } from "@/lib/content";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
+import { JsonLd } from "@/components/jsonld";
+
+type PageKey = keyof PageFaqs;
 
 interface FaqSectionProps {
-  items?: Faq[];
+  page: PageKey;
   eyebrow?: string;
   title?: string;
   lede?: string;
-  /**
-   * Render only this many, with the rest behind a native show-more control.
-   * The homepage passes 5; every item still reaches the DOM either way, so
-   * FAQPage structured data and crawler visibility are unaffected.
-   */
   initialCount?: number;
 }
+
+const defaultHeadings: Record<PageKey, { eyebrow: string; title: string; lede: string }> = {
+  home: {
+    eyebrow: "Questions",
+    title: "Common questions about PSM",
+    lede: "Straight answers about what PSM is, what it builds, and how to work with us.",
+  },
+  solutions: {
+    eyebrow: "Questions",
+    title: "Questions about our solutions",
+    lede: "What businesses ask before starting a project with us.",
+  },
+  work: {
+    eyebrow: "Questions",
+    title: "Questions about our work",
+    lede: "How we approach client projects and what you can expect.",
+  },
+  products: {
+    eyebrow: "Product questions",
+    title: "Questions about the PSM product portfolio",
+    lede: "What the products are, how they are built, and what stage each one is at.",
+  },
+  contact: {
+    eyebrow: "Questions",
+    title: "Before you reach out",
+    lede: "What to expect when you contact us.",
+  },
+  about: {
+    eyebrow: "Questions",
+    title: "About Problem Solving Mind",
+    lede: "Who we are, what we're building, and how to join us.",
+  },
+};
 
 /**
  * Native `<details>` keeps the answers in the DOM for crawlers and LLM
  * extractors without requiring JavaScript to expand them.
+ * FAQPage schema is rendered from the same data so text and markup never drift.
  */
 export function FaqSection({
-  items = faqs,
-  eyebrow = "Questions",
-  title = "Common questions about PSM",
-  lede = "Straight answers about what PSM is, what it builds, and how to work with us.",
+  page,
+  eyebrow,
+  title,
+  lede,
   initialCount,
 }: FaqSectionProps) {
+  const items = pageFaqs[page];
   const shown = initialCount ? items.slice(0, initialCount) : items;
   const hidden = initialCount ? items.slice(initialCount) : [];
+  const headings = defaultHeadings[page];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.a,
+      },
+    })),
+  };
 
   return (
     <section className="sec sec--lilac sec--edge" id="faq" style={{ scrollMarginTop: "4rem" }}>
+      <JsonLd data={faqSchema} />
       <div className="container-x">
-        <SectionHeading eyebrow={eyebrow} eyebrowTone="g" title={title} lede={lede} align="center" />
+        <SectionHeading
+          eyebrow={eyebrow ?? headings.eyebrow}
+          eyebrowTone="g"
+          title={title ?? headings.title}
+          lede={lede ?? headings.lede}
+          align="center"
+        />
 
         <div className="mx-auto mt-12 flex max-w-[820px] flex-col gap-3">
           {shown.map((f, i) => (
@@ -50,9 +104,6 @@ export function FaqSection({
           ))}
         </div>
 
-        {/* The overflow sits in a native <details> rather than behind a
-            client-side toggle, so the remaining answers are in the source HTML
-            and readable with JS disabled — same reasoning as the items above. */}
         {hidden.length > 0 && (
           <details className="faq-more mx-auto mt-8 max-w-[820px]" name="faq-more">
             <summary className="faq-more__summary">

@@ -10,9 +10,11 @@ interface PageHeaderProps {
   lede?: ReactNode;
   children?: ReactNode;
   image?: StaticImageData;
+  /** See `HeroScene`'s `imageAlt`. Omit only for decorative art. */
+  imageAlt?: string;
 }
 
-export function PageHeader({ eyebrow, eyebrowTone = "default", title, lede, children, image }: PageHeaderProps) {
+export function PageHeader({ eyebrow, eyebrowTone = "default", title, lede, children, image, imageAlt }: PageHeaderProps) {
   const tone = { default: "", p: "eyebrow--p", g: "eyebrow--g", ink: "eyebrow--ink" }[eyebrowTone];
   const isHero = Boolean(image);
   const heroImage = image ?? null;
@@ -20,9 +22,16 @@ export function PageHeader({ eyebrow, eyebrowTone = "default", title, lede, chil
     <header className={isHero ? "hero-scene" : "sec sec--plum"}>
       {isHero ? (
         <>
-          <div className="hero-scene__bg" aria-hidden="true">
+          <div className="hero-scene__bg" aria-hidden={imageAlt ? undefined : true}>
             {heroImage ? (
-              <Image src={heroImage} alt="" fill sizes="100vw" priority quality={72} />
+              <Image
+                src={heroImage}
+                alt={imageAlt ?? ""}
+                fill
+                sizes="100vw"
+                priority
+                quality={72}
+              />
             ) : null}
           </div>
           <div className="hero-scene__glow" aria-hidden="true" />
