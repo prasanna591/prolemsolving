@@ -84,7 +84,7 @@ ${founders
 - [Work](${site.routeUrl('/work')}): case studies covering operations automation, AI document intelligence and ERP/CRM integration.
 - [About](${site.routeUrl('/about')}): company background, principles, journey and team.
 - [Why ${site.full} exists](${site.routeUrl('/about/motives')}): mission, values and the reasoning behind the company.
-- [Our people](${site.routeUrl('/about/founders')}): founder and co-founder profiles.
+- [Our people](${site.routeUrl('/about/founders')}): founder and co-founder & CEO profiles.
 - [Careers](${site.routeUrl('/careers')}): open roles and open applications. ${site.full} is a company of ${site.teamSize}+ people and is actively hiring for engineering, AI and automation, product design, and client-facing problem solving. Currently ${openRoles.length > 0 ? `${openRoles.length} open: ${openRoles.map((r) => r.title).join(', ')}. ` : 'no formal openings are posted — open applications are accepted and read continuously. '}PSM hires for how people think and reason about a problem, not for a list of technologies on a CV.
 - [Contact](${site.routeUrl('/contact')}): enquiries — replies within two working days.
 

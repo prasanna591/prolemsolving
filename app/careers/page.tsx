@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { CSSProperties } from "react";
@@ -11,6 +12,7 @@ import { site } from "@/lib/site";
 import { careersSchema } from "@/lib/structured";
 import { openRoles, hasOpenRoles, applyHref, careersEmail, disciplines, traits, benefits, process } from "@/lib/careers";
 import heroImg from "@/app/images/optimized/employee_working.webp";
+import workingPic from "@/app/images/optimized/working_pic.webp";
 
 export const metadata = pageMetadata({
   title: "Careers",
@@ -23,7 +25,7 @@ export default function CareersPage() {
   const applyHrefOpen = applyHref();
 
   return (
-    <div className="page-shell">
+    <div className="page-shell careers-page">
       <JsonLd data={careersSchema()} />
 
       {/* ============ HERO ============ */}
@@ -191,6 +193,23 @@ export default function CareersPage() {
                 </p>
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ TEAM IMAGE ============ */}
+      <section className="sec sec--white">
+        <div className="container-x">
+          <div className="relative rounded-2xl overflow-hidden" style={{ aspectRatio: "16/9" }}>
+            <Image
+              src={workingPic}
+              alt="PSM team collaborating"
+              fill
+              sizes="(max-width: 1024px) 100vw, 1200px"
+              priority={false}
+              quality={80}
+              className="rounded-2xl object-cover"
+            />
           </div>
         </div>
       </section>

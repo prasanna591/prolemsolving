@@ -21,6 +21,6 @@ export default function Image() {
   return renderOg({
     eyebrow: "PSM products",
     title: "Software Built Around a Real Problem",
-    subtitle: "EYD, LECOM, Boowa, Aura and Founder OS — five products in development.",
+    subtitle: "EYD, LECOM, Boowa, Aura and Founder OS — five products, from development to production.",
   });
 }

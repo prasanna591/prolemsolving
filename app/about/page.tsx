@@ -9,9 +9,10 @@ import { ProductArt } from "@/components/product-art";
 import { CtaBand } from "@/components/cta-band";
 import { site } from "@/lib/site";
 import { allProducts, productPath } from "@/lib/products";
-import { capabilities } from "@/lib/content";
+import { capabilities, visionMission } from "@/lib/content";
 import { founders } from "@/lib/founders";
 import { FounderPhoto } from "@/components/founder-photo";
+import { FaqSection } from "@/components/faq";
 import { pageMetadata } from "@/lib/seo";
 import workingPic from "@/app/images/optimized/working_pic.webp";
 import teamImg from "@/app/images/optimized/team.webp";
@@ -136,7 +137,7 @@ function LoopRing() {
 
 export default function AboutPage() {
   return (
-    <div className="page-shell">
+    <div className="page-shell about-page">
       <JsonLd
         data={aboutSchema(
           founders.map((f) => ({
@@ -423,14 +424,14 @@ export default function AboutPage() {
               <div className="person-person">
                 <FounderPhoto founder={founders[1]} />
                 <div className="person-info">
-                  <span className="eyebrow eyebrow--g">Co-founder</span>
+                  <span className="eyebrow eyebrow--g">{founders[1].role}</span>
                   <h3 className="h3 mt-4" style={{ fontSize: "clamp(1.15rem, 1.5vw, 1.35rem)" }}>
                     <Link href="/about/founders/maniyarasan" className="link-line" style={{ color: "var(--color-navy)" }}>
                       Maniyarasan S.
                     </Link>
                   </h3>
                   <p className="dek lead mt-3">
-                    Helping build PSM and turn ideas into practical products and solutions.
+                    {founders[1].summary}
                   </p>
                   <Link href="/about/founders/maniyarasan" className="link-line font-bold mt-3" style={{ color: "var(--color-brand)", display: "inline-block" }}>
                     Read more <ArrowRight size={14} aria-hidden="true" style={{ display: "inline", verticalAlign: "middle" }} />
@@ -495,46 +496,64 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 10 — VISION & MISSION */}
-      <section className="sec relative overflow-hidden bg-navy text-white noise" style={{ minHeight: "100vh" }}>
-        <div className="vg-stage" aria-hidden="true">
-          <span className="vg-ring" style={{ animationDelay: "-3.2s" }} />
-          <span className="vg-ring" style={{ animationDelay: "-1.6s" }} />
-          <span className="vg-ring" />
-          <span className="vg-orbit" />
-        </div>
-        <div className="container-x relative z-[2] flex min-h-[calc(100vh-2rem)] flex-col items-center justify-center py-24 text-center">
-          <Reveal>
-            <span className="eyebrow eyebrow--light">Our Vision & Mission</span>
-          </Reveal>
-          <Reveal delay={100}>
-            <h2 className="stmnt stmnt--xl mt-8">
-              From local problems
-              <br />
-              <span className="grad-text">to global products.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={200}>
-            <p className="mx-auto mt-8 max-w-[600px] text-white/70" style={{ fontSize: "1.12rem", lineHeight: 1.7 }}>
-              We want to build technology products that begin with real problems, prove their value in the real world,
-              and eventually reach people and businesses at scale.
-            </p>
-          </Reveal>
-          <div className="mt-16 max-w-[800px]">
-            <div className="grid gap-8 md:grid-cols-2 text-left">
-              <Reveal delay={300} className="vm-card">
-                <span className="eyebrow eyebrow--light" style={{ marginBottom: "0.5rem", display: "inline-block" }}>Our Vision</span>
-                <h3 className="stmnt stmnt--md mt-3">A global company that solves problems and creates livelihoods through innovation.</h3>
-              </Reveal>
-              <Reveal delay={400} className="vm-card">
-                <span className="eyebrow eyebrow--light" style={{ marginBottom: "0.5rem", display: "inline-block" }}>Our Mission</span>
-                <h3 className="stmnt stmnt--md mt-3">Turn real-world problems into technology that creates opportunity.</h3>
-              </Reveal>
-            </div>
+      {/* FAQ — About PSM */}
+      <FaqSection page="about" />
+
+      {/* VISION & MISSION — Gradient cards */}
+      <section className="sec sec--white">
+        <div className="container-x">
+          <SectionHeading
+            eyebrow="Vision & Mission"
+            eyebrowTone="p"
+            title="Where we're headed"
+            lede="The direction that guides every product and every project."
+            align="center"
+          />
+          {/* Asymmetric on purpose: the cards sit on a diagonal rather than locked to a
+              shared baseline, which reads as deliberate instead of templated.
+              `items-start` + no `h-full` lets each keep its natural height. */}
+          <div className="mt-12 grid gap-6 md:grid-cols-2 md:items-start">
+            {visionMission.map(
+              (card, i) => (
+                <Reveal
+                  key={card.key}
+                  delay={i * 120}
+                  className={i === 0 ? "md:-mt-10" : "md:mt-12"}
+                >
+                  <article
+                    className={`relative rounded-2xl p-8 text-white overflow-hidden ${
+                      card.key === "vision"
+                        ? "bg-gradient-to-br from-brand via-brand-deep to-navy"
+                        : "bg-gradient-to-br from-accp via-teal to-brand-deep"
+                    }`}
+                  >
+                    <div className="absolute inset-0 opacity-10" aria-hidden="true">
+                      <div
+                        className={`absolute top-0 right-0 w-72 h-72 rounded-full blur-3xl ${
+                          card.key === "vision" ? "bg-brand-light" : "bg-teal"
+                        }`}
+                      />
+                      <div
+                        className={`absolute bottom-0 left-0 w-72 h-72 rounded-full blur-3xl ${
+                          card.key === "vision" ? "bg-accp" : "bg-brand-pale"
+                        }`}
+                      />
+                    </div>
+                    <span
+                      className="eyebrow eyebrow--light relative z-10"
+                      style={{ marginBottom: "0.5rem", display: "inline-block" }}
+                    >
+                      {card.label}
+                    </span>
+                    <h3 className="stmnt stmnt--md mt-3 relative z-10">{card.statement}</h3>
+                  </article>
+                </Reveal>
+              )
+            )}
           </div>
-          <div className="mt-12 flex items-center justify-center gap-6 md:gap-12">
+          <div className="mt-10 flex items-center justify-center gap-6 md:gap-12">
             {["Build.", "Learn.", "Scale."].map((w, i) => (
-              <Reveal key={w} delay={i * 140 + 500}>
+              <Reveal key={w} delay={i * 140}>
                 <span className="vis-word">{w}</span>
               </Reveal>
             ))}

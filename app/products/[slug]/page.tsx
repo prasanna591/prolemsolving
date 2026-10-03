@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { allProducts, DEDICATED, type Product } from "@/lib/products";
+import { allProducts, DEDICATED, stageNote, type Product } from "@/lib/products";
 import { ProductArt } from "@/components/product-art";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
@@ -47,7 +47,7 @@ export default async function ProductPage({ params }: Props) {
   const others = allProducts.filter((p) => p.id !== product.id);
 
   return (
-    <div className="page-shell">
+    <div className="page-shell product-page">
       <JsonLd data={productSchema(product)} />
       <JsonLd
         data={breadcrumbSchema([
@@ -120,8 +120,7 @@ export default async function ProductPage({ params }: Props) {
               difficulty stops being a daily friction.
             </p>
             <p className="dek lead mt-4">
-              {product.name} is currently in development. We build deliberately, validate with real use, and only
-              put the product in front of real users when it genuinely solves the problem it was started for.
+              {stageNote(product)}
             </p>
           </Reveal>
         </div>
@@ -179,7 +178,7 @@ function toneClass(t: Product["statusTone"]): string {
 /** Thin pointer page — the real content lives on the dedicated product URL. */
 function DedicatedNotice({ product, href }: { product: Product; href: string }) {
   return (
-    <div className="page-shell">
+    <div className="page-shell product-page">
       <section className="sec sec--plum">
         <div className="container-x max-w-[820px]">
           <Reveal>

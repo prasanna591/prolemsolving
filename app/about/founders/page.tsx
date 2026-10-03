@@ -6,24 +6,23 @@ import { JsonLd } from "@/components/jsonld";
 import { founders } from "@/lib/founders";
 import { FounderPhoto } from "@/components/founder-photo";
 import { pageMetadata } from "@/lib/seo";
-import { breadcrumbSchema, websiteSchema, webPageSchema, personSchema } from "@/lib/structured";
+import { breadcrumbSchema, webPageSchema, personSchema } from "@/lib/structured";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Our People",
   description:
-    "Meet the founder and co-founder of PSM — Prasanna Venkatesan R. and Maniyarasan S., who built a Pondicherry software company around product thinking.",
+    "Meet the founder and CEO of PSM — Prasanna Venkatesan R. and Maniyarasan S., who built a Pondicherry software company around product thinking.",
   path: "/about/founders",
 });
 
 export default function FoundersPage() {
   return (
-    <div className="page-shell">
+    <div className="page-shell founders-page">
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@graph": [
-            websiteSchema(),
             ...founders.map((f) => ({
               ...personSchema({
                 name: f.name,
@@ -43,7 +42,7 @@ export default function FoundersPage() {
           path: "/about/founders",
           name: "Our People — PSM",
           description:
-            "Meet the people behind Problem Solving Mind — founder Prasanna Venkatesan R. and co-founder Maniyarasan S.",
+            "Meet the people behind Problem Solving Mind — founder Prasanna Venkatesan R. and co-founder & CEO Maniyarasan S.",
           breadcrumb: [
             { name: "Home", path: "/" },
             { name: "About", path: "/about" },

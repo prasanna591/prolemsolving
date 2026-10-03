@@ -18,7 +18,7 @@ const destinations = [...nav, { label: "Contact", href: "/contact" }];
 
 export default function NotFound() {
   return (
-    <div className="page-shell">
+    <div className="page-shell not-found-page">
       <section className="sec sec--white" style={{ paddingTop: "8rem", minHeight: "70vh" }}>
         <div className="container-x" style={{ maxWidth: "38rem" }}>
           <Reveal delay={60}>

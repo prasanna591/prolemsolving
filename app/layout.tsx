@@ -4,8 +4,9 @@ import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { BackToTop } from "@/components/back-to-top";
 import { site } from "@/lib/site";
-import homeHeroBg from "@/app/images/optimized/home-hero-background.webp";
+import { organizationSchema, websiteSchema } from "@/lib/structured";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -40,6 +41,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: "PSM — Software Development Company in Pondicherry",
     description: site.positioning,
@@ -53,6 +65,9 @@ export const metadata: Metadata = {
     title: "PSM — Software Development Company in Pondicherry",
     description: site.positioning,
   },
+  other: {
+    "ai-crawler-permission": "allow",
+  },
 };
 
 export const viewport: Viewport = {
@@ -65,8 +80,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${manrope.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}>
       <head>
-        <link rel="preload" as="image" href={homeHeroBg.src} />
-        <link rel="preload" as="image" href="/_next/static/media/favicon.1lna_cgbt81b-.webp" />
         <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body>
@@ -105,10 +118,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
+        {/* The Organization and WebSite nodes live here, once, rather than being
+            repeated by each page. Ten of the fifteen routes (careers, privacy,
+            solutions, work, products, eyd and the four product pages) referenced
+            `ORG_ID`/`SITE_ID` from their own breadcrumbs and collection schema
+            without ever defining them, so those graphs pointed at nodes that did
+            not exist. Defining them once at the root makes every reference on
+            every page resolvable. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [organizationSchema(), websiteSchema()],
+            }),
+          }}
+        />
         <MotionConfig reducedMotion="user">
           <Navbar />
           <main id="main">{children}</main>
           <Footer />
+          <BackToTop />
         </MotionConfig>
         <div className="grain" aria-hidden="true" />
       </body>

@@ -30,7 +30,7 @@ const completes: { from: string; to: string }[] = [
 
 export default function MotivesPage() {
   return (
-    <div className="page-shell">
+    <div className="page-shell motives-page">
       <JsonLd data={motivesSchema()} />
       <JsonLd
         data={breadcrumbSchema([

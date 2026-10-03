@@ -363,8 +363,6 @@ export function aboutSchema(founders: { name: string; slug: string; role: string
   return {
     "@context": "https://schema.org",
     "@graph": [
-      organizationSchema(),
-      websiteSchema(),
       {
         "@type": "AboutPage",
         "@id": `${site.url}/about#webpage`,
@@ -373,8 +371,7 @@ export function aboutSchema(founders: { name: string; slug: string; role: string
         isPartOf: { "@id": SITE_ID },
         about: { "@id": ORG_ID },
         mainEntity: { "@id": ORG_ID },
-      },
-      ...founders.map((f) => personSchema(f)),
+      },      ...founders.map((f) => personSchema(f)),
     ],
   };
 }

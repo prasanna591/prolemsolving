@@ -1,8 +1,9 @@
-import { Mail, MapPin, Phone, User } from "lucide-react";
+import { Mail, MapPin, Phone, User, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import { PageHeader } from "@/components/page-header";
 import { Reveal } from "@/components/reveal";
 import { ContactForm } from "@/components/contact-form";
+import { FaqSection } from "@/components/faq";
 import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 import { contactSchema, breadcrumbSchema } from "@/lib/structured";
@@ -20,7 +21,7 @@ const channels = [
   {
     icon: User,
     t: "Primary contact",
-    d: "Maniyarasan S. — Co-founder",
+    d: "Maniyarasan S. — Co-founder & CEO",
     href: null,
   },
   ...site.emails.map(({ label, address }) => ({
@@ -31,16 +32,22 @@ const channels = [
   })),
   {
     icon: Phone,
-    t: "Phone / WhatsApp",
+    t: "Phone",
     d: "+91 93602 07861",
     href: "tel:+919360207861",
+  },
+  {
+    icon: MessageSquare,
+    t: "WhatsApp",
+    d: "+91 93602 07861",
+    href: site.whatsappHref,
   },
   { icon: MapPin, t: "Based in", d: `${site.locality}, ${site.region} — working worldwide`, href: null },
 ];
 
 export default function ContactPage() {
   return (
-    <div className="page-shell">
+    <div className="page-shell contact-page">
       <JsonLd data={contactSchema()} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }])} />
 
@@ -59,6 +66,17 @@ export default function ContactPage() {
                 Send us a note about what you&rsquo;re trying to solve. We&rsquo;ll read it properly, reply honestly,
                 and tell you whether we can actually help.
               </p>
+            </Reveal>
+            <Reveal delay={120}>
+              <a
+                href={site.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-6 px-5 py-3 rounded-lg bg-[#25D366] text-white font-semibold text-sm hover:bg-[#128C7E] transition-colors"
+              >
+                <MessageSquare size={18} aria-hidden="true" />
+                Message us on WhatsApp
+              </a>
             </Reveal>
           </div>
           <Reveal delay={120}>
@@ -116,6 +134,8 @@ export default function ContactPage() {
           </Reveal>
         </div>
       </section>
+
+      <FaqSection page="contact" />
     </div>
   );
 }

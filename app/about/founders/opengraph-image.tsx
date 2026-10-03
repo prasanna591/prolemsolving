@@ -10,6 +10,6 @@ export default function OgImage() {
   return renderOg({
     eyebrow: "Our people",
     title: "Built by People Who Like Solving Problems",
-    subtitle: "Founder Prasanna Venkatesan R. and co-founder Maniyarasan S. — the team behind PSM, a software company in Pondicherry, Tamil Nadu.",
+    subtitle: "Founder Prasanna Venkatesan R. and co-founder & CEO Maniyarasan S. — the team behind PSM, a software company in Pondicherry, Tamil Nadu.",
   });
 }

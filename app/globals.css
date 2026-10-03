@@ -6,28 +6,24 @@
 
 @theme {
   /* ---- Brand -------------------------------------------------------------
-     Anchored on the PSM palette: ink navy #0B1B3A, primary blue #2563EB,
-     accent teal #14B8A6, muted text #5B6B85, page #FBFCFE, alt band #F1F5FB.
-     The blues step out from `--color-brand` in one direction each so "make it
-     brighter" and "make it darker" are unambiguous edits rather than guesses.
-
-     NOTE: the channel triplets further down must be updated in lockstep with
-     these hexes. They are what makes `rgb(var(--color-brand-rgb) / 0.14)`
-     resolve to the same colour as the token it belongs to. */
-  --color-brand: #2563eb;
-  --color-brand-deep: #1d4ed8;
-  --color-brand-light: #3b82f6;
-  /* A brighter, more saturated blue than `--color-brand`. Reserved for the
-     "what we do" section's glass cards, where the softer brand blue reads as
-     grey against a light backdrop. */
-  --color-brand-vivid: #3b82f6;
-  /* The only brand colour legible on the navy bands. Was hardcoded in eleven
-     places (eyebrows, stat labels, footer links, hero eyebrows, and three
-     arbitrary-value utilities in TSX) with no name to change them together. */
-  --color-brand-pale: #93c5fd;
-  --color-electric: #60a5fa;
+     Anchored on the PSM palette: ink navy #0B1B3A, primary blue #1E3A5F,
+     accent teal #0D9488, muted text #5B6B85, page #FBFCFE, alt band #F1F5FB.
+     A refined, professional blue that reads as trustworthy and premium. */
+  --color-brand: #1e3a5f;
+  --color-brand-deep: #162d4a;
+  /* The ramp has to actually climb. `--color-brand-light` was a near-twin of
+     `--color-brand` (#2d4a6b vs #1e3a5f — 15 luminance points apart), which
+     collapsed every `brand → light` gradient into a flat wash. This is the
+     "make it brighter" step, and it has to be unambiguous. */
+  --color-brand-light: #4a7fb5;
+  /* Saturated step, for glass cards and highlights where a soft brand blue
+     reads as grey against a light backdrop. */
+  --color-brand-vivid: #2f6fb5;
+  /* The only brand colour legible on the navy bands. */
+  --color-brand-pale: #a8c8e8;
+  --color-electric: #5aa2d6;
   --color-cyan: #0ea5e9;
-  --color-teal: #14b8a6;
+  --color-teal: #0d9488;
   --color-navy: #0b1b3a;
   --color-navy-2: #132a55;
   --color-accp: #7c3aed;
@@ -44,7 +40,7 @@
      a token, written `rgb(var(--color-brand-rgb) / 0.14)`. Hand-mirroring the
      channels of the hexes above is how a palette silently forks — this keeps
      every alpha variant bound to the colour it belongs to. */
-  --color-brand-vivid-rgb: 59 130 246;
+  --color-brand-vivid-rgb: 47 111 181;
   --color-accp-rgb: 124 58 237;
   --color-navy-rgb: 11 27 58;
   --color-room-plum-rgb: 236 231 254;
@@ -358,12 +354,12 @@
   .btn:hover svg.arrow { transform: translateX(4px); }
   .btn--primary {
     color: #fff;
-    background: linear-gradient(180deg, var(--color-electric) 0%, var(--color-brand) 48%, var(--color-brand-deep) 100%);
+    background: var(--color-brand);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(11, 27, 58, 0.18), 0 12px 26px rgba(37, 99, 235, 0.32), 0 2px 6px rgba(11, 27, 58, 0.12);
   }
-  .btn--primary:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(11, 27, 58, 0.18), 0 18px 34px rgba(37, 99, 235, 0.4), 0 4px 10px rgba(11, 27, 58, 0.14); }
-  .btn--dark { background: linear-gradient(180deg, #132a55, #0b1b3a); color: #fff; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 12px 26px rgba(11, 27, 58, 0.3); }
-  .btn--dark:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 18px 34px rgba(11, 27, 58, 0.36); }
+  .btn--primary:hover { background: var(--color-brand-deep); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(11, 27, 58, 0.18), 0 18px 34px rgba(37, 99, 235, 0.4), 0 4px 10px rgba(11, 27, 58, 0.14); }
+  .btn--dark { background: var(--color-navy); color: #fff; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 12px 26px rgba(11, 27, 58, 0.3); }
+  .btn--dark:hover { background: var(--color-navy-2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 18px 34px rgba(11, 27, 58, 0.36); }
   .btn--ghost { background: var(--color-page); color: var(--color-ink); border-color: var(--color-line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7); }
   .btn--ghost:hover { border-color: var(--color-brand); color: var(--color-brand); box-shadow: var(--shadow-soft); }
   .btn--light { background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06)); color: #fff; border-color: rgba(255, 255, 255, 0.24); backdrop-filter: blur(6px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16); }
@@ -482,6 +478,11 @@
   }
   .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
   .nav-logo { display: flex; align-items: center; gap: 0.7rem; color: var(--color-navy); }
+  /* Both dimensions, not just one. As a flex item the mark was being laid out
+     at 36x32.9 — the width attribute held but the height was squeezed by the
+     line box, which squashed the mark and tripped next/image's "width or height
+     modified, but not the other" warning. Locking both keeps it 1:1. */
+  .nav-logo img { width: 36px; height: 36px; flex: 0 0 auto; }
   .nav-logo__lock { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.05; }
   .nav-logo__name { font-weight: 800; font-size: 1.06rem; letter-spacing: -0.02em; white-space: nowrap; }
   /* 0.54rem rendered at 8.6px, well under the ~11px legibility floor, and this
@@ -639,10 +640,10 @@
   .hero-scene__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; transform: scale(1.08); }
   /* soft local light to keep the headline readable over the open/left part of the artwork */
   .hero-scene__glow {
-    position: absolute; inset: 0 0 0 -6%; z-index: 1; width: 58%; pointer-events: none;
+    position: absolute; inset: 0 0 0 -6%; z-index: 1; width: 52%; pointer-events: none;
     background:
-      radial-gradient(52% 46% at 32% 42%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 72%),
-      radial-gradient(34% 30% at 72% 18%, rgba(160, 200, 255, 0.26), rgba(160, 200, 255, 0) 70%);
+      radial-gradient(46% 40% at 34% 40%, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 72%),
+      radial-gradient(30% 26% at 70% 16%, rgba(160, 200, 255, 0.22), rgba(160, 200, 255, 0) 70%);
   }
   /* Legibility scrim. The content column is left-aligned and ~540px wide, so the
      scrim is anchored to it rather than stretched across the frame:
@@ -654,8 +655,8 @@
   .hero-scene__scrim {
     position: absolute; inset: 0; z-index: 2; pointer-events: none;
     background:
-      radial-gradient(118% 60% at 10% 104%, rgba(251, 252, 254, 0.92) 0%, rgba(251, 252, 254, 0.6) 44%, rgba(251, 252, 254, 0) 74%),
-      linear-gradient(90deg, rgba(251, 252, 254, 0.92) 0%, rgba(251, 252, 254, 0.66) 32%, rgba(251, 252, 254, 0) 62%);
+      radial-gradient(108% 54% at 8% 104%, rgba(251, 252, 254, 0.86) 0%, rgba(251, 252, 254, 0.52) 44%, rgba(251, 252, 254, 0) 72%),
+      linear-gradient(90deg, rgba(251, 252, 254, 0.9) 0%, rgba(251, 252, 254, 0.54) 30%, rgba(251, 252, 254, 0) 56%);
   }
   .hero-scene__deco { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
   .hero-scene__deco .deco { position: absolute; overflow: visible; }
@@ -670,21 +671,11 @@
     padding-top: calc(var(--nav-h) + clamp(104px, 17vh, 150px));
     padding-bottom: clamp(4rem, 8svh, 6rem);
   }
-  .hero-scene__inner { max-width: 540px; }
+  .hero-scene__inner { max-width: 600px; }
   /* The company tagline sits above the H1 rather than after it. Reading order
      matters here: the tagline is the short form of the promise, so it has to
-     land before the 60px headline, not after. */
-  .hero-scene__tag {
-    display: inline-flex; align-items: center; margin: 0 0 1.4rem;
-    padding: 0.42rem 0.95rem; border-radius: 999px;
-    background: rgba(255, 255, 255, 0.62);
-    border: 1px solid rgba(11, 27, 58, 0.16);
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
-    font-family: var(--font-mono); font-size: max(0.68rem, 0.6rem + 0.08vw);
-    font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase;
-    color: var(--color-navy);
-  }
+     land before the 60px headline, not after. Styled with the rest of the hero
+     accent elements further down, so there is one rule per class. */
   .hero-scene__h1 {
     margin: 0;
     font-size: clamp(2.7rem, 5.6vw, 4.6rem);
@@ -721,31 +712,6 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 8px 22px rgba(37, 99, 235, 0.5), 0 2px 8px rgba(37, 99, 235, 0.25);
   }
 
-  /* 2x2 at every width. This was 4-across, but the stats live in the 540px hero
-     copy column, so each cell got ~124px — too narrow for "Pondicherry" (~128px)
-     and for captions like "Tamil Nadu — Working Worldwide", which wrapped to 3
-     ragged lines. Two columns give every cell ~270px, and it removes the whole
-     family of per-breakpoint padding/border/font overrides that tried to patch
-     the squeeze. Odd cells lose the divider; even cells keep it. */
-  .hero-scene__stats {
-    list-style: none; margin: clamp(2.3rem, 4.5vh, 3.1rem) 0 0; padding: 0;
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 1.5rem; row-gap: 1.35rem;
-  }
-  .hero-scene__stats li {
-    min-width: 0;
-    display: flex; flex-direction: column; gap: 0.3rem;
-    padding-left: 1.25rem;
-    border-left: 1px solid rgba(11, 27, 58, 0.14);
-  }
-  .hero-scene__stats li:nth-child(odd) { padding-left: 0; border-left: 0; }
-  .hero-scene__stat-v { font-size: clamp(1.1rem, 1.5vw, 1.32rem); font-weight: 800; letter-spacing: -0.025em; color: var(--color-navy); white-space: nowrap; }
-  /* 0.62rem computed to 9.9px at 390px — below the ~11px floor for a mono
-     caption carrying real words ("Products In Development"), and it wraps to two
-     lines in a half-width grid cell. Floored at 0.72rem and tightened the
-     tracking so the phrase still fits on one line per half. */
-  .hero-scene__stat-s { font-family: var(--font-mono); font-size: max(0.72rem, 0.62rem + 0.1vw); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-sub); line-height: 1.5; }
-
   /* Bottom fade into the next section. Must resolve to the *following* band's
      colour, not the hero's own — the marquee below is `--color-white`, and
      fading to `--color-plum-veil` here left a visible seam across the fold. */
@@ -776,10 +742,105 @@
     .hero-scene__lede { font-size: 1.02rem; }
     .hero-scene__cta { margin-top: 1.8rem; }
     .hero-scene__cta .btn { width: 100%; padding-inline: 1.4rem; }
-    .hero-scene__stats li { padding-left: 1rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-scene__bg img { transform: none; }
+  }
+
+  /* ---- hero-scene accent elements ---- */
+  .hero-scene__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 1.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(11, 27, 58, 0.1);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 16px rgba(11, 27, 58, 0.06);
+  }
+  .hero-scene__tag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-brand);
+    animation: hero-pulse 2s ease-in-out infinite;
+  }
+  @keyframes hero-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-scene__proof {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(11, 27, 58, 0.08);
+  }
+  .hero-scene__proof-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+    margin-bottom: 1rem;
+  }
+  .hero-scene__proof-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .hero-scene__proof-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 140px;
+    opacity: 0;
+    animation: hero-proof-in 0.6s var(--ease-out) forwards;
+    animation-delay: calc(var(--idx, 0) * 120ms + 600ms);
+  }
+  @keyframes hero-proof-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-scene__proof-value {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-navy);
+    line-height: 1.1;
+  }
+  .hero-scene__proof-text {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-sub);
+  }
+
+  @media (max-width: 640px) {
+    .hero-scene__proof-list { gap: 1rem; }
+    .hero-scene__proof-list li { min-width: calc(50% - 0.5rem); }
+  }
+  /* The hero's looping animations are decoration, so they stop dead under
+     reduced-motion rather than slowing down. `hero-proof-in` is an entrance
+     whose `from` state is opacity 0, so it must also be forced to its end state
+     — cancelling it alone would leave the proof row invisible. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scene__tag-dot { animation: none; }
+    .hero-scene__proof-list li { animation: none; opacity: 1; }
   }
 
   /* ---- Sticky editorial statement (home) — dark room, Locomotive-style pass ---- */
@@ -887,6 +948,150 @@
   .marquee__sep { color: var(--color-brand-deep); font-size: 0.72rem; }
   @keyframes marquee-scroll { to { transform: translateX(-50%); } }
 
+  @media (max-width: 640px) {
+    .mobile-hero-stats { display: block; }
+    .hidden-mobile { display: none !important; }
+    
+    /* Reduce content on mobile */
+    .home-problems .card { display: none; }
+    .home-problems .card:first-child,
+    .home-problems .card:nth-child(2),
+    .home-problems .card:nth-child(3) { display: flex; }
+    
+    .home-capabilities .card { display: none; }
+    .home-capabilities .card:first-child,
+    .home-capabilities .card:nth-child(2),
+    .home-capabilities .card:nth-child(3) { display: flex; }
+    
+    .home-products-strip .pcard { display: none; }
+    .home-products-strip .pcard:first-child,
+    .home-products-strip .pcard:nth-child(2) { display: flex; }
+    
+    .home-process .hwb-card { display: none; }
+    .home-process .hwb-card:first-child,
+    .home-process .hwb-card:nth-child(2),
+    .home-process .hwb-card:nth-child(3) { display: block; }
+    
+    .home-why .card { display: none; }
+    .home-why .card:first-child,
+    .home-why .card:nth-child(2) { display: flex; }
+    
+    .faq-section .faq-item { display: none; }
+    .faq-section .faq-item:first-child,
+    .faq-section .faq-item:nth-child(2),
+    .faq-section .faq-item:nth-child(3) { display: block; }
+    
+    /* About page */
+    .trans-grid .trans-row { display: none; }
+    .trans-grid .trans-row:first-child,
+    .trans-grid .trans-row:nth-child(2),
+    .trans-grid .trans-row:nth-child(3) { display: flex; }
+    
+    .stage-row { display: none; }
+    .stage-row:first-child,
+    .stage-row:nth-child(2),
+    .stage-row:nth-child(3) { display: grid; }
+    
+    .about-page .rule-list li { display: none; }
+    .about-page .rule-list li:first-child,
+    .about-page .rule-list li:nth-child(2),
+    .about-page .rule-list li:nth-child(3) { display: grid; }
+    
+    .about-page .prin { display: none; }
+    .about-page .prin:first-child,
+    .about-page .prin:nth-child(2),
+    .about-page .prin:nth-child(3) { display: block; }
+    
+    .about-page .tl-item { display: none; }
+    .about-page .tl-item:first-child,
+    .about-page .tl-item:nth-child(2),
+    .about-page .tl-item:nth-child(3) { display: block; }
+    
+    .about-page .cur-card { display: none; }
+    .about-page .cur-card:first-child,
+    .about-page .cur-card:nth-child(2),
+    .about-page .cur-card:nth-child(3) { display: block; }
+    
+    /* Solutions page */
+    .solutions-page .card.card--raised { display: none; }
+    .solutions-page .card.card--raised:first-child,
+    .solutions-page .card.card--raised:nth-child(2),
+    .solutions-page .card.card--raised:nth-child(3) { display: flex; }
+    
+    .solutions-page [id^="capability-"] { display: none; }
+    .solutions-page [id^="capability-"]:first-child,
+    .solutions-page [id^="capability-"]:nth-child(2),
+    .solutions-page [id^="capability-"]:nth-child(3) { display: grid; }
+    
+    /* Work page */
+    .work-page .case-study { display: none; }
+    .work-page .case-study:first-child,
+    .work-page .case-study:nth-child(2) { display: block; }
+    
+    .work-page .bench-patterns .card { display: none; }
+    .work-page .bench-patterns .card:first-child,
+    .work-page .bench-patterns .card:nth-child(2),
+    .work-page .bench-patterns .card:nth-child(3) { display: flex; }
+    
+    .work-page .results-summary .card { display: none; }
+    .work-page .results-summary .card:first-child,
+    .work-page .results-summary .card:nth-child(2) { display: flex; }
+    
+    /* Products page */
+    .products-page .pcard { display: none; }
+    .products-page .pcard:first-child,
+    .products-page .pcard:nth-child(2),
+    .products-page .pcard:nth-child(3) { display: flex; }
+    
+    .products-page .hwb-card { display: none; }
+    .products-page .hwb-card:first-child,
+    .products-page .hwb-card:nth-child(2),
+    .products-page .hwb-card:nth-child(3) { display: block; }
+    
+    /* EYD page */
+    .eyd-page .hwb-card { display: none; }
+    .eyd-page .hwb-card:first-child,
+    .eyd-page .hwb-card:nth-child(2),
+    .eyd-page .hwb-card:nth-child(3) { display: block; }
+    
+    .eyd-page .rule-list li { display: none; }
+    .eyd-page .rule-list li:first-child,
+    .eyd-page .rule-list li:nth-child(2),
+    .eyd-page .rule-list li:nth-child(3) { display: grid; }
+    
+    .eyd-page .eydc-steps li { display: none; }
+    .eyd-page .eydc-steps li:first-child,
+    .eyd-page .eydc-steps li:nth-child(2),
+    .eyd-page .eydc-steps li:nth-child(3) { display: block; }
+    
+    /* Careers page */
+    .careers-page .rule-list li { display: none; }
+    .careers-page .rule-list li:first-child,
+    .careers-page .rule-list li:nth-child(2),
+    .careers-page .rule-list li:nth-child(3) { display: block; }
+    
+    .careers-page .prin { display: none; }
+    .careers-page .prin:first-child,
+    .careers-page .prin:nth-child(2) { display: block; }
+    
+    .careers-page .hwb-card { display: none; }
+    .careers-page .hwb-card:first-child,
+    .careers-page .hwb-card:nth-child(2),
+    .careers-page .hwb-card:nth-child(3) { display: block; }
+    
+    .careers-page .tl-item { display: none; }
+    .careers-page .tl-item:first-child,
+    .careers-page .tl-item:nth-child(2),
+    .careers-page .tl-item:nth-child(3) { display: block; }
+    
+    /* Contact page */
+    .contact-page .channels > div { display: none; }
+    .contact-page .channels > div:first-child,
+    .contact-page .channels > div:nth-child(2),
+    .contact-page .channels > div:nth-child(3),
+    .contact-page .channels > div:nth-child(4) { display: flex; }
+  }
+
   /* ---------- Background system ---------- */
   .noise::after {
     content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
@@ -900,8 +1105,8 @@
 
   /* ---------- Footer ---------- */
   .foot { position: relative; background: var(--color-page); color: var(--color-navy); padding: clamp(3rem, 6vw, 5rem) 0 2.5rem; overflow: hidden; }
-  .foot-word { position: absolute; inset: auto 0 auto 0; bottom: -0.35em; text-align: center; font-size: clamp(6rem, 24vw, 20rem); font-weight: 800; line-height: 0.7; letter-spacing: -0.04em; color: var(--color-navy); user-select: none; pointer-events: none; }
   .foot-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.4fr; gap: 2.5rem; }
+  .foot-brand img { width: 120px; height: 120px; }
   .foot-brand p { font-size: 0.95rem; max-width: 300px; margin-top: 1rem; color: var(--color-navy); }
   .foot-col h2 { color: var(--color-navy); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
   /* `flex` + `min-height` rather than `display: block` with vertical padding:
@@ -1258,7 +1463,9 @@
   .vg-ring:nth-child(3) { border-color: rgba(156, 192, 255, 0.5); }
   @keyframes vg-expand { 0% { transform: scale(0.2); opacity: 0; } 12% { opacity: 0.7; } 100% { transform: scale(3); opacity: 0; } }
   .vg-orbit { position: absolute; width: 620px; height: 620px; border-radius: 999px; border: 1px dashed rgba(59, 130, 246, 0.3); animation: psm-spin 70s linear infinite; }
-  .vis-word { font-size: clamp(1.6rem, 3.6vw, 2.6rem); font-weight: 800; letter-spacing: 0.02em; color: #fff; }
+  /* `color` was `#fff` while this row sits in `.sec--white`, which made
+     "Build. Learn. Scale." render white-on-white and invisible. */
+  .vis-word { font-size: clamp(1.6rem, 3.6vw, 2.6rem); font-weight: 800; letter-spacing: 0.02em; color: var(--color-navy); }
 
   /* =====================================================================
      About — depth, rhythm & life (polish)
@@ -1285,6 +1492,12 @@
       linear-gradient(90deg, rgba(251, 252, 254, 0.92) 0%, rgba(251, 252, 254, 0.66) 32%, rgba(251, 252, 254, 0) 62%);
   }
   .about-hero > .container-x { position: relative; z-index: 2; padding-top: calc(var(--nav-h) + clamp(6rem, 10vh, 8rem)); padding-bottom: clamp(4rem, 8svh, 6rem); }
+
+  @media (max-width: 640px) {
+    .about-hero { min-height: 60vh; }
+    .about-hero__bg img { object-position: right center; }
+    .about-hero > .container-x { padding-top: calc(var(--nav-h) + 3rem); padding-bottom: clamp(3rem, 6svh, 4rem); }
+  }
 
   .pf-item { position: relative; z-index: 1; }
   .pf-label {
@@ -1394,8 +1607,7 @@
   .vg-ring { box-shadow: 0 0 20px rgba(59, 130, 246, 0.18), inset 0 0 20px rgba(59, 130, 246, 0.1); }
   .vis-word {
     display: inline-block; padding: 0.4rem 0.1rem; border-radius: 0;
-    color: #fff;
-    text-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+    color: var(--color-navy);
   }
 
 
@@ -1894,5 +2106,42 @@
   /* Nested `.faq-item`s already carry their own surface and shadow; inside the
      wrapper they'd read as boxes-in-a-box, so flatten them. */
   .faq-more .faq-item { box-shadow: none; background: var(--color-plum-veil); }
+
+  /* Back to top button */
+  .back-to-top {
+    position: fixed;
+    right: var(--gutter);
+    bottom: var(--gutter);
+    z-index: 50;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-navy);
+    color: #fff;
+    border: 1px solid var(--color-line);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-raised);
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s var(--ease-out);
+  }
+  .back-to-top:hover {
+    background: var(--color-brand-deep);
+    border-color: var(--color-brand);
+    transform: translateY(-2px);
+  }
+  .back-to-top:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+  }
+  .back-to-top svg {
+    transition: transform 0.2s var(--ease-out);
+  }
+  .back-to-top:hover svg {
+    transform: translateY(-2px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .back-to-top { transition: none; }
+  }
 
 } /* end @layer components */

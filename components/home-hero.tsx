@@ -1,16 +1,37 @@
 "use client";
 
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Button } from "@/components/button";
+import { site } from "@/lib/site";
+import { allProducts } from "@/lib/products";
 import bg from "@/app/images/optimized/home-hero-background.webp";
 
+const STAGGER = [100, 200, 300, 400, 500];
+
 /**
- * Parallax is scroll-driven, so it carries no `initial` state and stays out
- * of the SSR payload. The staggered entrance below is pure CSS (`[data-in]`),
- * which keeps the H1 readable in the server-rendered HTML.
+ * Every cell is a count, and every count is a claim the rest of the site
+ * already makes — the product count and the team size are bound to
+ * `allProducts` / `site.teamSize` so they cannot drift from the products page,
+ * the schema, the llms.txt files and the careers copy.
+ *
+ * None of these say "in development". That was true when every product was in
+ * development and stopped being true when EYD went to production and Boowa to
+ * testing, so the row reports what is being built without pinning a stage.
+ *
+ * Location deliberately does not appear here. "Where we are" is a /contact
+ * fact, not a reason to hire us, and putting it in the hero's proof row put a
+ * text value ("India → Worldwide") next to three numbers, which broke the
+ * baseline the row is read on. Local SEO is unaffected — the city is in this
+ * page's title and description, the contact and about copy, and the schema.
  */
-const STAGGER = [150, 270, 390, 510, 630];
+const PROOF_POINTS = [
+  { label: "Products built by us", value: `${allProducts.length}` },
+  { label: "Core capabilities", value: "5" },
+  { label: "Problem-first process", value: "6-step" },
+  { label: "People on the team", value: `${site.teamSize}+` },
+];
 
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -47,18 +68,8 @@ export function HomeHero() {
           </defs>
 
           <path d="M0 100 C 150 40 330 70 445 200 C 540 310 610 430 640 560 L 640 0 L 0 0 Z" fill="url(#hgA)" />
-          <path
-            d="M0 300 C 130 240 260 270 380 370 C 460 430 520 470 620 500"
-            stroke="#ffffff"
-            strokeOpacity="0.4"
-            strokeWidth="1.2"
-          />
-          <path
-            d="M0 366 C 160 306 300 346 420 446 C 470 486 520 516 600 526"
-            stroke="#94beff"
-            strokeOpacity="0.3"
-            strokeWidth="1"
-          />
+          <path d="M0 300 C 130 240 260 270 380 370 C 460 430 520 470 620 500" stroke="#ffffff" strokeOpacity="0.4" strokeWidth="1.2" />
+          <path d="M0 366 C 160 306 300 346 420 446 C 470 486 520 516 600 526" stroke="#94beff" strokeOpacity="0.3" strokeWidth="1" />
           <ellipse cx="300" cy="330" rx="230" ry="96" stroke="#bcd4ff" strokeOpacity="0.16" transform="rotate(-12 300 330)" />
           <path d="M110 126 A 150 150 0 0 1 410 246" stroke="#94beff" strokeOpacity="0.3" strokeWidth="1" strokeDasharray="2 6" />
           <path d="M168 196 A 120 120 0 0 1 360 286" stroke="#ffffff" strokeOpacity="0.36" strokeWidth="1" />
@@ -87,50 +98,43 @@ export function HomeHero() {
         </svg>
       </div>
 
-      {/* Text / logo / CTA UI */}
+      {/* Text / CTA column on the left, capability panel on the right */}
       <div className="container-x hero-scene__content">
         <div className="hero-scene__inner">
-          <p data-in style={{ "--in-delay": `${STAGGER[0]}ms` } as React.CSSProperties} className="hero-scene__tag">
-            Building Products. Solving Problems.
+          <p data-in style={{ "--in-delay": `${STAGGER[0]}ms` } as CSSProperties} className="hero-scene__tag">
+            <span className="hero-scene__tag-dot" aria-hidden="true"></span>
+            Problem Solving Mind
           </p>
 
-          <h1 data-in style={{ "--in-delay": `${STAGGER[1]}ms` } as React.CSSProperties} className="hero-scene__h1">
-            We build technology that solves{" "}
-            <em className="hh-grad">real problems.</em>
+          <h1 data-in style={{ "--in-delay": `${STAGGER[1]}ms` } as CSSProperties} className="hero-scene__h1">
+            We build <span className="hh-grad">software that replaces</span> the manual work.
           </h1>
 
-          <p data-in style={{ "--in-delay": `${STAGGER[2]}ms` } as React.CSSProperties} className="hero-scene__lede">
-            PSM builds custom software, AI automation and connected systems for industries — and simple
-            products for everyday people.
+          <p data-in style={{ "--in-delay": `${STAGGER[2]}ms` } as CSSProperties} className="hero-scene__lede">
+            Custom software, AI automation and system integration for operations that still run on
+            spreadsheets, re-entered data and processes that only work because someone remembers them.
           </p>
 
-          <div data-in style={{ "--in-delay": `${STAGGER[3]}ms` } as React.CSSProperties} className="hero-scene__cta">
+          <div data-in style={{ "--in-delay": `${STAGGER[3]}ms` } as CSSProperties} className="hero-scene__cta">
             <Button href="/contact" variant="primary" size="lg" arrow>
               Let&rsquo;s Talk
             </Button>
-            <Button href="/products" variant="ghost" size="lg" arrow>
-              Explore Our Products
+            <Button href="/solutions" variant="ghost" size="lg" arrow>
+              See How We Solve
             </Button>
           </div>
 
-          <ul data-in style={{ "--in-delay": `${STAGGER[4]}ms` } as React.CSSProperties} className="hero-scene__stats">
-            <li>
-              <span className="hero-scene__stat-v">5</span>
-              <span className="hero-scene__stat-s">Products In Development</span>
-            </li>
-            <li>
-              <span className="hero-scene__stat-v">5</span>
-              <span className="hero-scene__stat-s">Core Capabilities</span>
-            </li>
-            <li>
-              <span className="hero-scene__stat-v">6-step</span>
-              <span className="hero-scene__stat-s">Problem-First Process</span>
-            </li>
-            <li>
-              <span className="hero-scene__stat-v">Pondicherry</span>
-              <span className="hero-scene__stat-s">Tamil Nadu — Working Worldwide</span>
-            </li>
-          </ul>
+          <div data-in style={{ "--in-delay": `${STAGGER[4]}ms` } as CSSProperties} className="hero-scene__proof">
+            <p className="hero-scene__proof-label">By the numbers</p>
+            <ul className="hero-scene__proof-list">
+              {PROOF_POINTS.map((p, i) => (
+                <li key={p.label} style={{ "--idx": `${i}` } as CSSProperties}>
+                  <span className="hero-scene__proof-value">{p.value}</span>
+                  <span className="hero-scene__proof-text">{p.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

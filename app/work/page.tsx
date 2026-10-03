@@ -5,7 +5,7 @@ import { CaseStudyEditorial } from "@/components/case-study";
 import { Reveal } from "@/components/reveal";
 import { CtaBand } from "@/components/cta-band";
 import { caseStudies, benchPatterns, resultsSummary } from "@/lib/caseStudies";
-import { faqs } from "@/lib/content";
+
 import { pageMetadata } from "@/lib/seo";
 import { workSchema, breadcrumbSchema, faqSchema } from "@/lib/structured";
 import { FaqSection } from "@/components/faq";
@@ -32,9 +32,8 @@ const resTone = { brand: "badge--brand", accp: "badge--accp", accg: "badge--accg
 
 export default function WorkPage() {
   return (
-    <div className="page-shell">
+    <div className="page-shell work-page">
       <JsonLd data={workSchema(caseStudies)} />
-      <JsonLd data={faqSchema(faqs)} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }])} />
       <PageHeader
         eyebrow="Work"
@@ -119,7 +118,7 @@ export default function WorkPage() {
         </div>
       </section>
 
-      <FaqSection />
+      <FaqSection page="work" />
 
       <CtaBand title="Want outcomes like these in your business?" lede="Bring us a problem. We'll show you the build — and keep it honest about what technology can't do." />
     </div>

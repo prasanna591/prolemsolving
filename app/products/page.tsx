@@ -9,7 +9,6 @@ import { FaqSection } from "@/components/faq";
 import { HeroScene } from "@/components/hero-scene";
 import { ProductArt } from "@/components/product-art";
 import { featured, inDevelopment, productPath, type Product } from "@/lib/products";
-import { faqs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { productsSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
@@ -43,9 +42,8 @@ const statusToneClass: Record<string, string> = {
 
 export default function ProductsPage() {
   return (
-    <div className="page-shell">
+    <div className="page-shell products-page">
       <JsonLd data={productsSchema([...featured, ...inDevelopment])} />
-      <JsonLd data={faqSchema(faqs)} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Products", path: "/products" }])} />
       <JsonLd
         data={webPageSchema({
@@ -214,11 +212,7 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <FaqSection
-        eyebrow="Product questions"
-        title="Questions about the PSM product portfolio"
-        lede="What the products are, how they are built, and what stage each one is at."
-      />
+      <FaqSection page="products" />
 
       {/* ============ BUILDING FOR WHAT'S NEXT ============ */}
       <section className="sec sec--white">

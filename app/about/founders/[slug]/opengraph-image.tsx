@@ -18,6 +18,6 @@ export default function Image() {
   return renderOg({
     eyebrow: "Our people",
     title: "Built by People Who Like Solving Problems",
-    subtitle: "Founder & Managing Director Prasanna Venkatesan R. and co-founder Maniyarasan S.",
+    subtitle: "Founder & Managing Director Prasanna Venkatesan R. and co-founder & CEO Maniyarasan S.",
   });
 }

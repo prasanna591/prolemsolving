@@ -2,14 +2,13 @@ import { ArrowUpRight } from "lucide-react";
 import { HeroScene } from "@/components/hero-scene";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
-import { Magnetic } from "@/components/magnetic";
 import { Button } from "@/components/button";
 import { CtaBand } from "@/components/cta-band";
 import { FaqSection } from "@/components/faq";
 import { CapImage } from "@/components/cap-image";
-import { problems, capabilities, faqs } from "@/lib/content";
+import { capabilities } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import { servicesSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/structured";
+import { servicesSchema, breadcrumbSchema, webPageSchema } from "@/lib/structured";
 import { JsonLd } from "@/components/jsonld";
 import solutionHeroBg from "@/app/images/optimized/solution_hero.webp";
 
@@ -22,9 +21,8 @@ export const metadata = pageMetadata({
 
 export default function SolutionsPage() {
   return (
-    <div className="page-shell">
+    <div className="page-shell solutions-page">
       <JsonLd data={servicesSchema(capabilities)} />
-      <JsonLd data={faqSchema(faqs)} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Solutions", path: "/solutions" }])} />
       <JsonLd
         data={webPageSchema({
@@ -56,30 +54,6 @@ export default function SolutionsPage() {
           </Button>
         </div>
       </HeroScene>
-
-      {/* business problems */}
-      <section className="sec sec--soft">
-        <div className="container-x">
-          <SectionHeading
-            eyebrow="Business problems we solve"
-            title="The pain we keep walking into"
-            lede="Every solution starts as an actual problem. If your business has one of these, there's a strong chance we can help."
-          />
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {problems.map((p, i) => (
-              <Reveal key={p.problem} delay={(i % 3) * 70}>
-                <div className="card card--raised h-full flex flex-col">
-                  <h3 className="h3 mb-2">{p.problem}</h3>
-                  <p className="dek flex-1" style={{ fontSize: "0.96rem" }}>{p.desc}</p>
-                  <span className="badge badge--accg badge--wrap mt-5 self-start">
-                    <ArrowUpRight size={14} aria-hidden="true" /> {p.outcome}
-                  </span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* capabilities — editorial rows */}
       <section className="sec sec--white" id="capabilities" style={{ scrollMarginTop: "4rem" }}>
@@ -124,30 +98,7 @@ export default function SolutionsPage() {
         </div>
       </section>
 
-      {/* end-to-end integration */}
-      <section className="sec relative overflow-hidden bg-navy text-white noise">
-        <div className="container-x relative z-[2] grid gap-10 lg:grid-cols-2 lg:items-center">
-          <Reveal>
-            <span className="eyebrow eyebrow--light">End-to-end integration</span>
-            <p className="stmnt mt-6">
-              We don&rsquo;t hand over isolated pieces. <span className="text-brand-pale">We connect the whole system.</span>
-            </p>
-          </Reveal>
-          <Reveal delay={100}>
-            <p className="text-white/70" style={{ fontSize: "1.1rem" }}>
-              Software, AI, integrations, apps — whatever the problem needs gets engineered as one coherent system, not a pile of
-              deliverables. One team, one handover, one result.
-            </p>
-            <div className="mt-10">
-              <Magnetic strength={5}>
-                <Button href="/contact" variant="light" size="lg" arrow>Let&rsquo;s talk about your problem</Button>
-              </Magnetic>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <FaqSection />
+      <FaqSection page="solutions" />
 
       <CtaBand
         title="Which problem is costing you the most?"

@@ -44,7 +44,7 @@ const AUDIENCES: { who: string; d: string }[] = [
 
 export default function EydPage() {
   return (
-    <div className="page-shell">
+    <div className="page-shell eyd-page">
       <JsonLd data={eydPageSchema()} />
 
       {/* ============ HERO ============ */}

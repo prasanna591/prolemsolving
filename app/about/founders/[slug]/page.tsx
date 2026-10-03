@@ -44,7 +44,7 @@ export default async function FounderPage({ params }: Props) {
   const others = founders.filter((f) => f.slug !== founder.slug);
 
   return (
-    <div className="page-shell">
+    <div className="page-shell founder-page">
       <JsonLd
         data={founderSchema({
           name: founder.name,

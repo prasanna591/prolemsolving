@@ -58,9 +58,9 @@ practical AI and workflow automation for clients across India and worldwide.
 
 | Product | What it is | Status |
 |---|---|---|
-| **[EYD](https://www.problemsolvingmind.com/products/eyd/)** — Explore Your Dreams | A complete digital ecosystem for discovering, buying, building and selling homes — immersive 3D property experiences and the full home-building journey in one platform. | In Development |
+| **[EYD](https://www.problemsolvingmind.com/products/eyd/)** — Explore Your Dreams | A complete digital ecosystem for discovering, buying, building and selling homes — immersive 3D property experiences and the full home-building journey in one platform. | In Production |
 | **[LECOM](https://www.problemsolvingmind.com/products/lecom/)** — Communication. Learning. Growth. | A communication and learning platform bringing communication, learning experiences and personal development into one connected platform. | In Development |
-| **[BOOWA](https://www.problemsolvingmind.com/products/boowa/)** — Local Delivery, On Your Schedule. | A hyperlocal scheduled-delivery platform connecting customers, local businesses and delivery operations through a more organised, predictable experience. | In Development |
+| **[BOOWA](https://www.problemsolvingmind.com/products/boowa/)** — Local Delivery, On Your Schedule. | A hyperlocal scheduled-delivery platform connecting customers, local businesses and delivery operations through a more organised, predictable experience. | In Testing |
 | **[Aura](https://www.problemsolvingmind.com/products/aura/)** — Your Proactive Health Companion. | A proactive healthcare assistant designed to help people become more aware of their health and act before problems get bigger. | In Development |
 | **[Founder OS](https://www.problemsolvingmind.com/products/founder-os/)** — Run Your Company. Protect Your Time. | A mobile platform for founders to organise work, manage priorities, improve productivity and protect their personal and professional time. | In Development |
 
@@ -77,7 +77,7 @@ Focus: product strategy, technology direction, problem framing, long-term execut
 
 > "We don't start with technology. We start with the problem."
 
-**Maniyarasan S.** — Co-founder
+**Maniyarasan S.** — Co-founder & CEO
 Focused on turning ideas into practical products and solutions people actually use,
 bridging product and engineering delivery.
 Focus: product design, practical execution, engineering delivery, solutions.
